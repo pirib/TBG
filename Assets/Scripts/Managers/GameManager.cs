@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public List<StatusAbstract> statuses = new List<StatusAbstract>();
 
+    // Adding all statuses do a dictionary for quick access
+    // TODO better way of doign this?
+
     public Dictionary<string, int> dic = new Dictionary<string, int>() {
         {"Burning", 0 }
     };

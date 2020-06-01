@@ -61,9 +61,10 @@ public class Unit : MonoBehaviour
         if (Damage - armor > 0) hp = hp - Damage + armor;
         else hp -= Damage;
         
-        // Call death function if the hp falls below 1
-        if (hp < 1) this.death();
+        //ADD update HUD
 
+        // Call death function if the hp falls below 1
+        if (hp < 1) this.death();        
     }
 
     void death ()
@@ -143,11 +144,5 @@ public class Unit : MonoBehaviour
     {
 
     }
-
-}
-
-
-class Skill
-{
 
 }
