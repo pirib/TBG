@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour
     public bool is_player;
 
     // Attack
-    [SerializeField] private int attack_basic;
+    [SerializeField] private int base_damage;
 
     // Defence
     [SerializeField] private int hp;

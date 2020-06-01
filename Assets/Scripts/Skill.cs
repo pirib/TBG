@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-
+ 
     [Header("Costs")]
     [SerializeField] private int ap_cost = 0;
     [SerializeField] private int hp_cost = 0;
     [SerializeField] private int rage_cost = 0;
+
+    [Header("Targeting")]
+    [SerializeField] private Targeting targeting = Targeting.Single;
 
     [Header("Status")]
     [SerializeField] private bool apply_status = false;
@@ -17,7 +20,14 @@ public class Skill : MonoBehaviour
 
     [Header("Damage")]
     [SerializeField] private bool deal_damage = false;
+    [SerializeField] private bool use_base_damage = false;
     [SerializeField] private int damage_modifier = 0;   // modifies by adding this to the final output
+
+    #region Helpers
+    
+    private enum Targeting { Single, All, Self };
+
+    #endregion
 
 
 
@@ -36,5 +46,9 @@ public class Skill : MonoBehaviour
     {
         return Convert.ToInt32(deal_damage) * (unit_base_damage + damage_modifier);
     }
+
+
+
+
 
 }
