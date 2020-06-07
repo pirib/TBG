@@ -7,7 +7,7 @@ public class StatusAbstract : ScriptableObject
 
     public new string name;
     public string description;
-    public Sprite status_icon = null;
+    public Sprite icon = null;
 
     public int duration = 1;
 

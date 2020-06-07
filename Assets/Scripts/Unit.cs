@@ -129,7 +129,7 @@ public class Unit : MonoBehaviour
         new_status.inst(
             StatusAbstract.name,
             StatusAbstract.description,
-            ref StatusAbstract.status_icon,
+            ref StatusAbstract.icon,
             StatusAbstract.duration,
             StatusAbstract.damage_turn,
             StatusAbstract.damage_end
