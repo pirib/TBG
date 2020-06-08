@@ -9,17 +9,17 @@ public class Status : MonoBehaviour
     public TextMesh text;
 
     // General
-    string description;
-    int duration;
+    private string description;
+    private int duration;
 
     // Negative effects
-    int damage_end;
-    int damage_turn;
-    bool stun;
+    private int damage_end;
+    private int damage_turn;
+    private bool stun;
 
     // Positive effects
-    int armor;
-    int attack;
+    private int armor;
+    private int attack;
 
 
     public Status inst(string Name, string Description, ref Sprite Status_icon, int Duration, int Damage_turn, int Damage_end)

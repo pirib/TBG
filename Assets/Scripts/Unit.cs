@@ -104,23 +104,15 @@ public class Unit : MonoBehaviour
 
     void add_status (string Status_name)
     {
-        int value;
-        if (GameManager.instance.dic.TryGetValue(Status_name, out value) ) {
-            // Get a hold of information about the particular status and Instantiate a new empty status
-            StatusAbstract status_abstract = GameManager.instance.statuses[value];
-            GameObject new_status = Instantiate(status);
+        // Get a hold of information about the particular status and Instantiate a new empty status
+        StatusAbstract status_abstract = GameManager.instance.find_StatusAbstract_byName(Status_name);
+        GameObject new_status = Instantiate(status);
 
-            // Assign new status parameters
-            assign_status_parameters(ref status_abstract, ref new_status);
+        // Assign new status parameters
+        assign_status_parameters(ref status_abstract, ref new_status);
 
-            // Add status to the list of active statuses
-            statuses.Add( new_status  );
-        }
-        else
-        {
-            Debug.Log("Did not find status with a name " + Status_name);
-        }
-        
+        // Add status to the list of active statuses
+        statuses.Add( new_status );       
     }
 
     void assign_status_parameters(ref StatusAbstract StatusAbstract, ref GameObject NewStatus)
