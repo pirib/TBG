@@ -8,9 +8,13 @@ public class Unit : MonoBehaviour
     [Header("Prefabs")]
     public GameObject status;
 
-
+    [Header("General")]
     /* General Unit properties */
     public bool is_player;
+
+    // AP
+    [SerializeField] private int ap;
+    [SerializeField] private int ap_max;
 
     // Attack
     [SerializeField] private int base_damage;
@@ -40,14 +44,16 @@ public class Unit : MonoBehaviour
 
     // <================================================== General
 
-    // Apply things on the start of the turn
+    // Do things at the start of the turn
     public void turn_start ()
     {
+        // Apply Status effects on the start of the turn
         foreach (GameObject status in statuses)
         {
             status.GetComponent<Status>().apply_status_effect();
         }
 
+        // Activate AI if it is not the player controlled unit's turn
         if (!is_player) do_ai();
         
 
