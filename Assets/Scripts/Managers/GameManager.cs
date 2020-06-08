@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public readonly List<StatusAbstract> statuses = new List<StatusAbstract>();
 
     // Adding all statuses do a dictionary for quick access
-    // TODO better way of doign this?
+    // TODO better way of doing this?
 
     private readonly Dictionary<string, int> dic = new Dictionary<string, int>() {
         {"Burning", 0 }

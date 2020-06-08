@@ -104,14 +104,16 @@ public class Unit : MonoBehaviour
 
     void add_status (string Status_name)
     {
-        // Get a hold of information about the particular status and Instantiate a new empty status
+        // Get a hold of information about the particular status 
         StatusAbstract status_abstract = GameManager.instance.find_StatusAbstract_byName(Status_name);
+        
+        // Instantiate a new empty status
         GameObject new_status = Instantiate(status);
 
         // Assign new status parameters
         assign_status_parameters(ref status_abstract, ref new_status);
 
-        // Add status to the list of active statuses
+        // Add status to the list of active statuses of this unit
         statuses.Add( new_status );       
     }
 
