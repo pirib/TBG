@@ -24,7 +24,7 @@ public class Skill : ScriptableObject
 
     [Header("Status")]
     [SerializeField] private bool apply_status = false;
-    [SerializeField] private Status status;
+    [SerializeField] private string status_name;
 
     [Header("Damage")]
     [SerializeField] private bool deal_damage = false;
@@ -39,11 +39,6 @@ public class Skill : ScriptableObject
 
     #endregion
 
-    // Get information about what Status this skill sets
-    public Status get_effect()
-    {
-        return status;
-    }
 
     // Get information about how much damage this skill deals
     public int get_damage( int unit_base_damage)
