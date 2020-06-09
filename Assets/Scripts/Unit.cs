@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-
     [Header("Prefabs")]
     public GameObject status;
 
@@ -32,13 +31,15 @@ public class Unit : MonoBehaviour
 
     // Skills/statuses
     private List<GameObject> statuses = new List<GameObject>();
-    private List<Skill> skills = new List<Skill>();
+    private List<GameObject> skills = new List<GameObject>();
 
 
     // Start is called before the first frame update
     void Start()
     {
-        this.tag = "Enemy";
+        if (!is_player) this.tag = "Enemy";
+
+        add_status("Burning");
     }
 
 
@@ -56,7 +57,6 @@ public class Unit : MonoBehaviour
         // Activate AI if it is not the player controlled unit's turn
         if (!is_player) do_ai();
         
-
     }
 
     public void receive_damage (int Damage)
@@ -104,36 +104,8 @@ public class Unit : MonoBehaviour
 
     void add_status (string Status_name)
     {
-        // Get a hold of information about the particular status 
-        StatusAbstract status_abstract = GameManager.instance.get_StatusAbstract_byName(Status_name);
-        
-        // Instantiate a new empty status
-        GameObject new_status = Instantiate(status);
-
-        // Assign new status parameters
-        assign_status_parameters(ref status_abstract, ref new_status);
-
-        // Add status to the list of active statuses of this unit
-        statuses.Add( new_status );       
-    }
-
-    void assign_status_parameters(ref StatusAbstract StatusAbstract, ref GameObject NewStatus)
-    {
-        // Get a handle on the script
-        Status new_status = NewStatus.GetComponent<Status>();
-
-        // Set handlers
-        new_status.unit = this;
-
-        // Populate data
-        new_status.inst(
-            StatusAbstract.name,
-            StatusAbstract.description,
-            ref StatusAbstract.icon,
-            StatusAbstract.duration,
-            StatusAbstract.damage_turn,
-            StatusAbstract.damage_end
-            );
+        // Instantiate a new status, fetching it from the StatusManager and add it to the list of active statuses of this unit
+        statuses.Add(StatusManager.instance.add_status(Status_name, this));       
     }
 
 

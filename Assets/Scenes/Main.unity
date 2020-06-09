@@ -3684,8 +3684,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a53f9c99eafad44197edd4b06005dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  status: {fileID: 754964268165450688, guid: 4613f1cd8ec86ca49b848e3abea46228, type: 3}
   statuses:
   - {fileID: 11400000, guid: 923f8ae42c7647f45aa2a0d7e6e5d48b, type: 2}
+  - {fileID: 11400000, guid: 02f16b8ca452afe4e8f4f49bb2e37584, type: 2}
 --- !u!114 &674610847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3743,6 +3745,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e496e8648d4767f43b5678f018c5875d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sword_rune: {fileID: 0}
+  amulet: {fileID: 0}
+  magic_tome: {fileID: 0}
+  armor_rune: {fileID: 0}
 --- !u!4 &1155092492
 Transform:
   m_ObjectHideFlags: 0
