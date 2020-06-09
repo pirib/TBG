@@ -20,7 +20,7 @@ public class SkillAbstract : ScriptableObject
     [SerializeField] private int rage_cost = 0;
 
     [Header("Targeting")]
-    [SerializeField] private Targeting targeting_mode = Targeting.Single;
+    [SerializeField] private Targeting.TargetingType targeting_mode = Targeting.TargetingType.SINGLE;
 
     [Header("Status")]
     [SerializeField] private bool apply_status = false;
@@ -33,11 +33,6 @@ public class SkillAbstract : ScriptableObject
 
     #endregion
 
-    #region Helpers
-
-    private enum Targeting { Single, Enemies, All, Self };
-
-    #endregion
 
 
     // Get information about how much damage this skill deals
