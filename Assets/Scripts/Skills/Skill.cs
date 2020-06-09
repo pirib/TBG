@@ -47,7 +47,4 @@ public class Skill : ScriptableObject
     }
 
 
-
-
-
 }

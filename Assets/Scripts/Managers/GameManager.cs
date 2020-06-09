@@ -15,28 +15,31 @@ public class GameManager : MonoBehaviour
 
     #endregion 
 
-    public readonly List<StatusAbstract> statuses = new List<StatusAbstract>();
+    public List<StatusAbstract> statuses = new List<StatusAbstract>();
 
-    // Adding all statuses do a dictionary for quick access
-    // TODO better way of doing this?
 
-    private readonly Dictionary<string, int> dic = new Dictionary<string, int>() {
-        {"Burning", 0 }
-    };
-
-    public StatusAbstract find_StatusAbstract_byName(string Status_name)
+    public StatusAbstract get_StatusAbstract_byName(string Status_name)
     {
-        int value;
-        if (dic.TryGetValue(Status_name, out value))
-        {
-            // Get a hold of information about the particular status and Instantiate a new empty status
-            return GameManager.instance.statuses[value];    
-        }
+        int status_index = get_status_index(Status_name);
+
+        if (status_index != -1) return GameManager.instance.statuses[status_index];         
         else
         {
             Debug.Log("Did not find status with a name " + Status_name + "\n Returning null");
             return null;
         }
+
     }
+    
+    // Looks for a status with a name Status_name and returns its index. Returns -1 if doesnt find it.
+    private int get_status_index(string Status_name)
+    {
+        foreach (StatusAbstract status in statuses) {
+            if ( status.name == Status_name ) return statuses.IndexOf(status);
+        }
+        return -1;
+    }
+    
+
 
 }

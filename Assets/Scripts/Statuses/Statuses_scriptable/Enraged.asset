@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89880b524831e5b48b49ebb9c9d8b89f, type: 3}
   m_Name: Enraged
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: Enraged
+  description: This unit is Enraged - receiving damage increases its rage.
   icon: {fileID: 0}
-  duration: 1
+  duration: 2
   damage_turn: 0
   damage_end: 0
   stun: 0

@@ -105,7 +105,7 @@ public class Unit : MonoBehaviour
     void add_status (string Status_name)
     {
         // Get a hold of information about the particular status 
-        StatusAbstract status_abstract = GameManager.instance.find_StatusAbstract_byName(Status_name);
+        StatusAbstract status_abstract = GameManager.instance.get_StatusAbstract_byName(Status_name);
         
         // Instantiate a new empty status
         GameObject new_status = Instantiate(status);

@@ -21,7 +21,7 @@ MonoBehaviour:
   rage_cost: 0
   targeting_mode: 0
   apply_status: 1
-  status: {fileID: 0}
+  status_name: Enraged
   deal_damage: 0
   use_base_attack: 0
   damage_modifier: 0
