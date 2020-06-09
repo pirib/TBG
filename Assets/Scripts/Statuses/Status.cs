@@ -21,9 +21,10 @@ public class Status : MonoBehaviour
     private int armor;
     private int attack;
 
-
+    // Sets the values of the class
     public Status inst(string Name, string Description, ref Sprite Status_icon, int Duration, int Damage_turn, int Damage_end)
     {
+        // Adding generic information
         name = Name;
         description = Description;
 
@@ -35,8 +36,12 @@ public class Status : MonoBehaviour
         // Set the sprite icon
         this.GetComponent<SpriteRenderer>().sprite = Status_icon;
 
+        // Subscribe to delegates
+        unit.OnDamageReceived += OnDamageReceived;
+
         return this;
     }
+
 
     // Deal damage, disable skills, etc.
     public void apply_status_effect()
@@ -71,7 +76,11 @@ public class Status : MonoBehaviour
         {
             Destroy(this);
         }
+    }
 
+    void OnDamageReceived()
+    {
+        // Do something (reflect back, heal, get rage, etc.)
     }
 
 }

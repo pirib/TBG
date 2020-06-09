@@ -33,6 +33,10 @@ public class Unit : MonoBehaviour
     private List<GameObject> statuses = new List<GameObject>();
     private List<GameObject> skills = new List<GameObject>();
 
+    // Delegate
+    public delegate void damage_register();
+    public event damage_register OnDamageReceived;
+
 
     // Start is called before the first frame update
     void Start()
@@ -59,14 +63,17 @@ public class Unit : MonoBehaviour
         
     }
 
-    public void receive_damage (int Damage)
+    public void receive_damage (int Damage, Unit unit_dmg_source = null)
     {
         // ADD receive_damage animation
 
         // Check with the armor 
         if (Damage - armor > 0) hp = hp - Damage + armor;
         else hp -= Damage;
-        
+
+        // Let all the delegate subscribers know that a damage has been dealt by another unit
+        if (unit_dmg_source != null) OnDamageReceived();
+
         //ADD update HUD
 
         // Call death function if the hp falls below 1
