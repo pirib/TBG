@@ -61,6 +61,9 @@ public class StatusManager : MonoBehaviour
         new_status.buff_duration = StatusAbstract.buff_duration;
         new_status.sub_dmg_receive = StatusAbstract.sub_dmg_receive;
 
+        // Subscribe to delegates
+        new_status.subscribe();
+
     }
 
     public GameObject add_status(string Status_name, Unit unit)

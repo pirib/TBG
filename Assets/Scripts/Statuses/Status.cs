@@ -20,9 +20,15 @@ public class Status : MonoBehaviour
 
     // Subscribe to damage receiving
     public SubDmgReceive sub_dmg_receive;
+    
+    // Subscribe to delegates if needed 
+    public void subscribe()
+    {
+        if (sub_dmg_receive.enable) unit.OnDamageReceived += OnDamageReceived;
 
+    }
 
-    // Deal damage, disable skills, etc.
+    // Deal damage, disable skills, at the beginning of the turn
     public void apply_status_effect()
     {
         // Apply damage
@@ -59,15 +65,14 @@ public class Status : MonoBehaviour
         }
     }
 
-    // A delegate - triggers when the Unit is about to receive damage
-    int OnDamageReceived(int damage)
+    // Delegate - triggers when the Unit receives damage from any source
+    void OnDamageReceived(int damage)
     {
         // Do something (reflect back, heal, get rage, etc.)
         
         if (sub_dmg_receive.hp != 0) unit.heal(sub_dmg_receive.hp);
         if (sub_dmg_receive.rage != 0) unit.update_rage(sub_dmg_receive.rage);
 
-        return 0;
     }
 
 }

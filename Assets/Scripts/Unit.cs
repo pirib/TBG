@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
     private List<GameObject> skills = new List<GameObject>();
 
     // Delegate
-    public delegate int damage_register(int damage);
+    public delegate void damage_register(int damage);
     public event damage_register OnDamageReceived;
 
 
@@ -45,10 +45,9 @@ public class Unit : MonoBehaviour
         if (!is_player) this.tag = "Enemy";
         else this.tag = "Player";
 
-        add_status("Burning");
         add_status("Enraged");
+        receive_damage(1);
 
-        TurnManager.instance.end_turn(this);
     }
 
 
@@ -69,21 +68,19 @@ public class Unit : MonoBehaviour
     }
 
     // Check the incoming damage, and modify it based on the subscribers response
-    public void receive_damage (int incoming_damage, Unit unit_dmg_source = null)
+    public void receive_damage (int incoming_damage)
     {
-        // A new damage variable that will be modified based on subscribers' response (statuses, relics)
-        int damage = incoming_damage;
 
-        // Let all the delegate subscribers know that a damage is about to be dealt by another unit, and get their feedback on damage change
-        if (unit_dmg_source != null) damage += OnDamageReceived(damage);
-       
-
-        if (damage > 0) {
+        if (incoming_damage  > 0) {
             // ADD receive_damage animation
 
             // Check with the armor 
-            if (damage > armor) hp_cur = hp_cur - damage + armor;
+            if (incoming_damage > armor) hp_cur = hp_cur - incoming_damage + armor;
             else hp_cur -= 1;
+
+            // Let the subscribers know that the damage has been received
+            OnDamageReceived(incoming_damage);
+            
         }
 
         //ADD update HUD
