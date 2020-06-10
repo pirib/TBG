@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Structs;
 
 public class Status : MonoBehaviour
 {
@@ -8,52 +9,30 @@ public class Status : MonoBehaviour
     public Unit unit;
     public TextMesh text;
 
+    // Param
+    public Universal universal;
+
     // General
-    private string description;
-    private int duration;
+    public StatGen stat_gen;
 
-    // Negative effects
-    private int damage_end;
-    private int damage_turn;
-    private bool stun;
+    // Positive buffs that are applied for the duration of the Status and are removed, once the duration reaches 0
+    public BuffDuration buff_duration;
 
-    // Positive effects
-    private int armor;
-    private int attack;
-
-    // Sets the values of the class
-    public Status inst(string Name, string Description, ref Sprite Status_icon, int Duration, int Damage_turn, int Damage_end)
-    {
-        // Adding generic information
-        name = Name;
-        description = Description;
-
-        update_duration(Duration);
-
-        damage_end = Damage_end;
-        damage_turn = Damage_turn;
-
-        // Set the sprite icon
-        this.GetComponent<SpriteRenderer>().sprite = Status_icon;
-
-        // Subscribe to delegates
-        unit.OnDamageReceived += OnDamageReceived;
-
-        return this;
-    }
+    // Subscribe to damage receiving
+    public SubDmgReceive sub_dmg_receive;
 
 
     // Deal damage, disable skills, etc.
     public void apply_status_effect()
     {
         // Apply damage
-        if (duration == 1 && damage_end > 0)
+        if (stat_gen.duration == 1 && stat_gen.damage_end > 0)
         {
-            unit.receive_damage(damage_end);
+            unit.receive_damage(stat_gen.damage_end);
         }
         else
         {
-            unit.receive_damage(damage_turn);
+            unit.receive_damage(stat_gen.damage_turn);
         }
 
         // ADD Apply other effects
@@ -63,24 +42,32 @@ public class Status : MonoBehaviour
         check_expired();
     }
 
+    // Update the duration of the status
     void update_duration(int Turns)
     {
-        duration += Turns;
+        stat_gen.duration += Turns;
         // Update the duration text
-        text.text = duration.ToString();
+        text.text = stat_gen.duration.ToString();
     }
 
+    // Check if the status effects should be wearing off now
     void check_expired()
     {
-        if (duration == 0)
+        if (stat_gen.duration == 0)
         {
             Destroy(this);
         }
     }
 
-    void OnDamageReceived()
+    // A delegate - triggers when the Unit is about to receive damage
+    int OnDamageReceived(int damage)
     {
         // Do something (reflect back, heal, get rage, etc.)
+        
+        if (sub_dmg_receive.hp != 0) unit.heal(sub_dmg_receive.hp);
+        if (sub_dmg_receive.rage != 0) unit.update_rage(sub_dmg_receive.rage);
+
+        return 0;
     }
 
 }

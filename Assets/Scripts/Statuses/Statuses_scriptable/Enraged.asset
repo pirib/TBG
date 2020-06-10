@@ -21,3 +21,6 @@ MonoBehaviour:
   stun: 0
   armor_buff: 0
   attack_buff: 0
+  sub_dmg: 1
+  sub_dmg_hp: 0
+  sub_dmg_rage: 1

@@ -19,10 +19,10 @@ public class Unit : MonoBehaviour
     [SerializeField] private int base_damage;
 
     // Defence
-    [SerializeField] private int hp;
+    [SerializeField] private int hp_cur;
     [SerializeField] private int hp_max;
 
-    [SerializeField] private int rage;
+    [SerializeField] private int rage_cur;
     [SerializeField] private int rage_max;
 
     [SerializeField] private int armor;
@@ -30,20 +30,25 @@ public class Unit : MonoBehaviour
     [SerializeField] private bool can_play;
 
     // Skills/statuses
-    private List<GameObject> statuses = new List<GameObject>();
+    [SerializeField] private List<GameObject> statuses = new List<GameObject>();
     private List<GameObject> skills = new List<GameObject>();
 
     // Delegate
-    public delegate void damage_register();
+    public delegate int damage_register(int damage);
     public event damage_register OnDamageReceived;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        // Set the correct tag
         if (!is_player) this.tag = "Enemy";
+        else this.tag = "Player";
 
         add_status("Burning");
+        add_status("Enraged");
+
+        TurnManager.instance.end_turn(this);
     }
 
 
@@ -63,21 +68,41 @@ public class Unit : MonoBehaviour
         
     }
 
-    public void receive_damage (int Damage, Unit unit_dmg_source = null)
+    // Check the incoming damage, and modify it based on the subscribers response
+    public void receive_damage (int incoming_damage, Unit unit_dmg_source = null)
     {
-        // ADD receive_damage animation
+        // A new damage variable that will be modified based on subscribers' response (statuses, relics)
+        int damage = incoming_damage;
 
-        // Check with the armor 
-        if (Damage - armor > 0) hp = hp - Damage + armor;
-        else hp -= Damage;
+        // Let all the delegate subscribers know that a damage is about to be dealt by another unit, and get their feedback on damage change
+        if (unit_dmg_source != null) damage += OnDamageReceived(damage);
+       
 
-        // Let all the delegate subscribers know that a damage has been dealt by another unit
-        if (unit_dmg_source != null) OnDamageReceived();
+        if (damage > 0) {
+            // ADD receive_damage animation
+
+            // Check with the armor 
+            if (damage > armor) hp_cur = hp_cur - damage + armor;
+            else hp_cur -= 1;
+        }
 
         //ADD update HUD
 
         // Call death function if the hp falls below 1
-        if (hp < 1) this.death();        
+        if (hp_cur < 1) this.death();        
+    }
+
+    public void heal (int hp)
+    {
+        if (hp_cur + hp > hp_max) hp_cur = hp_max;
+        else hp_cur = +hp;
+    }
+
+    public void update_rage (int rage)
+    {
+        if (rage_cur + rage > rage_max) rage_cur = rage_max;
+        else if (rage_cur + rage < 0) rage_cur = 0;
+        else rage_cur += rage;
     }
 
     void death ()

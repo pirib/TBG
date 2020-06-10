@@ -149,6 +149,11 @@ PrefabInstance:
       propertyPath: is_player
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: rage_max
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9156189042939805340, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: m_LocalPosition.x

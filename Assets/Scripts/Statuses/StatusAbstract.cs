@@ -1,25 +1,19 @@
 ﻿using UnityEngine;
-
+using Structs;
 
 [CreateAssetMenu(fileName = "New Status", menuName = "Status")]
 public class StatusAbstract : ScriptableObject
 {
+    // Universal
+    public Universal universal;
 
-    public new string name;
-    public string description;
-    public Sprite icon = null;
+    // General
+    public StatGen stat_gen;
 
-    public int duration = 1;
+    // Positive buffs that are applied for the duration of the Status and are removed, once the duration reaches 0
+     public BuffDuration buff_duration;
 
-    // Negative effects
-    public int damage_turn = 0;
-    public int damage_end = 0;
-
-    public bool stun = false;
-    
-    // Positive effects
-    public int armor_buff = 0;
-    public int attack_buff = 0; 
-
+    // Subscribe to damage receiving
+    public SubDmgReceive sub_dmg_receive;
 
 }

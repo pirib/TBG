@@ -26,9 +26,9 @@ public class TurnManager : MonoBehaviour
         initialize_queue();
     }
 
-    public void end_turn(ref Unit caller)
+    public void end_turn( Unit caller)
     {
-        if (is_turn(ref caller)) advance_pointer();
+        if (is_turn(caller)) advance_pointer();
         else Debug.Log("End Turn is requested by a unit off the queue. Caller Name: " + caller.name);
     }
 
@@ -55,7 +55,7 @@ public class TurnManager : MonoBehaviour
     #endregion
 
     #region Pointer
-    private bool is_turn(ref Unit unit)
+    private bool is_turn( Unit unit)
     {
         if (unit == queue[pointer]) return true;
         else return false;

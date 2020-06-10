@@ -14,10 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Burning
   description: This unit is on fire - it will receive damage every turn.
-  status_icon: {fileID: 21300000, guid: 09c450a493826b3409e6f65ec14624f7, type: 3}
+  icon: {fileID: 0}
   duration: 2
   damage_turn: 1
   damage_end: 0
   stun: 0
   armor_buff: 0
   attack_buff: 0
+  sub_dmg: 0
+  sub_dmg_hp: 0
+  sub_dmg_rage: 0
+  testAbst:
+    integer: 2
+    boolean: 1
+    text: Burnnnnn
