@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+
+    #region Static
+    public static Inventory instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    #endregion
+
     [Header("")]
-    [SerializeField] private Relic sword_rune;
-    [SerializeField] private Relic amulet;
-    [SerializeField] private Relic magic_tome;
-    [SerializeField] private Relic armor_rune;
+    public List<Relic> inventory;
+    public int capacity;
 
     private List<Artefact> artefacts;
 

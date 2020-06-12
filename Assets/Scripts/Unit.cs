@@ -5,7 +5,8 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     [Header("Prefabs")]
-    public GameObject status;
+    public GameObject status_pf;
+    public GameObject skill_pf;
 
     [Header("General")]
     /* General Unit properties */
@@ -41,6 +42,20 @@ public class Unit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Add skills from the artefacts
+        if (is_player)
+        {
+            foreach (Relic relic in Inventory.instance.inventory)
+            {
+                foreach (Skill skill in relic.skills)
+                {
+                    GameObject skill_go = Instantiate(skill_pf);
+                    
+                    skills.Add(skill_go);
+                }
+            }
+        }
+
         // Set the correct tag
         if (!is_player) this.tag = "Enemy";
         else this.tag = "Player";

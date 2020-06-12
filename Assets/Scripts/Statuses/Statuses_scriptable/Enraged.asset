@@ -12,15 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89880b524831e5b48b49ebb9c9d8b89f, type: 3}
   m_Name: Enraged
   m_EditorClassIdentifier: 
-  name: Enraged
-  description: This unit is Enraged - receiving damage increases its rage.
-  icon: {fileID: 0}
-  duration: 2
-  damage_turn: 0
-  damage_end: 0
-  stun: 0
-  armor_buff: 0
-  attack_buff: 0
-  sub_dmg: 1
-  sub_dmg_hp: 0
-  sub_dmg_rage: 1
+  universal:
+    name: Enraged
+    description: This unit is Enraged - receiving damage adds 1 Rage
+    icon: {fileID: 0}
+  stat_gen:
+    buff: 1
+    duration: 2
+    damage_turn: 0
+    damage_end: 0
+    stun: 0
+  buff_duration:
+    armor: 0
+    attack: 0
+    hp: 0
+    rage: 0
+    ap: 0
+  sub_dmg_receive:
+    enable: 1
+    hp: 0
+    rage: 1

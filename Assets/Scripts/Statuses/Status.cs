@@ -24,6 +24,7 @@ public class Status : MonoBehaviour
     // Subscribe to delegates if needed 
     public void subscribe()
     {
+        // Subscribing to the damage receiving
         if (sub_dmg_receive.enable) unit.OnDamageReceived += OnDamageReceived;
 
     }
