@@ -71,7 +71,6 @@ public class Status : MonoBehaviour
     {
         // Do something (reflect back, heal, get rage, etc.)
         
-        if (sub_dmg_receive.hp != 0) unit.heal(sub_dmg_receive.hp);
         if (sub_dmg_receive.rage != 0) unit.update_rage(sub_dmg_receive.rage);
 
     }

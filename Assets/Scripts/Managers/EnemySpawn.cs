@@ -17,6 +17,7 @@ public class EnemySpawn : MonoBehaviour
     }
     #endregion
 
+    public List<UnitAbstract> enemy_types;
     
 
     public List<Unit> spawn_enemies ()
@@ -24,6 +25,8 @@ public class EnemySpawn : MonoBehaviour
         // Create an empty list
         List<Unit> temp = new List<Unit>();
 
+
+        // TODO this is where the random generator will kick in
         Unit new_unit = Instantiate(unit) as Unit;
         temp.Add(new_unit);
         

@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
     [Header("General")]
     /* General Unit properties */
     public bool is_player;
+    public string enemy_name;
 
     // AP
     [SerializeField] private int ap;
@@ -32,7 +33,7 @@ public class Unit : MonoBehaviour
 
     // Skills/statuses
     [SerializeField] private List<GameObject> statuses = new List<GameObject>();
-    private List<GameObject> skills = new List<GameObject>();
+    [SerializeField] private List<Skill> skills = new List<Skill>();
 
     // Delegate
     public delegate void damage_register(int damage);
@@ -42,31 +43,28 @@ public class Unit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Add skills from the artefacts
+
+        // Prep the units by setting the right skills, statuses, etc.
         if (is_player)
         {
-            foreach (Relic relic in Inventory.instance.inventory)
-            {
-                foreach (Skill skill in relic.skills)
-                {
-                    GameObject skill_go = Instantiate(skill_pf);
-                    
-                    skills.Add(skill_go);
-                }
-            }
+            set_player_skills();
+            this.tag = "Player";
+        } else if (!is_player) {
+            set_enemy_skills();
+            this.tag = "Enemy";
+        } else
+        {
+            Debug.Log("Something went horribly wrong with instantiating a unit." + this.GetInstanceID());
         }
-
-        // Set the correct tag
-        if (!is_player) this.tag = "Enemy";
-        else this.tag = "Player";
-
+        
+        // Test stuff
         add_status("Enraged");
         receive_damage(1);
 
     }
 
-
     // <================================================== General
+    #region General
 
     // Do things at the start of the turn
     public void turn_start ()
@@ -117,12 +115,12 @@ public class Unit : MonoBehaviour
         else rage_cur += rage;
     }
 
-    void death ()
+    void death()
     {
         // ADD death animation
 
         // If not a player
-        if (!is_player) 
+        if (!is_player)
         {
 
             // ADD Get xp/gold/update stats/whatever
@@ -135,7 +133,7 @@ public class Unit : MonoBehaviour
 
         }
         // If the player died
-        else 
+        else
         {
             // ADD Game_over transition
 
@@ -143,8 +141,10 @@ public class Unit : MonoBehaviour
 
     }
 
+    #endregion
 
     // <============================================== Status related
+    #region Status
 
     void add_status (string Status_name)
     {
@@ -152,13 +152,40 @@ public class Unit : MonoBehaviour
         statuses.Add(StatusManager.instance.add_status(Status_name, this));       
     }
 
+    #endregion
 
+    // <================================================== Skills
+    #region Skill
+
+    private void set_player_skills()
+    {
+        foreach (Relic relic in Inventory.instance.inventory)
+        {
+            foreach (Skill skill in relic.skills)
+            {
+                // TODO change skills
+                skills.Add(skill);
+            }
+        }
+    }
+
+    private void set_enemy_skills ()
+    {
+         // TODO add nemy skills based on the name of the enemy
+
+
+    }
+
+    #endregion
 
     // <================================================== AI
+    #region AI
 
     void do_ai()
     {
 
     }
+
+    #endregion
 
 }
