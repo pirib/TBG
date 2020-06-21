@@ -9,20 +9,17 @@ public class Skill : MonoBehaviour
 {
     #region Inspector Parameters
 
-    [Header("General")]
     public Universal universal;
 
-    [Header("Costs")]
     public SkillCosts cost;
 
-    [Header("Targeting")]
-    [SerializeField] private TargetingType targeting_mode = TargetingType.SINGLE;
+    public SkillGain gain;
 
-    [Header("Status")]
     public SkillStatusInfo status_info;
 
-    [Header("Damage")]
     public SkillDamageInfo damage_info;
+
+    [SerializeField] private TargetingType targeting_mode = TargetingType.SINGLE;
 
     #endregion
 

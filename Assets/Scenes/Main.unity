@@ -3721,6 +3721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c, type: 3}
+  enemy_types: []
 --- !u!1 &1155092490
 GameObject:
   m_ObjectHideFlags: 0
@@ -3750,10 +3751,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e496e8648d4767f43b5678f018c5875d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sword_rune: {fileID: 0}
-  amulet: {fileID: 0}
-  magic_tome: {fileID: 0}
-  armor_rune: {fileID: 0}
+  inventory: []
+  capacity: 0
 --- !u!4 &1155092492
 Transform:
   m_ObjectHideFlags: 0

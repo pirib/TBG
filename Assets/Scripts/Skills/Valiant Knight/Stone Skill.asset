@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88374d44892ec3b44b6f360b63cf921a, type: 3}
+  m_Name: Stone Skill
+  m_EditorClassIdentifier: 
+  universal:
+    name: Stone Skill
+    description: "Set Status - Receive 5 Armor\t\t\t\t"
+    icon: {fileID: 0}
+  general:
+    cooldown: 2
+  cost:
+    ap_cost: 0
+    hp_cost: 0
+    rage_cost: 1
+  gain:
+    hp: 0
+    ap: 0
+    rage: 0
+  status_info:
+    apply_status: 1
+    status_name: Stone Skill
+  damage_info:
+    deal_damage: 0
+    use_base_attack: 0
+    damage_modifier: 0
+  targeting_mode: 3

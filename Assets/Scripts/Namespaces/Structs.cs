@@ -6,7 +6,7 @@ namespace Structs
     [System.Serializable]
     public struct Universal
     {
-        public new string name;
+        public string name;
         public string description;
         public Sprite icon;
     }
@@ -48,6 +48,12 @@ namespace Structs
     #region Skills
 
     [System.Serializable]
+    public struct SkillGen
+    {
+        public int cooldown;
+    }
+
+    [System.Serializable]
     public struct SkillCosts
     {
         public int ap_cost;
@@ -55,12 +61,21 @@ namespace Structs
         public int rage_cost;
     }
 
+    [System.Serializable]
+    public struct SkillGain{
+        public int hp;
+        public int ap;
+        public int rage;
+    }
+
+    [System.Serializable]
     public struct SkillStatusInfo
     {
         public bool apply_status;
         public string status_name;
     }
 
+    [System.Serializable]
     public struct SkillDamageInfo
     {
         public bool deal_damage;
