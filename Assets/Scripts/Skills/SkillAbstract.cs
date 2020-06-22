@@ -11,25 +11,19 @@ public class SkillAbstract : ScriptableObject
 {
     #region Inspector Parameters
 
-    [Header("General")]
+
     public Universal universal;
 
-    [Header("General")]
     public SkillGen general;
 
-    [Header("Costs")]
     public SkillCosts cost;
 
-    [Header("Gains")]
     public SkillGain gain;
 
-    [Header("Status")]
     public SkillStatusInfo status_info;
 
-    [Header("Damage")]
     public SkillDamageInfo damage_info;
 
-    [Header("Targeting")]
     [SerializeField] private TargetingType targeting_mode = TargetingType.SINGLE;
 
     #endregion

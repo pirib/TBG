@@ -57,10 +57,6 @@ public class Unit : MonoBehaviour
             Debug.Log("Something went horribly wrong with instantiating a unit." + this.GetInstanceID());
         }
         
-        // Test stuff
-        add_status("Enraged");
-        receive_damage(1);
-
     }
 
     // <================================================== General
@@ -74,6 +70,8 @@ public class Unit : MonoBehaviour
         {
             status.GetComponent<Status>().apply_status_effect();
         }
+
+        // ADD other things that has to be calculated at the start of the turn
 
         // Activate AI if it is not the player controlled unit's turn
         if (!is_player) do_ai();
@@ -183,9 +181,24 @@ public class Unit : MonoBehaviour
 
     void do_ai()
     {
-
+        Debug.Log("Unit " + this.name + "is doing ai stuff");
+        TurnManager.instance.end_turn(this);
     }
 
+    #endregion
+
+    #region Getters
+    
+    public int get_current_hp()
+    {
+        return hp_cur;
+    }
+
+    public int get_base_dmg()
+    {
+        return base_damage;
+    }
+    
     #endregion
 
 }
