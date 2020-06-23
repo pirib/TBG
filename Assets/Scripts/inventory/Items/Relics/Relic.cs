@@ -10,7 +10,7 @@ public class Relic : ScriptableObject
     public Universal universal;
 
     // Skills this relic has
-    public List<Skill> skills;
+    public List<string> skills;
 
     
 }

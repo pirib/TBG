@@ -17,6 +17,7 @@ public class Inventory : MonoBehaviour
 
     [Header("")]
     public List<Relic> inventory;
+    // Max amount of space this inventory has
     public int capacity;
 
     private List<Artefact> artefacts;

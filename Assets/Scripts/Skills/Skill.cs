@@ -11,6 +11,8 @@ public class Skill : MonoBehaviour
 
     public Universal universal;
 
+    public SkillGen general;
+
     public SkillCosts cost;
 
     public SkillGain gain;
@@ -19,9 +21,13 @@ public class Skill : MonoBehaviour
 
     public SkillDamageInfo damage_info;
 
-    [SerializeField] private TargetingType targeting_mode = TargetingType.SINGLE;
+    [SerializeField] public TargetingType targeting_mode = TargetingType.SINGLE;
 
     #endregion
 
+    public bool is_condition_met()
+    {
+        return true;
+    }
 
 }

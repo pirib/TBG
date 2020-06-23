@@ -51,6 +51,7 @@ namespace Structs
     public struct SkillGen
     {
         public int cooldown;
+        public int cooldown_cur;
     }
 
     [System.Serializable]

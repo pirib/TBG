@@ -24,7 +24,7 @@ public class SkillAbstract : ScriptableObject
 
     public SkillDamageInfo damage_info;
 
-    [SerializeField] private TargetingType targeting_mode = TargetingType.SINGLE;
+    [SerializeField] public TargetingType targeting_mode = TargetingType.SINGLE;
 
     #endregion
 

@@ -14,9 +14,8 @@ public class StatusManager : MonoBehaviour
 
     #endregion
 
-
     [Header("Prefabs")]
-    public GameObject status;
+    [SerializeField] private GameObject status;
 
     [Header("List of all in-game Statuses")]
     [SerializeField] private List<StatusAbstract> statuses = new List<StatusAbstract>();
@@ -35,7 +34,7 @@ public class StatusManager : MonoBehaviour
 
     }
 
-    // TODO look into Generics  
+
     // Looks for a status with a name Status_name and returns its index. Returns -1 if doesnt find it.
     private int get_status_index(string Status_name)
     {
@@ -46,7 +45,7 @@ public class StatusManager : MonoBehaviour
         return -1;
     }
 
-    // Moves over the parameters of StatusAbstract to NewStatus of the unit
+    // Moves over the parameters of StatusAbstract to NewStatus of the unit. ADD new fields as they come
     private void assign_status_parameters(ref StatusAbstract StatusAbstract, ref GameObject NewStatus, ref Unit unit)
     {
         // Get a handle on the script of the NewStatus
@@ -66,6 +65,7 @@ public class StatusManager : MonoBehaviour
 
     }
 
+    // Adds a new Status
     public GameObject add_status(string Status_name, Unit unit)
     {
         // Instantiate a status object

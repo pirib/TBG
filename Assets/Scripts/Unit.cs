@@ -14,7 +14,7 @@ public class Unit : MonoBehaviour
     public string enemy_name;
 
     // AP
-    [SerializeField] private int ap;
+    [SerializeField] private int ap_cur;
     [SerializeField] private int ap_max;
 
     // Attack
@@ -33,11 +33,26 @@ public class Unit : MonoBehaviour
 
     // Skills/statuses
     [SerializeField] private List<GameObject> statuses = new List<GameObject>();
-    [SerializeField] private List<Skill> skills = new List<Skill>();
+    [SerializeField] private List<GameObject> skills = new List<GameObject>();
 
     // Delegate
     public delegate void damage_register(int damage);
     public event damage_register OnDamageReceived;
+
+
+    #region Getters
+
+    public int get_current_hp()
+    {
+        return hp_cur;
+    }
+
+    public int get_base_dmg()
+    {
+        return base_damage;
+    }
+
+    #endregion
 
 
     // Start is called before the first frame update
@@ -159,10 +174,10 @@ public class Unit : MonoBehaviour
     {
         foreach (Relic relic in Inventory.instance.inventory)
         {
-            foreach (Skill skill in relic.skills)
+            foreach (string skill_name in relic.skills)
             {
                 // TODO change skills
-                skills.Add(skill);
+                skills.Add(SkillManager.instance.add_skill( skill_name , this) );
             }
         }
     }
@@ -182,23 +197,59 @@ public class Unit : MonoBehaviour
     void do_ai()
     {
         Debug.Log("Unit " + this.name + "is doing ai stuff");
+
+        // Use skills while there are any usable ones. First skills have higher priority.
+        while (usable_skills() > 0)
+        {
+            // Loop through the skill
+            foreach (GameObject skill in skills)
+            {
+                if (is_skill_usable(skill.GetComponent<Skill>())) { 
+                
+                } ;
+            }
+        }
+
         TurnManager.instance.end_turn(this);
+    }
+
+
+    #region AI Helpers
+    
+    public bool is_rage_lower_than (int rage)
+    {
+        if (rage_cur < rage) return true;
+        else return false;
+    }
+
+    public bool is_hp_lower_than(int hp)
+    {
+        if (hp_cur < hp) return true;
+        else return false;
+    }
+
+    public bool is_skill_usable(Skill skill)
+    {
+        // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
+        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > rage_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur != 0 || skill.is_condition_met() ) return false; 
+        // Else, return true
+        else return true;
+    }
+
+
+    // Get the number of usable skills
+    public int usable_skills()
+    {
+        int temp = 0;
+        foreach (GameObject skill in skills)
+        {
+            if (is_skill_usable(skill.GetComponent<Skill>())) temp+=1;
+        }
+        return temp;
     }
 
     #endregion
 
-    #region Getters
-    
-    public int get_current_hp()
-    {
-        return hp_cur;
-    }
-
-    public int get_base_dmg()
-    {
-        return base_damage;
-    }
-    
     #endregion
 
 }
