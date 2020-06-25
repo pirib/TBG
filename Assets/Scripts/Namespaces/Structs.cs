@@ -16,38 +16,54 @@ namespace Structs
     [System.Serializable]
     public struct StatGen
     {
-        public bool buff;
-        public int duration;
-        public int damage_turn;
-        public int damage_end;
-        public bool stun;
+        public bool buff;           // true - positive effect, flase - negative
+        public int duration;        // the duration of the 
+        public int damage_turn;     // Damage dealt per turn
+        public int damage_end;      // Damage dealt at the end of its duration
+        
+        public bool stun;           // Affected Unit will skip its turn if this is set to true
+
+        public int heal_turn;       // Healing per turn
+        public int rage_turn;       // Rage per turn
+        public int ap_turn;         // AP per turn
+
+        public bool reflect;        // If some damage is reflected back
+        public int reflect_damage;  // Reflected damage 
     }
 
     [System.Serializable]
     public struct BuffDuration
     {
-        public int armor;
-        public int attack;
-        public int hp;
-        public int rage;
-        public int ap;
+        public int armor;           // Additional armor the buff grants to the affected unit
+        public int attack;          // Additional attack
     }
 
     [System.Serializable]
     public struct SubDmgReceive
     {
-        // Enable Subscription to Damage Receive 
-        public bool enable;
+        public bool enable;         // Enable Subscription to Damage Receive. Any time damage is received, params below will be used
 
-        // If enabled, modifies Unit's properties by values defined below
-        public int rage;
+        public int rage;            // Get this amount of rage on receiving damage
+        public int hp;              // Get this amount of healing on receiving damage
+        public bool weaken;         // Affected Unit will get 1 damage after receiving damage
     }
 
-    #endregion
-
-    #region Skills
-
     [System.Serializable]
+    public struct SubHealReceive
+    {
+        public bool enable;         // Enable Subscription to Healing received. Any time healing is received, params below will be used
+
+        public int hp;              // On healing, heal additional value
+
+        public bool rage;           // On healing, get rage
+    }
+
+
+        #endregion
+
+        #region Skills
+
+        [System.Serializable]
     public struct SkillGen
     {
         public int cooldown;

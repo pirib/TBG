@@ -16,4 +16,7 @@ public class StatusAbstract : ScriptableObject
     // Subscribe to damage receiving
     public SubDmgReceive sub_dmg_receive;
 
+    // Subscribe to heal receiving 
+    public SubHealReceive sub_heal_receive;
+
 }

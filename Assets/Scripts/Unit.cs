@@ -52,7 +52,26 @@ public class Unit : MonoBehaviour
         return base_damage;
     }
 
+    public int get_armor()
+    {
+        return armor;
+    }
+
     #endregion
+
+    #region Setters
+    public void update_armor(int change)
+    {
+        armor += change;
+    }
+
+    public void update_attack(int change)
+    {
+        base_damage += change;
+    }
+
+    #endregion 
+
 
 
     // Start is called before the first frame update
@@ -74,7 +93,7 @@ public class Unit : MonoBehaviour
         
     }
 
-    // <================================================== General
+
     #region General
 
     // Do things at the start of the turn
@@ -89,8 +108,10 @@ public class Unit : MonoBehaviour
         // ADD other things that has to be calculated at the start of the turn
 
         // Activate AI if it is not the player controlled unit's turn
-        if (!is_player) do_ai();
-        
+        if (can_play && !is_player) do_ai();
+
+        // End Turn automatically if the player cannot play (is stunned)
+        if (!can_play) TurnManager.instance.end_turn(this);
     }
 
     // Check the incoming damage, and modify it based on the subscribers response
@@ -115,7 +136,7 @@ public class Unit : MonoBehaviour
         if (hp_cur < 1) this.death();        
     }
 
-    public void heal (int hp)
+    public void heal ( int hp)
     {
         if (hp_cur + hp > hp_max) hp_cur = hp_max;
         else hp_cur = +hp;
@@ -156,7 +177,7 @@ public class Unit : MonoBehaviour
 
     #endregion
 
-    // <============================================== Status related
+
     #region Status
 
     void add_status (string Status_name)
@@ -167,7 +188,6 @@ public class Unit : MonoBehaviour
 
     #endregion
 
-    // <================================================== Skills
     #region Skill
 
     private void set_player_skills()
@@ -180,18 +200,20 @@ public class Unit : MonoBehaviour
                 skills.Add(SkillManager.instance.add_skill( skill_name , this) );
             }
         }
+
+        // TODO center skill on the vertical axis
+
     }
 
     private void set_enemy_skills ()
     {
-         // TODO add nemy skills based on the name of the enemy
+        // TODO add nemy skills based on the name of the enemy
 
-
+        // TODO hide those skills elsewhere
     }
 
     #endregion
 
-    // <================================================== AI
     #region AI
 
     void do_ai()
@@ -205,11 +227,12 @@ public class Unit : MonoBehaviour
             foreach (GameObject skill in skills)
             {
                 if (is_skill_usable(skill.GetComponent<Skill>())) { 
-                
+                    // TODO activate the skill
                 } ;
             }
         }
 
+        // End the turn, since no other action can be taken now
         TurnManager.instance.end_turn(this);
     }
 
