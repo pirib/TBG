@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+
+    #region Prefabs
+    
     [Header("Prefabs")]
     public GameObject status_pf;
     public GameObject skill_pf;
+
+    #endregion
 
     [Header("General")]
     /* General Unit properties */
@@ -35,10 +40,17 @@ public class Unit : MonoBehaviour
     [SerializeField] private List<GameObject> statuses = new List<GameObject>();
     [SerializeField] private List<GameObject> skills = new List<GameObject>();
 
-    // Delegate
-    public delegate void damage_register(int damage);
+    #region Delegates
+
+    // Delegate Damage
+    public delegate void damage_register(Unit source_unit);
     public event damage_register OnDamageReceived;
 
+    // Delegate Healing
+    public delegate void heal_register();
+    public event heal_register OnHealingReceieved;
+
+    #endregion
 
     #region Getters
 
@@ -78,6 +90,13 @@ public class Unit : MonoBehaviour
     void Start()
     {
 
+        // Debugging stuff
+        if (is_player)
+        {
+            add_status("Chosen");
+            add_status("Regenerating");
+        }
+
         // Prep the units by setting the right skills, statuses, etc.
         if (is_player)
         {
@@ -99,13 +118,28 @@ public class Unit : MonoBehaviour
     // Do things at the start of the turn
     public void turn_start ()
     {
+        // Number of expired statuses
+        int num_expired = 0;
+        
         // Apply Status effects on the start of the turn
-        foreach (GameObject status in statuses)
-        {
+        foreach (GameObject status in statuses) {
             status.GetComponent<Status>().apply_status_effect();
+            if (status.GetComponent<Status>().expired) num_expired = num_expired + 1;
         }
 
-        // ADD other things that has to be calculated at the start of the turn
+        // Remove expired statuses
+        for (int i = 0; i <= num_expired; i++)
+        {
+            foreach(GameObject status in statuses)
+            {
+                if (status.GetComponent<Status>().expired) { 
+                    statuses.Remove(status);
+                    Destroy(status);
+                    break;
+                }
+            }
+        }
+
 
         // Activate AI if it is not the player controlled unit's turn
         if (can_play && !is_player) do_ai();
@@ -114,35 +148,43 @@ public class Unit : MonoBehaviour
         if (!can_play) TurnManager.instance.end_turn(this);
     }
 
-    // Check the incoming damage, and modify it based on the subscribers response
-    public void receive_damage (int incoming_damage)
+    // Check the incoming damage, and modify it based on the subscribers response.
+    public void receive_damage (int incoming_damage, bool is_primary = true, bool is_status = false, Unit source_unit = null)
     {
 
         if (incoming_damage  > 0) {
             // ADD receive_damage animation
 
+            // If damage source is status, ignore armor
+            if (is_status) hp_cur = hp_cur - incoming_damage; 
             // Check with the armor 
-            if (incoming_damage > armor) hp_cur = hp_cur - incoming_damage + armor;
+            else if (incoming_damage > armor) hp_cur = hp_cur - incoming_damage + armor;
             else hp_cur -= 1;
 
             // Let the subscribers know that the damage has been received
-            OnDamageReceived(incoming_damage);
-            
+            if (is_primary) OnDamageReceived(source_unit);       
+        } 
+        else
+        {
+            Debug.Log("Something tried attacking with 0 damage" + source_unit.name);
         }
 
         //ADD update HUD
 
         // Call death function if the hp falls below 1
-        if (hp_cur < 1) this.death();        
+        if (hp_cur < 1) this.death();  
     }
 
-    public void heal ( int hp)
+    public void heal ( int hp, bool is_primary = true)
     {
+        Debug.Log(this.name + " unit is healing by " + hp);
         if (hp_cur + hp > hp_max) hp_cur = hp_max;
-        else hp_cur = +hp;
+        else hp_cur = hp_cur + hp;
+
+        if (is_primary) OnHealingReceieved();
     }
 
-    public void update_rage (int rage)
+    public void update_rage (int rage, bool is_primary = true)
     {
         if (rage_cur + rage > rage_max) rage_cur = rage_max;
         else if (rage_cur + rage < 0) rage_cur = 0;
@@ -186,6 +228,7 @@ public class Unit : MonoBehaviour
         statuses.Add(StatusManager.instance.add_status(Status_name, this));       
     }
 
+
     #endregion
 
     #region Skill
@@ -219,7 +262,8 @@ public class Unit : MonoBehaviour
     void do_ai()
     {
         Debug.Log("Unit " + this.name + "is doing ai stuff");
-
+        
+        /*
         // Use skills while there are any usable ones. First skills have higher priority.
         while (usable_skills() > 0)
         {
@@ -231,6 +275,7 @@ public class Unit : MonoBehaviour
                 } ;
             }
         }
+        */
 
         // End the turn, since no other action can be taken now
         TurnManager.instance.end_turn(this);

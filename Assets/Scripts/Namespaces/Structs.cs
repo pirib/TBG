@@ -27,8 +27,7 @@ namespace Structs
         public int rage_turn;       // Rage per turn
         public int ap_turn;         // AP per turn
 
-        public bool reflect;        // If some damage is reflected back
-        public int reflect_damage;  // Reflected damage 
+
     }
 
     [System.Serializable]
@@ -44,8 +43,10 @@ namespace Structs
         public bool enable;         // Enable Subscription to Damage Receive. Any time damage is received, params below will be used
 
         public int rage;            // Get this amount of rage on receiving damage
-        public int hp;              // Get this amount of healing on receiving damage
+        public int hp;              // Get this amount of healing on receiving damage // UNUSED
         public bool weaken;         // Affected Unit will get 1 damage after receiving damage
+
+        public int reflect_damage;  // Reflected damage 
     }
 
     [System.Serializable]
@@ -55,7 +56,7 @@ namespace Structs
 
         public int hp;              // On healing, heal additional value
 
-        public bool rage;           // On healing, get rage
+        public int rage;           // On healing, get rage
     }
 
 
