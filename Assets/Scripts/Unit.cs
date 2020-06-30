@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using SkillStatusInfo;
+
 public class Unit : MonoBehaviour
 {
 
     #region Prefabs
-    
+
     [Header("Prefabs")]
     public GameObject status_pf;
     public GameObject skill_pf;
@@ -37,8 +39,8 @@ public class Unit : MonoBehaviour
     [SerializeField] private bool can_play;
 
     // Skills/statuses
-    [SerializeField] private List<GameObject> statuses = new List<GameObject>();
-    [SerializeField] private List<GameObject> skills = new List<GameObject>();
+    [SerializeField] public List<GameObject> statuses = new List<GameObject>();
+    [SerializeField] public List<GameObject> skills = new List<GameObject>();
 
     #region Delegates
 
@@ -76,11 +78,11 @@ public class Unit : MonoBehaviour
     {
         armor += change;
     }
-
     public void update_attack(int change)
     {
         base_damage += change;
     }
+
 
     #endregion 
 
@@ -109,37 +111,26 @@ public class Unit : MonoBehaviour
         {
             Debug.Log("Something went horribly wrong with instantiating a unit." + this.GetInstanceID());
         }
-        
+
     }
 
 
     #region General
 
     // Do things at the start of the turn
-    public void turn_start ()
+    public void turn_start()
     {
-        // Number of expired statuses
-        int num_expired = 0;
-        
-        // Apply Status effects on the start of the turn
-        foreach (GameObject status in statuses) {
-            status.GetComponent<Status>().apply_status_effect();
-            if (status.GetComponent<Status>().expired) num_expired = num_expired + 1;
-        }
 
-        // Remove expired statuses
-        for (int i = 0; i <= num_expired; i++)
+        // Update cooldowns of the skills
+        foreach (GameObject skill in skills)
         {
-            foreach(GameObject status in statuses)
-            {
-                if (status.GetComponent<Status>().expired) { 
-                    statuses.Remove(status);
-                    Destroy(status);
-                    break;
-                }
-            }
+            skill.GetComponent<Skill>().update_cooldown();
         }
 
+        // Apply Status effects on the start of the turn, update durations and remove the expired ones
+        apply_status_effects();
+        update_status_durations();
+        remove_expired_statuses();
 
         // Activate AI if it is not the player controlled unit's turn
         if (can_play && !is_player) do_ai();
@@ -148,7 +139,72 @@ public class Unit : MonoBehaviour
         if (!can_play) TurnManager.instance.end_turn(this);
     }
 
-    // Check the incoming damage, and modify it based on the subscribers response.
+    // Apply status effects
+    public void apply_status_effects()
+    {
+        foreach (GameObject status in statuses)
+        {
+            status.GetComponent<Status>().apply_status_effect();
+        }
+    }
+
+    // Update duration of the statuses
+    public void update_status_durations(int change = -1)
+    {
+        foreach (GameObject status in statuses)
+        {
+            status.GetComponent<Status>().update_duration(change);
+        }
+    }
+
+     // Expired Status check
+    public void remove_expired_statuses() {
+        // Number of expired statuses
+        int num_expired = 0;
+
+        // Check for the expired ones
+        foreach (GameObject status in statuses)
+        {
+            if (status.GetComponent<Status>().expired) num_expired = num_expired + 1;
+        }
+
+        // Remove expired statuses
+        for (int i = 0; i <= num_expired; i++)
+        {
+            foreach (GameObject status in statuses)
+            {
+                if (status.GetComponent<Status>().expired)
+                {
+                    statuses.Remove(status);
+                    Destroy(status);
+                    break;
+                }
+            }
+        }
+    }
+
+    // Pick status types
+    public List<GameObject> pick_statuses_by_type(StatusChoice status_type)
+    {
+        List<GameObject> temp = new List<GameObject>();
+
+        if (status_type == SkillStatusInfo.StatusChoice.ALL) return statuses;
+
+        else
+        {
+            foreach (GameObject status in statuses)
+            {
+                if (status_type == SkillStatusInfo.StatusChoice.POSITIVE && status_type == status.GetComponent<Status>().stat_gen.type) temp.Add(status);
+                else if (status_type == SkillStatusInfo.StatusChoice.NEGATIVE && status_type == status.GetComponent<Status>().stat_gen.type) temp.Add(status);
+            }
+
+            return temp;
+        }
+
+    }
+
+
+    // Receive the incoming damage, and modify it based on the armor, subscribers response etc..
     public void receive_damage (int incoming_damage, bool is_primary = true, bool is_status = false, Unit source_unit = null)
     {
 
@@ -191,6 +247,14 @@ public class Unit : MonoBehaviour
         else rage_cur += rage;
     }
 
+    public void update_ap(int change)
+    {
+        if (ap_cur + change > ap_max) ap_cur = ap_max;
+        else if (ap_cur + ap_max < 0) ap_cur = 0;
+        else ap_cur += ap_max;
+    }
+
+
     void death()
     {
         // ADD death animation
@@ -222,7 +286,7 @@ public class Unit : MonoBehaviour
 
     #region Status
 
-    void add_status (string Status_name)
+    public void add_status (string Status_name)
     {
         // Instantiate a new status, fetching it from the StatusManager and add it to the list of active statuses of this unit
         statuses.Add(StatusManager.instance.add_status(Status_name, this));       
@@ -299,7 +363,7 @@ public class Unit : MonoBehaviour
     public bool is_skill_usable(Skill skill)
     {
         // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
-        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > rage_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur != 0 || skill.is_condition_met() ) return false; 
+        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > rage_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur > 0 ) return false; 
         // Else, return true
         else return true;
     }

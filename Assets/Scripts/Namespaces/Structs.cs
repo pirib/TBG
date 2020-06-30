@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 
+// Custom
+using Charge;
+using Targeting;
+using SkillStatusInfo;
+
 namespace Structs
 {
 
@@ -16,7 +21,7 @@ namespace Structs
     [System.Serializable]
     public struct StatGen
     {
-        public bool buff;           // true - positive effect, flase - negative
+        public StatusChoice type;           // true - positive effect, flase - negative
         public int duration;        // the duration of the 
         public int damage_turn;     // Damage dealt per turn
         public int damage_end;      // Damage dealt at the end of its duration
@@ -62,13 +67,14 @@ namespace Structs
 
         #endregion
 
-        #region Skills
+    #region Skills
 
-        [System.Serializable]
+    [System.Serializable]
     public struct SkillGen
     {
         public int cooldown;
         public int cooldown_cur;
+        public TargetingType targeting_mode;
     }
 
     [System.Serializable]
@@ -80,7 +86,8 @@ namespace Structs
     }
 
     [System.Serializable]
-    public struct SkillGain{
+    public struct SkillGain
+    {
         public int hp;
         public int ap;
         public int rage;
@@ -98,7 +105,42 @@ namespace Structs
     {
         public bool deal_damage;
         public bool use_base_attack;
-        public int damage_modifier; // modifies the base attack by adding this to the final output
+        public int damage_modifier;     // modifies the base attack by adding this to the final output
+        public bool vampire_attack;     // heal the caster by the final damage output
+    }
+
+    [System.Serializable]
+    public struct SkillChargeInfo
+    {
+        public bool chargeable;
+        public int charge_lvl;
+
+        public ChargeCondition charge_condition;
+        public ChargeMode charge_mode;
+        
+        public string status;       // Applied if charge_mode is set to STATUS
+        public int value;
+    }
+
+
+    [System.Serializable]
+    public struct SkillAdvanced
+    {
+        public int cooldown_change;         // How change the cooldown
+        public StatusChoice status_type;    // Which Status type to affect (positive, negative, all)
+        public bool remove;                 // Remove statuses?
+        
+        public bool count;                  // Counts the types of statuses
+        
+        public bool deal_damage;            // Deal Damage based on the number of statuses
+
+        public bool heal_self;              // Heal yourself based on the number of statuses
+
+        public int skill_cooldown;          // Change all skills cooldown by this value
+
+        public bool swap;
+        public StatusChoice status_swap_self;
+        public StatusChoice status_swap_target;
     }
 
     #endregion

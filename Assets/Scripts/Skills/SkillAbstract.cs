@@ -11,7 +11,6 @@ public class SkillAbstract : ScriptableObject
 {
     #region Inspector Parameters
 
-
     public Universal universal;
 
     public SkillGen general;
@@ -20,20 +19,14 @@ public class SkillAbstract : ScriptableObject
 
     public SkillGain gain;
 
-    public SkillStatusInfo status_info;
+    public Structs.SkillStatusInfo status;
+
+    public SkillChargeInfo charge;
+
+    public SkillAdvanced skill_advanced;
 
     public SkillDamageInfo damage_info;
 
-    [SerializeField] public TargetingType targeting_mode = TargetingType.SINGLE;
-
     #endregion
-
-
-    // Get information about how much damage this skill deals
-    public int get_damage(int unit_base_damage)
-    {
-        return Convert.ToInt32(damage_info.deal_damage) * (unit_base_damage + damage_info.damage_modifier);
-    }
-
 
 }

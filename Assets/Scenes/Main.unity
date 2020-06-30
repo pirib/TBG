@@ -166,6 +166,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 754964268165450688, guid: 4613f1cd8ec86ca49b848e3abea46228,
         type: 3}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: hp_max
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: hp_cur
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: can_play
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9156189042939805340, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: m_LocalPosition.x

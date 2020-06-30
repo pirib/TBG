@@ -57,8 +57,6 @@ public class Status : MonoBehaviour
         // Apply per turn negative effects
         if (stat_gen.rage_turn < 0) unit.update_rage(stat_gen.rage_turn);
 
-        // Decrrement duration by 1 and remove this status if has expired
-        update_duration(-1);
     }
 
     #region Status Duration

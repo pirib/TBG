@@ -57,11 +57,11 @@ public class SkillManager : MonoBehaviour
         new_skill.general = SkillAbstract.general;
         new_skill.cost = SkillAbstract.cost;
         new_skill.gain = SkillAbstract.gain;
-        new_skill.status_info = SkillAbstract.status_info;
+        new_skill.status = SkillAbstract.status;
+        new_skill.charge = SkillAbstract.charge;
+        new_skill.skill_advanced = SkillAbstract.skill_advanced;
         new_skill.damage_info = SkillAbstract.damage_info;
 
-        // Set Targeting type
-        new_skill.targeting_mode = SkillAbstract.targeting_mode;
     }
 
     // Adds a new Skill
