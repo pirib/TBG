@@ -140,6 +140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
+      propertyPath: skills.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
       propertyPath: status
       value: 
       objectReference: {fileID: 754964268165450688, guid: 4613f1cd8ec86ca49b848e3abea46228,
@@ -5063,6 +5068,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 243243717}
+  queue_prefab: {fileID: 754964268165450688, guid: 0945e81741bb4b1488583823a00052d9,
+    type: 3}
   queue: []
   pointer: 0
 --- !u!114 &674610848
@@ -5137,9 +5144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory:
-  - {fileID: 11400000, guid: 5d367de7353d557478ac024244c77c60, type: 2}
-  - {fileID: 11400000, guid: 5d367de7353d557478ac024244c77c60, type: 2}
-  - {fileID: 11400000, guid: 5d367de7353d557478ac024244c77c60, type: 2}
   - {fileID: 11400000, guid: 5d367de7353d557478ac024244c77c60, type: 2}
   - {fileID: 11400000, guid: 5d367de7353d557478ac024244c77c60, type: 2}
   - {fileID: 11400000, guid: 5d367de7353d557478ac024244c77c60, type: 2}

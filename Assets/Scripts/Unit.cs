@@ -295,9 +295,16 @@ public class Unit : MonoBehaviour
 
     #region Skill
 
-    // TODO move this to skill manager
+    // Cleans and Places players skills
     private void set_player_skills()
     {
+        Debug.Log("Removing old player skills");
+        for (int skill_index = skills.Count-1; skill_index >= 0; skill_index -- )
+        {
+            if (skills[skill_index] != null) Destroy(skills[skill_index]);
+        }
+
+        Debug.Log("Setting player skills");
         // Add all skills for each Relic in users inventory
         foreach (Relic relic in Inventory.instance.inventory)
         {
@@ -307,13 +314,13 @@ public class Unit : MonoBehaviour
                 skills.Add(SkillManager.instance.add_skill( skill_name, this) );
             }
         }
-        
+
+        Debug.Log("Aligning player skills.");
+
         float skill_icon_height = 28;
+        float start_point = Mathf.Floor((Camera.main.orthographicSize - skill_icon_height - (Camera.main.orthographicSize*2 - skills.Count * skill_icon_height/2)/2));
 
-        float start_point = Mathf.Floor(( Camera.main.orthographicSize*2 - skills.Count * (skill_icon_height)) / 2 - Camera.main.orthographicSize/2 );
-
-
-        int i = 1;
+        int i = 0;
         foreach (GameObject Skill in skills)
         {
             float x;
@@ -321,16 +328,16 @@ public class Unit : MonoBehaviour
             Skill skill_script = Skill.GetComponent<Skill>();
 
             // Even ones stay on the left
-            if (i % 2 != 0)
+            if (i % 2 == 0)
             {
                 x = -Mathf.Floor ( Camera.main.aspect * Camera.main.orthographicSize) + skill_icon_height/2 + 8 ;
-                y = -Mathf.Floor((start_point + i * (skill_icon_height/2) ));
+                y = Mathf.Floor((start_point - i * (skill_icon_height/2) ));
                 if (skill_script.charge.chargeable) skill_script.charge_ui.transform.position = new Vector3(-9.5f, -9.5f); 
             }
             else // Odd ones are nudged to the right
             {
                 x = -Mathf.Floor( Camera.main.aspect * Camera.main.orthographicSize) + skill_icon_height + 8;
-                y = -Mathf.Floor(start_point + i * (skill_icon_height/2));
+                y = Mathf.Floor(start_point - i * (skill_icon_height/2));
                 if (skill_script.charge.chargeable) skill_script.charge_ui.transform.position = new Vector3( 9.5f, 9.5f);
             }
 

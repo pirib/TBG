@@ -27,9 +27,9 @@ public class EnemySpawn : MonoBehaviour
 
 
         // TODO this is where the random generator will kick in
-        Unit new_unit = Instantiate(unit) as Unit;
-        temp.Add(new_unit);
-        
+        temp.Add(Instantiate(unit) as Unit);
+
+
         // Return a list full of enemies
         return temp;
     }

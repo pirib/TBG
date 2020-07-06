@@ -17,6 +17,7 @@ public class TurnManager : MonoBehaviour
 
     [Header("Handlers")]
     [SerializeField] private Unit player;
+    [SerializeField] private GameObject queue_prefab;
     public List<Unit> queue = new List<Unit>();
 
     [SerializeField] private int pointer = 0;
@@ -49,12 +50,34 @@ public class TurnManager : MonoBehaviour
     {
         // Add player 
         queue.Add(player);
+        
         // TODO check if there are better ways of doing this
         foreach (Unit unit in EnemySpawn.instance.spawn_enemies()) queue.Add(unit);
+        
         // Set pointer to 0
         pointer = 0;
-        Debug.Log(queue.Count);
-    }
+        
+        Debug.Log("Queue initialized.");
+
+        // Aligning the Game Objects on the right side
+        float queue_bg = 24;
+        float start_point = Mathf.Floor( (Camera.main.orthographicSize - 15 - (Camera.main.orthographicSize*2 - queue.Count * queue_bg)/2 ) );
+        Debug.Log(start_point);
+
+
+        int i = 0;
+        foreach (Unit unit in queue) {
+            GameObject new_queue = Instantiate(queue_prefab);  
+
+            float x = Mathf.Floor(Camera.main.aspect * Camera.main.orthographicSize) - queue_bg + 8;
+            float y = Mathf.Floor((start_point - i * (queue_bg)));
+
+            new_queue.transform.position = new Vector3(x,y);
+
+            i++;
+        }
+
+        }
 
     // Used when a unit should be removed from the queue / death
     public void remove_from_queue(Unit unit)
