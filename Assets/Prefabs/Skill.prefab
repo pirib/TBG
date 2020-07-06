@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 754964268165450719}
-  - component: {fileID: 4229222503418303562}
+  - component: {fileID: 3984853556160788421}
   - component: {fileID: 6380776714397829766}
   m_Layer: 0
   m_Name: Skill
@@ -27,13 +27,14 @@ Transform:
   m_GameObject: {fileID: 754964268165450688}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6436912693752288268}
+  - {fileID: 6066841033938239912}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4229222503418303562
+--- !u!212 &3984853556160788421
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9bf3c3dc65a05c540b51665cd74f67e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0aeb6f4f97dd514ea081a1f6c2a0f12, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1.75, y: 1.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -102,6 +103,7 @@ MonoBehaviour:
   general:
     cooldown: 0
     cooldown_cur: 0
+    targeting_mode: 0
   cost:
     ap_cost: 0
     hp_cost: 0
@@ -110,14 +112,119 @@ MonoBehaviour:
     hp: 0
     ap: 0
     rage: 0
-  status_info:
+  status:
     apply_status: 0
     status_name: 
+  charge:
+    chargeable: 0
+    charge_lvl: 0
+    charge_condition: 0
+    charge_mode: 0
+    status: 
+    value: 0
+  skill_advanced:
+    cooldown_change: 0
+    status_type: 0
+    remove: 0
+    count: 0
+    deal_damage: 0
+    heal_self: 0
+    skill_cooldown: 0
+    swap: 0
+    status_swap_self: 0
+    status_swap_target: 0
   damage_info:
     deal_damage: 0
     use_base_attack: 0
     damage_modifier: 0
-  targeting_mode: 0
+    vampire_attack: 0
+  owner_unit: {fileID: 0}
+  charge_ui: {fileID: 4857446585910211542}
+  charge0: {fileID: 21300000, guid: fbfc372968fb4bb4da7591fdf9431533, type: 3}
+  charge1: {fileID: 21300000, guid: f42134d889ffa9f4196f50dec4576aba, type: 3}
+  charge2: {fileID: 21300000, guid: 0158a837fbdd50541b38eea0974ec2c7, type: 3}
+  charge3: {fileID: 21300000, guid: b47af8a42640cf84db0121a4942ed91f, type: 3}
+--- !u!1 &4857446585910211542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6066841033938239912}
+  - component: {fileID: 7758292818435633814}
+  m_Layer: 0
+  m_Name: Charge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6066841033938239912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4857446585910211542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 754964268165450719}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7758292818435633814
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4857446585910211542}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: fbfc372968fb4bb4da7591fdf9431533, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.15, y: 0.15}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &5341476753858078858
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +300,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.28, y: 0.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0

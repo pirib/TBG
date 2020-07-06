@@ -35,7 +35,6 @@ public class Unit : MonoBehaviour
     [SerializeField] private int rage_max;
 
     [SerializeField] private int armor;
-    [SerializeField] private bool is_melee;
     [SerializeField] private bool can_play;
 
     // Skills/statuses
@@ -120,7 +119,6 @@ public class Unit : MonoBehaviour
     // Do things at the start of the turn
     public void turn_start()
     {
-
         // Update cooldowns of the skills
         foreach (GameObject skill in skills)
         {
@@ -297,21 +295,51 @@ public class Unit : MonoBehaviour
 
     #region Skill
 
+    // TODO move this to skill manager
     private void set_player_skills()
     {
+        // Add all skills for each Relic in users inventory
         foreach (Relic relic in Inventory.instance.inventory)
         {
             foreach (string skill_name in relic.skills)
             {
                 // TODO change skills
-                skills.Add(SkillManager.instance.add_skill( skill_name , this) );
+                skills.Add(SkillManager.instance.add_skill( skill_name, this) );
             }
         }
+        
+        float skill_icon_height = 28;
 
-        // TODO center skill on the vertical axis
+        float start_point = Mathf.Floor(( Camera.main.orthographicSize*2 - skills.Count * (skill_icon_height)) / 2 - Camera.main.orthographicSize/2 );
 
+
+        int i = 1;
+        foreach (GameObject Skill in skills)
+        {
+            float x;
+            float y;
+            Skill skill_script = Skill.GetComponent<Skill>();
+
+            // Even ones stay on the left
+            if (i % 2 != 0)
+            {
+                x = -Mathf.Floor ( Camera.main.aspect * Camera.main.orthographicSize) + skill_icon_height/2 + 8 ;
+                y = -Mathf.Floor((start_point + i * (skill_icon_height/2) ));
+                if (skill_script.charge.chargeable) skill_script.charge_ui.transform.position = new Vector3(-9.5f, -9.5f); 
+            }
+            else // Odd ones are nudged to the right
+            {
+                x = -Mathf.Floor( Camera.main.aspect * Camera.main.orthographicSize) + skill_icon_height + 8;
+                y = -Mathf.Floor(start_point + i * (skill_icon_height/2));
+                if (skill_script.charge.chargeable) skill_script.charge_ui.transform.position = new Vector3( 9.5f, 9.5f);
+            }
+
+            Skill.transform.position = new Vector3( x, y );
+            i++;
+        } 
     }
 
+    // TODO move this to skill manager
     private void set_enemy_skills ()
     {
         // TODO add nemy skills based on the name of the enemy

@@ -29,11 +29,28 @@ public class Skill : MonoBehaviour
     #endregion
 
     #region
-    public Unit owner_unit;
+
     #endregion
 
-    #region
+    #region Handlers
+    [Header("Handlers")]
+    public Unit owner_unit;
+    public GameObject charge_ui;
 
+    [SerializeField] private Sprite charge0;
+    [SerializeField] private Sprite charge1;
+    [SerializeField] private Sprite charge2;
+    [SerializeField] private Sprite charge3;
+    #endregion
+
+
+    private void Start()
+    {
+        // Disable the charge_ui
+        if (!charge.chargeable) charge_ui.SetActive(false);    
+
+
+    }
 
     public void execute_skill(List<Unit> targets)
     {
@@ -132,9 +149,9 @@ public class Skill : MonoBehaviour
                 foreach (GameObject status in unit.get_statuses())
                     owner_unit.add_status(status.get)
             }*/
-            
+
             // Deal Damage
-            if (damage_info.deal_damage) unit.receive_damage(total_damage); 
+            if (damage_info.deal_damage) unit.receive_damage(total_damage);
 
         }
 
@@ -152,6 +169,8 @@ public class Skill : MonoBehaviour
 
     #region Skill execution helpers
 
+
+    #region Charge
 
     #endregion
 

@@ -68,7 +68,7 @@ public class SkillManager : MonoBehaviour
     public GameObject add_skill(string Skill_name, Unit unit)
     {
         // Instantiate a skill object
-        GameObject new_skill = Instantiate(skill, unit.gameObject.transform);
+        GameObject new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
 
         // Get the specified skillAbstract based on the Skill_name
         SkillAbstract skillAbstract = get_SkillAbstract_byName(Skill_name);

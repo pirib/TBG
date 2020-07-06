@@ -18,6 +18,8 @@ MonoBehaviour:
     icon: {fileID: 0}
   general:
     cooldown: 1
+    cooldown_cur: 0
+    targeting_mode: 0
   cost:
     ap_cost: 0
     hp_cost: 0
@@ -26,11 +28,29 @@ MonoBehaviour:
     hp: 0
     ap: 0
     rage: 0
-  status_info:
-    apply_status: 1
-    status_name: Frozen
+  status:
+    apply_status: 0
+    status_name: 
+  charge:
+    chargeable: 1
+    charge_lvl: 0
+    charge_condition: 0
+    charge_mode: 0
+    status: 
+    value: 0
+  skill_advanced:
+    cooldown_change: 0
+    status_type: 0
+    remove: 0
+    count: 0
+    deal_damage: 0
+    heal_self: 0
+    skill_cooldown: 0
+    swap: 0
+    status_swap_self: 0
+    status_swap_target: 0
   damage_info:
     deal_damage: 1
     use_base_attack: 0
     damage_modifier: 1
-  targeting_mode: 0
+    vampire_attack: 0
