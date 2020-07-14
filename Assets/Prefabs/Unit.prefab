@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9156189042939805339}
   - component: {fileID: 453331554841532801}
   - component: {fileID: 8582006379483458189}
+  - component: {fileID: 6217121093679712159}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -45,16 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e93875c5ad90845b4dd1602dafd098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status: {fileID: 754964268165450688, guid: 4613f1cd8ec86ca49b848e3abea46228, type: 3}
+  status_pf: {fileID: 0}
+  skill_pf: {fileID: 0}
   is_player: 0
-  attack_basic: 0
-  hp: 0
-  hp_max: 0
-  rage: 0
+  enemy_name: 
+  ap_cur: 0
+  ap_max: 0
+  base_damage: 0
+  hp_cur: 3
+  hp_max: 3
+  rage_cur: 0
   rage_max: 0
   armor: 0
-  is_melee: 0
   can_play: 0
+  statuses: []
+  skills: []
 --- !u!95 &453331554841532801
 Animator:
   serializedVersion: 3
@@ -124,3 +130,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &6217121093679712159
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156189042939805338}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 8.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 24, y: 17}
+    newSize: {x: 0.75, y: 0.53125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 24, y: 17}
+  m_EdgeRadius: 0

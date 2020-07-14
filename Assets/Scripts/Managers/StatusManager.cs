@@ -78,6 +78,8 @@ public class StatusManager : MonoBehaviour
         // Assign statusAbstract parameters to a status new_status
         assign_status_parameters(ref statusAbstract, ref new_status, ref unit);
 
+        new_status.GetComponent<Status>().unit = unit;
+
         // Return the new_status to the Unit, so it knows what new Status it has
         return new_status;
     }

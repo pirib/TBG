@@ -15,10 +15,14 @@ public class TurnManager : MonoBehaviour
 
     #endregion 
 
+
+
     [Header("Handlers")]
-    [SerializeField] private Unit player;
+
+    public Unit player;
     [SerializeField] private GameObject queue_prefab;
     public List<Unit> queue = new List<Unit>();
+    public List<GameObject> queue_GUI = new List<GameObject>();
 
     [SerializeField] private int pointer = 0;
 
@@ -56,35 +60,55 @@ public class TurnManager : MonoBehaviour
         
         // Set pointer to 0
         pointer = 0;
-        
+
+        set_queue_GUI();
+
         Debug.Log("Queue initialized.");
-
-        // Aligning the Game Objects on the right side
-        float queue_bg = 24;
-        float start_point = Mathf.Floor( (Camera.main.orthographicSize - 15 - (Camera.main.orthographicSize*2 - queue.Count * queue_bg)/2 ) );
-        Debug.Log(start_point);
-
-
-        int i = 0;
-        foreach (Unit unit in queue) {
-            GameObject new_queue = Instantiate(queue_prefab);  
-
-            float x = Mathf.Floor(Camera.main.aspect * Camera.main.orthographicSize) - queue_bg + 8;
-            float y = Mathf.Floor((start_point - i * (queue_bg)));
-
-            new_queue.transform.position = new Vector3(x,y);
-
-            i++;
-        }
-
         }
 
     // Used when a unit should be removed from the queue / death
     public void remove_from_queue(Unit unit)
     {
+        // Remove the unit from the queue
         queue.Remove(unit);
+
+        // Remove it from the queue's GUI
+        set_queue_GUI();
+
+        // Destroy the unit itself
+        Destroy(unit.gameObject);
+
     }
 
+    private void set_queue_GUI()
+    {
+        // Remove the old Queue
+        foreach (GameObject queue in queue_GUI) Destroy(queue);
+        queue_GUI.Clear();
+
+        // Aligning the Game Objects on the right side
+        float queue_bg = 24;
+        float start_point = Mathf.Floor((Camera.main.orthographicSize - 15 - (Camera.main.orthographicSize * 2 - queue.Count * queue_bg) / 2));
+
+
+        int i = 0;
+        foreach (Unit unit in queue)
+        {
+            // Instantiate the queue prefab
+            GameObject new_queue = Instantiate(queue_prefab);
+
+            // Update the list holding all the references to the GUI
+            queue_GUI.Add(new_queue);
+
+            // Align
+            float x = Mathf.Floor(Camera.main.aspect * Camera.main.orthographicSize) - queue_bg + 8;
+            float y = Mathf.Floor((start_point - i * (queue_bg)));
+            
+            new_queue.transform.position = new Vector3(x, y, -i);
+
+            i++;
+        }
+    }
 
     #endregion
 

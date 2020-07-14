@@ -46,14 +46,14 @@ public class Skill : MonoBehaviour
 
     private void Start()
     {
-        // Disable the charge_ui
+        // Disable the charge_ui for those skills that are not chargeable
         if (!charge.chargeable) charge_ui.SetActive(false);    
-
 
     }
 
     public void execute_skill(List<Unit> targets)
     {
+
         // Variables used in executing the skill
         int total_damage = 0;
 
@@ -85,7 +85,7 @@ public class Skill : MonoBehaviour
         general.cooldown_cur = general.cooldown;
 
         // Pay the cost
-        if (hp_cost != 0) owner_unit.receive_damage(hp_cost);
+        if (hp_cost != 0) owner_unit.receive_damage(hp_cost, true, false, owner_unit);
         if (ap_cost != 0) owner_unit.update_ap(ap_cost);
         if (rage_cost != 0) owner_unit.update_rage(rage_cost);
 
@@ -129,7 +129,7 @@ public class Skill : MonoBehaviour
                 else temp_count += unit.statuses.Count;
 
                 // Deal Damage / Heal
-                if (skill_advanced.deal_damage) unit.receive_damage(temp_count);
+                if (skill_advanced.deal_damage) unit.receive_damage(temp_count, true, false, owner_unit);
                 if (skill_advanced.heal_self) owner_unit.heal(temp_count);
             }
 
@@ -151,7 +151,7 @@ public class Skill : MonoBehaviour
             }*/
 
             // Deal Damage
-            if (damage_info.deal_damage) unit.receive_damage(total_damage);
+            if (damage_info.deal_damage) unit.receive_damage(total_damage, true, false, owner_unit);
 
         }
 
@@ -168,7 +168,6 @@ public class Skill : MonoBehaviour
     }
 
     #region Skill execution helpers
-
 
     #region Charge
 
@@ -193,6 +192,17 @@ public class Skill : MonoBehaviour
 
         // ADD update the cooldown text / make the skill executable
 
+    }
+
+    #endregion
+
+
+    #region GUI
+
+    private void OnMouseDown()
+    {
+        Debug.Log("The player is considering using the skill " + this.universal.name);
+        SkillTarget.instance.set_skill(this);
     }
 
     #endregion

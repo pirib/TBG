@@ -76,6 +76,9 @@ public class SkillManager : MonoBehaviour
         // Assign skillAbstract parameters to a skill new_skill
         assign_skill_parameters(ref skillAbstract, ref new_skill);
 
+        // Assign owner unit
+        new_skill.GetComponent<Skill>().owner_unit = unit;
+
         // Return the new_skill to the Unit, so it knows what new Skill it has
         return new_skill;
     }

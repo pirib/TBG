@@ -29,15 +29,15 @@ MonoBehaviour:
     ap: 0
     rage: 0
   status:
-    apply_status: 0
-    status_name: 
+    apply_status: 1
+    status_name: Chosen
   charge:
     chargeable: 1
     charge_lvl: 0
-    charge_condition: 0
+    charge_condition: 3
     charge_mode: 0
     status: 
-    value: 0
+    value: 2
   skill_advanced:
     cooldown_change: 0
     status_type: 0

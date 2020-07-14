@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 754964268165450719}
   - component: {fileID: 3984853556160788421}
   - component: {fileID: 6380776714397829766}
+  - component: {fileID: 6905754941513559098}
   m_Layer: 0
   m_Name: Skill
   m_TagString: Untagged
@@ -144,6 +145,39 @@ MonoBehaviour:
   charge1: {fileID: 21300000, guid: f42134d889ffa9f4196f50dec4576aba, type: 3}
   charge2: {fileID: 21300000, guid: 0158a837fbdd50541b38eea0974ec2c7, type: 3}
   charge3: {fileID: 21300000, guid: b47af8a42640cf84db0121a4942ed91f, type: 3}
+--- !u!60 &6905754941513559098
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754964268165450688}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 28, y: 28}
+    newSize: {x: 1.75, y: 1.75}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -3, y: 14}
+      - {x: -14, y: 3}
+      - {x: -14, y: -3}
+      - {x: -3, y: -14}
+      - {x: 3, y: -14}
+      - {x: 14, y: -3}
+      - {x: 14, y: 3}
+      - {x: 3, y: 14}
 --- !u!1 &4857446585910211542
 GameObject:
   m_ObjectHideFlags: 0

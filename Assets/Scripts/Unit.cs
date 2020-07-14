@@ -91,10 +91,16 @@ public class Unit : MonoBehaviour
     void Start()
     {
 
+        // TODO move this to a separate function?
+        Vector2 S = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+        gameObject.GetComponent<BoxCollider2D>().size = S;
+        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2( 0 , S.y /2);
+
+
+
         // Debugging stuff
         if (is_player)
         {
-            add_status("Chosen");
             add_status("Regenerating");
         }
 
@@ -106,7 +112,10 @@ public class Unit : MonoBehaviour
         } else if (!is_player) {
             set_enemy_skills();
             this.tag = "Enemy";
-        } else
+            add_status("Enraged");
+
+        }
+        else
         {
             Debug.Log("Something went horribly wrong with instantiating a unit." + this.GetInstanceID());
         }
@@ -216,10 +225,12 @@ public class Unit : MonoBehaviour
             else hp_cur -= 1;
 
             // Let the subscribers know that the damage has been received
-            if (is_primary) OnDamageReceived(source_unit);       
+            if (is_primary)
+                try { OnDamageReceived(this); } 
+                catch { Debug.Log("Exceptions - no subscribers were found, skipping OnDamageReceived"); }
         } 
-        else
-        {
+        else {
+            
             Debug.Log("Something tried attacking with 0 damage" + source_unit.name);
         }
 
@@ -235,7 +246,11 @@ public class Unit : MonoBehaviour
         if (hp_cur + hp > hp_max) hp_cur = hp_max;
         else hp_cur = hp_cur + hp;
 
-        if (is_primary) OnHealingReceieved();
+        // Let the subscribers know that the healing has been done
+        if (is_primary)
+            try { OnHealingReceieved(); }
+            catch { Debug.Log("Exceptions - no subscribers were found, skipping OnHealingReceived"); }
+
     }
 
     public void update_rage (int rage, bool is_primary = true)
@@ -266,9 +281,7 @@ public class Unit : MonoBehaviour
             // Remove from the queue
             TurnManager.instance.remove_from_queue(this);
 
-            // Destroy the object 
-            Destroy(this.gameObject);
-
+          
         }
         // If the player died
         else
@@ -280,7 +293,6 @@ public class Unit : MonoBehaviour
     }
 
     #endregion
-
 
     #region Status
 
@@ -318,7 +330,7 @@ public class Unit : MonoBehaviour
         Debug.Log("Aligning player skills.");
 
         float skill_icon_height = 28;
-        float start_point = Mathf.Floor((Camera.main.orthographicSize - skill_icon_height - (Camera.main.orthographicSize*2 - skills.Count * skill_icon_height/2)/2));
+        float start_point = Mathf.Floor((Camera.main.orthographicSize - (Camera.main.orthographicSize*2 - skills.Count * skill_icon_height/2)/2));
 
         int i = 0;
         foreach (GameObject Skill in skills)
@@ -410,12 +422,26 @@ public class Unit : MonoBehaviour
         int temp = 0;
         foreach (GameObject skill in skills)
         {
-            if (is_skill_usable(skill.GetComponent<Skill>())) temp+=1;
+            if (is_skill_usable(skill.GetComponent<Skill>())) temp += 1;
         }
         return temp;
     }
 
     #endregion
+
+    #endregion
+
+    #region GUI
+
+    private void OnMouseDown()
+    {
+        if (SkillTarget.instance.is_actively_targeting() && SkillTarget.instance.in_the_targeting_pool(this)) {
+            SkillTarget.instance.execute(this);
+            return;
+        }
+        Debug.Log("Unit " + this.name + " is being clicked while not in a targeting pool");
+        Debug.Log("Is actively targeting set: " + SkillTarget.instance.is_actively_targeting() );
+    }
 
     #endregion
 
