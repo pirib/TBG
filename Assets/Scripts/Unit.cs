@@ -450,7 +450,7 @@ public class Unit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            this.gameObject.GetComponent<Animator>();
+            this.gameObject.GetComponent<Animator>().Play("attack") ;
         }
     }
 
