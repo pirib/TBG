@@ -445,4 +445,13 @@ public class Unit : MonoBehaviour
 
     #endregion
 
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            this.gameObject.GetComponent<Animator>();
+        }
+    }
+
 }

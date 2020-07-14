@@ -29,10 +29,10 @@ MonoBehaviour:
     ap: 0
     rage: 0
   status:
-    apply_status: 1
+    apply_status: 0
     status_name: Chosen
   charge:
-    chargeable: 1
+    chargeable: 0
     charge_lvl: 0
     charge_condition: 3
     charge_mode: 0
