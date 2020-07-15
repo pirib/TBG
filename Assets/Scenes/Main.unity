@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 59749e6fd88c8bd43ba86075e8907590, type: 2}
+    - target: {fileID: 8582006379483458189, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9156189042939805338, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: m_Name
@@ -191,6 +196,22 @@ PrefabInstance:
       propertyPath: can_play
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: anim_handler.idle
+      value: 
+      objectReference: {fileID: 7400000, guid: 8962879999b4c8049b6bb14ebf197448, type: 2}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: anim_handler.attack
+      value: 
+      objectReference: {fileID: 7400000, guid: 0d3dcc847cc9e4242a551917119b6a83, type: 2}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: CharacterAnimator
+      value: 
+      objectReference: {fileID: 22100000, guid: bb9db4698c30f3c49a49263b6eadd1e1,
+        type: 2}
     - target: {fileID: 9156189042939805340, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: m_LocalPosition.x

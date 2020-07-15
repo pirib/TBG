@@ -16,7 +16,6 @@ public class TurnManager : MonoBehaviour
     #endregion 
 
 
-
     [Header("Handlers")]
 
     public Unit player;
@@ -135,7 +134,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (Unit enemy in queue)
         {
-            if (!enemy.is_player && enemy.enemy_name == enemy_name) return true;
+            if (!enemy.is_player() && enemy.enemy_name() == enemy_name) return true;
         }
 
         return false;
@@ -148,7 +147,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (Unit enemy in queue)
         {
-            if ( !enemy.is_player && temp.get_current_hp() > enemy.get_current_hp() ) temp = enemy;            
+            if ( !enemy.is_player() && temp.get_current_hp() > enemy.get_current_hp() ) temp = enemy;            
         }
 
         return temp;
@@ -160,7 +159,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (Unit enemy in queue)
         {
-            if (!enemy.is_player && temp.get_current_hp() < enemy.get_current_hp()) temp = enemy;
+            if (!enemy.is_player() && temp.get_current_hp() < enemy.get_current_hp()) temp = enemy;
         }
 
         return temp;
@@ -173,7 +172,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (Unit enemy in queue)
         {
-            if (!enemy.is_player && temp.get_base_dmg() < enemy.get_base_dmg()) temp = enemy;
+            if (!enemy.is_player() && temp.get_base_dmg() < enemy.get_base_dmg()) temp = enemy;
         }
 
         return temp;

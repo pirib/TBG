@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using SkillStatusInfo;
+using Structs;
 
 public class Unit : MonoBehaviour
 {
@@ -17,29 +18,15 @@ public class Unit : MonoBehaviour
 
     [Header("General")]
     /* General Unit properties */
-    public bool is_player;
-    public string enemy_name;
+    public UnitGen general;
 
-    // AP
-    [SerializeField] private int ap_cur;
-    [SerializeField] private int ap_max;
+    /* Unit Parameters */
+    public UnitParam unit_param;
 
-    // Attack
-    [SerializeField] private int base_damage;
 
-    // Defence
-    [SerializeField] private int hp_cur;
-    [SerializeField] private int hp_max;
-
-    [SerializeField] private int rage_cur;
-    [SerializeField] private int rage_max;
-
-    [SerializeField] private int armor;
-    [SerializeField] private bool can_play;
-
-    // Skills/statuses
+    // Statuses
     [SerializeField] public List<GameObject> statuses = new List<GameObject>();
-    [SerializeField] public List<GameObject> skills = new List<GameObject>();
+  
 
     #region Delegates
 
@@ -57,29 +44,38 @@ public class Unit : MonoBehaviour
 
     public int get_current_hp()
     {
-        return hp_cur;
+        return unit_param.hp_cur;
     }
 
     public int get_base_dmg()
     {
-        return base_damage;
+        return unit_param.base_damage;
     }
 
     public int get_armor()
     {
-        return armor;
+        return unit_param.armor;
     }
 
+    public bool is_player()
+    {
+        return general.is_player;
+    }
+    
+    public string enemy_name()
+    {
+        return general.enemy_name;
+    }
     #endregion
 
     #region Setters
     public void update_armor(int change)
     {
-        armor += change;
+        unit_param.armor += change;
     }
     public void update_attack(int change)
     {
-        base_damage += change;
+        unit_param.base_damage += change;
     }
 
 
@@ -91,25 +87,26 @@ public class Unit : MonoBehaviour
     void Start()
     {
 
-        // TODO move this to a separate function?
-        Vector2 S = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
-        gameObject.GetComponent<BoxCollider2D>().size = S;
-        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2( 0 , S.y /2);
+        // Set correct animations
+        set_unit_animations();
+
+        // Set a correct collider
+        set_collider();
 
 
 
         // Debugging stuff
-        if (is_player)
+        if (general.is_player)
         {
             add_status("Regenerating");
         }
 
         // Prep the units by setting the right skills, statuses, etc.
-        if (is_player)
+        if (general.is_player)
         {
             set_player_skills();
             this.tag = "Player";
-        } else if (!is_player) {
+        } else if (!general.is_player) {
             set_enemy_skills();
             this.tag = "Enemy";
             add_status("Enraged");
@@ -123,13 +120,13 @@ public class Unit : MonoBehaviour
     }
 
 
-    #region General
+    #region inGame
 
     // Do things at the start of the turn
     public void turn_start()
     {
         // Update cooldowns of the skills
-        foreach (GameObject skill in skills)
+        foreach (GameObject skill in general.skills)
         {
             skill.GetComponent<Skill>().update_cooldown();
         }
@@ -140,10 +137,10 @@ public class Unit : MonoBehaviour
         remove_expired_statuses();
 
         // Activate AI if it is not the player controlled unit's turn
-        if (can_play && !is_player) do_ai();
+        if (general.can_play && !general.is_player) do_ai();
 
         // End Turn automatically if the player cannot play (is stunned)
-        if (!can_play) TurnManager.instance.end_turn(this);
+        if (!general.can_play) TurnManager.instance.end_turn(this);
     }
 
     // Apply status effects
@@ -219,10 +216,10 @@ public class Unit : MonoBehaviour
             // ADD receive_damage animation
 
             // If damage source is status, ignore armor
-            if (is_status) hp_cur = hp_cur - incoming_damage; 
+            if (is_status) unit_param.hp_cur = unit_param.hp_cur - incoming_damage; 
             // Check with the armor 
-            else if (incoming_damage > armor) hp_cur = hp_cur - incoming_damage + armor;
-            else hp_cur -= 1;
+            else if (incoming_damage > unit_param.armor) unit_param.hp_cur = unit_param.hp_cur - incoming_damage + unit_param.armor;
+            else unit_param.hp_cur -= 1;
 
             // Let the subscribers know that the damage has been received
             if (is_primary)
@@ -237,14 +234,14 @@ public class Unit : MonoBehaviour
         //ADD update HUD
 
         // Call death function if the hp falls below 1
-        if (hp_cur < 1) this.death();  
+        if (unit_param.hp_cur < 1) this.death();  
     }
 
     public void heal ( int hp, bool is_primary = true)
     {
         Debug.Log(this.name + " unit is healing by " + hp);
-        if (hp_cur + hp > hp_max) hp_cur = hp_max;
-        else hp_cur = hp_cur + hp;
+        if (unit_param.hp_cur + hp > unit_param.hp_max) unit_param.hp_cur = unit_param.hp_max;
+        else unit_param.hp_cur = unit_param.hp_cur + hp;
 
         // Let the subscribers know that the healing has been done
         if (is_primary)
@@ -255,16 +252,16 @@ public class Unit : MonoBehaviour
 
     public void update_rage (int rage, bool is_primary = true)
     {
-        if (rage_cur + rage > rage_max) rage_cur = rage_max;
-        else if (rage_cur + rage < 0) rage_cur = 0;
-        else rage_cur += rage;
+        if (unit_param.rage_cur + rage > unit_param.rage_max) unit_param.rage_cur = unit_param.rage_max;
+        else if (unit_param.rage_cur + rage < 0) unit_param.rage_cur = 0;
+        else unit_param.rage_cur += rage;
     }
 
     public void update_ap(int change)
     {
-        if (ap_cur + change > ap_max) ap_cur = ap_max;
-        else if (ap_cur + ap_max < 0) ap_cur = 0;
-        else ap_cur += ap_max;
+        if (unit_param.ap_cur + change > unit_param.ap_max) unit_param.ap_cur = unit_param.ap_max;
+        else if (unit_param.ap_cur + unit_param.ap_max < 0) unit_param.ap_cur = 0;
+        else unit_param.ap_cur += unit_param.ap_max;
     }
 
 
@@ -273,7 +270,7 @@ public class Unit : MonoBehaviour
         // ADD death animation
 
         // If not a player
-        if (!is_player)
+        if (!general.is_player)
         {
 
             // ADD Get xp/gold/update stats/whatever
@@ -311,9 +308,9 @@ public class Unit : MonoBehaviour
     private void set_player_skills()
     {
         Debug.Log("Removing old player skills");
-        for (int skill_index = skills.Count-1; skill_index >= 0; skill_index -- )
+        for (int skill_index = general.skills.Count-1; skill_index >= 0; skill_index -- )
         {
-            if (skills[skill_index] != null) Destroy(skills[skill_index]);
+            if (general.skills[skill_index] != null) Destroy(general.skills[skill_index]);
         }
 
         Debug.Log("Setting player skills");
@@ -323,17 +320,17 @@ public class Unit : MonoBehaviour
             foreach (string skill_name in relic.skills)
             {
                 // TODO change skills
-                skills.Add(SkillManager.instance.add_skill( skill_name, this) );
+                general.skills.Add(SkillManager.instance.add_skill( skill_name, this) );
             }
         }
 
         Debug.Log("Aligning player skills.");
 
         float skill_icon_height = 28;
-        float start_point = Mathf.Floor((Camera.main.orthographicSize - (Camera.main.orthographicSize*2 - skills.Count * skill_icon_height/2)/2));
+        float start_point = Mathf.Floor((Camera.main.orthographicSize - (Camera.main.orthographicSize*2 - general.skills.Count * skill_icon_height/2)/2));
 
         int i = 0;
-        foreach (GameObject Skill in skills)
+        foreach (GameObject Skill in general.skills)
         {
             float x;
             float y;
@@ -397,20 +394,20 @@ public class Unit : MonoBehaviour
     
     public bool is_rage_lower_than (int rage)
     {
-        if (rage_cur < rage) return true;
+        if (unit_param.rage_cur < rage) return true;
         else return false;
     }
 
     public bool is_hp_lower_than(int hp)
     {
-        if (hp_cur < hp) return true;
+        if (unit_param.hp_cur < hp) return true;
         else return false;
     }
 
     public bool is_skill_usable(Skill skill)
     {
         // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
-        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > rage_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur > 0 ) return false; 
+        if (skill.cost.ap_cost > unit_param.ap_cur || skill.cost.rage_cost > unit_param.rage_cur || skill.cost.rage_cost > unit_param.hp_cur || skill.general.cooldown_cur > 0 ) return false; 
         // Else, return true
         else return true;
     }
@@ -420,7 +417,7 @@ public class Unit : MonoBehaviour
     public int usable_skills()
     {
         int temp = 0;
-        foreach (GameObject skill in skills)
+        foreach (GameObject skill in general.skills)
         {
             if (is_skill_usable(skill.GetComponent<Skill>())) temp += 1;
         }
@@ -431,7 +428,7 @@ public class Unit : MonoBehaviour
 
     #endregion
 
-    #region GUI
+    #region Controller
 
     private void OnMouseDown()
     {
@@ -445,12 +442,32 @@ public class Unit : MonoBehaviour
 
     #endregion
 
+    #region Animation
+    private void set_unit_animations()
+    {
+        this.gameObject.GetComponent<Animator>().runtimeAnimatorController = general.unit_animations;
+    }
+
+    #endregion
+
+    #region Collider
+
+    private void set_collider()
+    {
+        Vector2 S = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+        gameObject.GetComponent<BoxCollider2D>().size = S;
+        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, S.y / 2);
+    }
+
+    #endregion
+
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            this.gameObject.GetComponent<Animator>().Play("attack") ;
+          
+            
         }
     }
 

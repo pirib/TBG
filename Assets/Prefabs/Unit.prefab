@@ -46,8 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e93875c5ad90845b4dd1602dafd098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  status_pf: {fileID: 0}
-  skill_pf: {fileID: 0}
+  status_pf: {fileID: 754964268165450688, guid: eca6988d0c5110949b242b8f3bb40e77,
+    type: 3}
+  skill_pf: {fileID: 754964268165450688, guid: 4613f1cd8ec86ca49b848e3abea46228, type: 3}
+  unit_animations: {fileID: 0}
   is_player: 0
   enemy_name: 
   ap_cur: 0
@@ -71,7 +73,7 @@ Animator:
   m_GameObject: {fileID: 9156189042939805338}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0f0f7feafb6f2c849b132243dc89f380, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -146,7 +148,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 8.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 25, y: 17}
     newSize: {x: 0.25, y: 0.17}
     adaptiveTilingThreshold: 0.5
