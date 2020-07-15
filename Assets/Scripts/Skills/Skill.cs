@@ -162,7 +162,7 @@ public class Skill : MonoBehaviour
 
         // Skills cooldown
         if (skill_advanced.skill_cooldown != 0)
-            foreach (GameObject skill in owner_unit.general.skills)
+            foreach (GameObject skill in owner_unit.skills)
                 skill.GetComponent<Skill>().update_cooldown(skill_advanced.skill_cooldown);
 
     }

@@ -151,11 +151,10 @@ namespace Structs
     public struct UnitGen
     {
         public bool is_player;
-        public string enemy_name;   // Enemy name 
 
         public AnimatorOverrideController unit_animations;
 
-        public List<GameObject> skills;
+        public List<string> skills;
 
         public bool can_play;
     }

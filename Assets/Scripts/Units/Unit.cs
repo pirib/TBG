@@ -17,6 +17,9 @@ public class Unit : MonoBehaviour
     #endregion
 
     [Header("General")]
+    /* Universal properties */
+    public Universal universal;
+
     /* General Unit properties */
     public UnitGen general;
 
@@ -26,7 +29,7 @@ public class Unit : MonoBehaviour
 
     // Statuses
     [SerializeField] public List<GameObject> statuses = new List<GameObject>();
-  
+    [SerializeField] public List<GameObject> skills = new List<GameObject>();
 
     #region Delegates
 
@@ -64,7 +67,7 @@ public class Unit : MonoBehaviour
     
     public string enemy_name()
     {
-        return general.enemy_name;
+        return universal.name;
     }
     #endregion
 
@@ -126,7 +129,7 @@ public class Unit : MonoBehaviour
     public void turn_start()
     {
         // Update cooldowns of the skills
-        foreach (GameObject skill in general.skills)
+        foreach (GameObject skill in skills)
         {
             skill.GetComponent<Skill>().update_cooldown();
         }
@@ -310,7 +313,7 @@ public class Unit : MonoBehaviour
         Debug.Log("Removing old player skills");
         for (int skill_index = general.skills.Count-1; skill_index >= 0; skill_index -- )
         {
-            if (general.skills[skill_index] != null) Destroy(general.skills[skill_index]);
+            if (general.skills[skill_index] != null) Destroy(skills[skill_index]);
         }
 
         Debug.Log("Setting player skills");
@@ -320,7 +323,7 @@ public class Unit : MonoBehaviour
             foreach (string skill_name in relic.skills)
             {
                 // TODO change skills
-                general.skills.Add(SkillManager.instance.add_skill( skill_name, this) );
+                skills.Add(SkillManager.instance.add_skill( skill_name, this) );
             }
         }
 
@@ -330,7 +333,7 @@ public class Unit : MonoBehaviour
         float start_point = Mathf.Floor((Camera.main.orthographicSize - (Camera.main.orthographicSize*2 - general.skills.Count * skill_icon_height/2)/2));
 
         int i = 0;
-        foreach (GameObject Skill in general.skills)
+        foreach (GameObject Skill in skills)
         {
             float x;
             float y;
@@ -417,7 +420,7 @@ public class Unit : MonoBehaviour
     public int usable_skills()
     {
         int temp = 0;
-        foreach (GameObject skill in general.skills)
+        foreach (GameObject skill in skills)
         {
             if (is_skill_usable(skill.GetComponent<Skill>())) temp += 1;
         }
