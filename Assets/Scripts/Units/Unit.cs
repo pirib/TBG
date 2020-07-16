@@ -457,9 +457,8 @@ public class Unit : MonoBehaviour
 
     private void set_collider()
     {
-        Vector2 S = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
-        gameObject.GetComponent<BoxCollider2D>().size = S;
-        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, S.y / 2);
+        gameObject.GetComponent<BoxCollider2D>().size = new Vector2(32,32);
+        gameObject.GetComponent<BoxCollider2D>().offset = new Vector2(0, 8);
     }
 
     #endregion

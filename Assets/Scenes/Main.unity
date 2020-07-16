@@ -138,6 +138,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8582006379483458189, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582006379483458189, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582006379483458189, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582006379483458189, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9156189042939805338, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: m_Name
@@ -200,7 +220,7 @@ PrefabInstance:
         type: 3}
       propertyPath: anim_handler.idle
       value: 
-      objectReference: {fileID: 7400000, guid: 8962879999b4c8049b6bb14ebf197448, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: anim_handler.attack
@@ -209,6 +229,12 @@ PrefabInstance:
     - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: CharacterAnimator
+      value: 
+      objectReference: {fileID: 22100000, guid: bb9db4698c30f3c49a49263b6eadd1e1,
+        type: 2}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: general.unit_animations
       value: 
       objectReference: {fileID: 22100000, guid: bb9db4698c30f3c49a49263b6eadd1e1,
         type: 2}
