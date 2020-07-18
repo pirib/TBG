@@ -36,8 +36,12 @@ public class EnemySpawn : MonoBehaviour
 
         // TODO remove this, Temporarily used for testing
         temp.Add(spawn_enemy("Cyclops"));
-        temp.Add(spawn_enemy("Torturer"));
         temp.Add(spawn_enemy("Doctor"));
+        temp.Add(spawn_enemy("Hire Dagger"));
+        temp.Add(spawn_enemy("Torturer"));
+        temp.Add(spawn_enemy("Huldra"));
+        temp.Add(spawn_enemy("Dragoon"));
+
 
         // Return a list full of enemies
         return temp;
