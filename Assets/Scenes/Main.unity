@@ -238,6 +238,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: bb9db4698c30f3c49a49263b6eadd1e1,
         type: 2}
+    - target: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c,
+        type: 3}
+      propertyPath: universal.name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 9156189042939805340, guid: 43c88fe991aaf07409520f096097d87c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5144,14 +5149,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 9156189042939805339, guid: 43c88fe991aaf07409520f096097d87c, type: 3}
-  enemy_types: []
+  enemy_types:
+  - {fileID: 11400000, guid: 9a442458df0669b4f83585a80794acf3, type: 2}
+  - {fileID: 11400000, guid: 035c5e3d522561449b5afbefea616604, type: 2}
+  - {fileID: 11400000, guid: 943c29ff903dd504fa08c371167108fe, type: 2}
   spawn_points:
   - {fileID: 453669922}
-  - {fileID: 1863750102}
-  - {fileID: 262533574}
-  - {fileID: 693679339}
   - {fileID: 909181064}
   - {fileID: 2013982785}
+  - {fileID: 693679339}
+  - {fileID: 1863750102}
+  - {fileID: 262533574}
 --- !u!114 &674610849
 MonoBehaviour:
   m_ObjectHideFlags: 0

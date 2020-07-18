@@ -85,9 +85,8 @@ public class Unit : MonoBehaviour
     #endregion 
 
 
-
     // Start is called before the first frame update
-    void Start()
+    public void ready()
     {
 
         // Set correct animations
@@ -358,12 +357,13 @@ public class Unit : MonoBehaviour
         } 
     }
 
-    // TODO move this to skill manager
+    // Sets the enemy's skills
     private void set_enemy_skills ()
     {
-        // TODO add nemy skills based on the name of the enemy
-
-        // TODO hide those skills elsewhere
+        foreach (string skill_name in general.skills)
+        {
+            SkillManager.instance.add_skill(skill_name, this);
+        }
     }
 
     #endregion
@@ -431,7 +431,7 @@ public class Unit : MonoBehaviour
 
     #endregion
 
-    #region Controller
+    #region Controls + Targeting
 
     private void OnMouseDown()
     {
