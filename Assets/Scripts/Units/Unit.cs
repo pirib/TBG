@@ -15,6 +15,7 @@ public class Unit : MonoBehaviour
     public GameObject status_pf;
     public GameObject skill_pf;
 
+    public Tilemap hud;
 
     #endregion
 
@@ -29,7 +30,14 @@ public class Unit : MonoBehaviour
     public UnitParam unit_param;
 
 
-    // Statuses
+    /* In-Fight params */
+    private int hp_cur;
+    private int ap_cur;
+    private int rage_cur;
+
+    public bool can_play;
+
+    // Statuses and skills
     [SerializeField] public List<GameObject> statuses = new List<GameObject>();
     [SerializeField] public List<GameObject> skills = new List<GameObject>();
 
@@ -50,7 +58,7 @@ public class Unit : MonoBehaviour
     // TODO change current to cur
     public int get_current_hp()
     {
-        return unit_param.hp_cur;
+        return hp_cur;
     }
     public int get_max_hp()
     {
@@ -59,7 +67,7 @@ public class Unit : MonoBehaviour
 
     public int get_cur_rage()
     {
-        return unit_param.rage_cur;
+        return rage_cur;
     }
     public int get_max_rage()
     {
@@ -68,7 +76,7 @@ public class Unit : MonoBehaviour
 
     public int get_cur_ap()
     {
-        return unit_param.ap_cur;
+        return ap_cur;
     }
     public int get_max_ap()
     {
@@ -124,6 +132,11 @@ public class Unit : MonoBehaviour
         // Set a correct collider
         set_collider();
 
+        // Equalize cur with max
+        set_unit_params();
+
+        // Set the hud
+        update_hud();
 
 
         // Debugging stuff
@@ -156,22 +169,32 @@ public class Unit : MonoBehaviour
     // Do things at the start of the turn
     public void turn_start()
     {
+
         // Update cooldowns of the skills
-        foreach (GameObject skill in skills)
-        {
-            skill.GetComponent<Skill>().update_cooldown();
-        }
+        update_skills_cooldown();
 
         // Apply Status effects on the start of the turn, update durations and remove the expired ones
         apply_status_effects();
         update_status_durations();
         remove_expired_statuses();
 
+        // Set the AP
+        update_ap(unit_param.ap_max);
+
         // Activate AI if it is not the player controlled unit's turn
-        if (general.can_play && !general.is_player) do_ai();
+        if (can_play && !general.is_player) do_ai();
 
         // End Turn automatically if the player cannot play (is stunned)
-        if (!general.can_play) TurnManager.instance.end_turn(this);
+        if (!can_play) TurnManager.instance.end_turn(this);
+    }
+
+    // Update skill cooldiwn
+    public void update_skills_cooldown()
+    {
+        foreach (GameObject skill in skills)
+        {
+            skill.GetComponent<Skill>().update_cooldown();
+        }
     }
 
     // Apply status effects
@@ -180,6 +203,9 @@ public class Unit : MonoBehaviour
         foreach (GameObject status in statuses)
         {
             status.GetComponent<Status>().apply_status_effect();
+
+            // Update the hud after every status update
+            update_hud();
         }
     }
 
@@ -238,7 +264,6 @@ public class Unit : MonoBehaviour
 
     }
 
-
     // Receive the incoming damage, and modify it based on the armor, subscribers response etc..
     public void receive_damage (int incoming_damage, bool is_primary = true, bool is_status = false, Unit source_unit = null)
     {
@@ -247,10 +272,10 @@ public class Unit : MonoBehaviour
             // ADD receive_damage animation
 
             // If damage source is status, ignore armor
-            if (is_status) unit_param.hp_cur = unit_param.hp_cur - incoming_damage; 
+            if (is_status) hp_cur = hp_cur - incoming_damage; 
             // Check with the armor 
-            else if (incoming_damage > unit_param.armor) unit_param.hp_cur = unit_param.hp_cur - incoming_damage + unit_param.armor;
-            else unit_param.hp_cur -= 1;
+            else if (incoming_damage > unit_param.armor) hp_cur = hp_cur - incoming_damage + unit_param.armor;
+            else hp_cur -= 1;
 
             // Let the subscribers know that the damage has been received
             if (is_primary)
@@ -262,39 +287,52 @@ public class Unit : MonoBehaviour
             Debug.Log("Something tried attacking with 0 damage" + source_unit.name);
         }
 
-        //ADD update HUD
+        //Update the Hud
+        update_hud();
 
         // Call death function if the hp falls below 1
-        if (unit_param.hp_cur < 1) this.death();  
+        if (hp_cur < 1) this.death();  
     }
 
     public void heal ( int hp, bool is_primary = true)
     {
         Debug.Log(this.name + " unit is healing by " + hp);
-        if (unit_param.hp_cur + hp > unit_param.hp_max) unit_param.hp_cur = unit_param.hp_max;
-        else unit_param.hp_cur = unit_param.hp_cur + hp;
+        if (hp_cur + hp > unit_param.hp_max) hp_cur = unit_param.hp_max;
+        else hp_cur = hp_cur + hp;
 
         // Let the subscribers know that the healing has been done
         if (is_primary)
             try { OnHealingReceieved(); }
             catch { Debug.Log("Exceptions - no subscribers were found, skipping OnHealingReceived"); }
 
+        // Update the hud
+        update_hud();
     }
 
     public void update_rage (int rage, bool is_primary = true)
     {
-        if (unit_param.rage_cur + rage > unit_param.rage_max) unit_param.rage_cur = unit_param.rage_max;
-        else if (unit_param.rage_cur + rage < 0) unit_param.rage_cur = 0;
-        else unit_param.rage_cur += rage;
+        if (hp_cur + rage > unit_param.rage_max) hp_cur = unit_param.rage_max;
+        else if (hp_cur + rage < 0) hp_cur = 0;
+        else hp_cur += rage;
+
+        // Update the hud
+        update_hud();
     }
 
     public void update_ap(int change)
     {
-        if (unit_param.ap_cur + change > unit_param.ap_max) unit_param.ap_cur = unit_param.ap_max;
-        else if (unit_param.ap_cur + unit_param.ap_max < 0) unit_param.ap_cur = 0;
-        else unit_param.ap_cur += unit_param.ap_max;
+        if (ap_cur + change > unit_param.ap_max) ap_cur = unit_param.ap_max;
+        else if (ap_cur + unit_param.ap_max < 0) ap_cur = 0;
+        else ap_cur += unit_param.ap_max;
+
+        // Update the hud
+        update_hud();
     }
 
+    private void update_hud()
+    {
+        HUD_control.instance.update_hud(this, hud );
+    }
 
     void death()
     {
@@ -319,6 +357,16 @@ public class Unit : MonoBehaviour
         }
 
     }
+
+    void set_unit_params()
+    {
+        hp_cur = unit_param.hp_max;
+        ap_cur = unit_param.ap_max;
+        rage_cur = unit_param.rage_max;
+
+        can_play = true;
+    }
+
 
     #endregion
 
@@ -426,20 +474,20 @@ public class Unit : MonoBehaviour
     
     public bool is_rage_lower_than (int rage)
     {
-        if (unit_param.rage_cur < rage) return true;
+        if (hp_cur < rage) return true;
         else return false;
     }
 
     public bool is_hp_lower_than(int hp)
     {
-        if (unit_param.hp_cur < hp) return true;
+        if (hp_cur < hp) return true;
         else return false;
     }
 
     public bool is_skill_usable(Skill skill)
     {
         // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
-        if (skill.cost.ap_cost > unit_param.ap_cur || skill.cost.rage_cost > unit_param.rage_cur || skill.cost.rage_cost > unit_param.hp_cur || skill.general.cooldown_cur > 0 ) return false; 
+        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > hp_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur > 0 ) return false; 
         // Else, return true
         else return true;
     }

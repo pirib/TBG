@@ -156,22 +156,18 @@ namespace Structs
 
         public List<string> skills;
 
-        public bool can_play;
     }
 
     [System.Serializable]
     public struct UnitParam
     {
         // HP
-        public int hp_cur;
         public int hp_max;
 
         // Rage
-        public int rage_cur;
         public int rage_max;
 
         // AP
-        public int ap_cur;
         public int ap_max;
 
         // Attack

@@ -20,13 +20,9 @@ MonoBehaviour:
     is_player: 0
     unit_animations: {fileID: 22100000, guid: d24a688a753a5c44cb577017ce52f8ec, type: 2}
     skills: []
-    can_play: 0
   unit_param:
-    hp_cur: 0
-    hp_max: 0
-    rage_cur: 0
-    rage_max: 0
-    ap_cur: 0
-    ap_max: 0
+    hp_max: 7
+    rage_max: 3
+    ap_max: 1
     base_damage: 0
     armor: 0

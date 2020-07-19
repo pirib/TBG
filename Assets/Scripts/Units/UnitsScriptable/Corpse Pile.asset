@@ -20,13 +20,12 @@ MonoBehaviour:
     is_player: 0
     unit_animations: {fileID: 0}
     skills: []
-    can_play: 0
   unit_param:
-    hp_cur: 0
-    hp_max: 0
+    hp_cur: 5
+    hp_max: 5
     rage_cur: 0
     rage_max: 0
     ap_cur: 0
     ap_max: 0
     base_damage: 0
-    armor: 0
+    armor: 5
