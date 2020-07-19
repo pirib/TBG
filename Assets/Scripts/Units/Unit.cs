@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 using SkillStatusInfo;
 using Structs;
@@ -13,6 +14,7 @@ public class Unit : MonoBehaviour
     [Header("Prefabs")]
     public GameObject status_pf;
     public GameObject skill_pf;
+
 
     #endregion
 
@@ -45,10 +47,35 @@ public class Unit : MonoBehaviour
 
     #region Getters
 
+    // TODO change current to cur
     public int get_current_hp()
     {
         return unit_param.hp_cur;
     }
+    public int get_max_hp()
+    {
+        return unit_param.hp_max;
+    }
+
+    public int get_cur_rage()
+    {
+        return unit_param.rage_cur;
+    }
+    public int get_max_rage()
+    {
+        return unit_param.rage_max;
+    }
+
+    public int get_cur_ap()
+    {
+        return unit_param.ap_cur;
+    }
+    public int get_max_ap()
+    {
+        return unit_param.ap_max;
+    }
+
+
 
     public int get_base_dmg()
     {
@@ -85,8 +112,10 @@ public class Unit : MonoBehaviour
     #endregion 
 
 
+    public void ready() { }
+
     // Start is called before the first frame update
-    public void ready()
+    public void Start()
     {
 
         // Set correct animations
@@ -464,13 +493,5 @@ public class Unit : MonoBehaviour
     #endregion
 
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-          
-            
-        }
-    }
 
 }

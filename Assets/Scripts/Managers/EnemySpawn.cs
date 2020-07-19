@@ -35,13 +35,14 @@ public class EnemySpawn : MonoBehaviour
 
 
         // TODO remove this, Temporarily used for testing
+        /*
         temp.Add(spawn_enemy("Cyclops"));
         temp.Add(spawn_enemy("Doctor"));
         temp.Add(spawn_enemy("Hire Dagger"));
         temp.Add(spawn_enemy("Torturer"));
         temp.Add(spawn_enemy("Huldra"));
         temp.Add(spawn_enemy("Dragoon"));
-
+        */
 
         // Return a list full of enemies
         return temp;
@@ -59,9 +60,6 @@ public class EnemySpawn : MonoBehaviour
 
         // Assign unit parameters
         assign_unit_parameters(ref unitAbstract, ref new_enemy);
-
-        // Tell enemy to get all stuff ready
-        new_enemy.ready();
 
         return new_enemy;
     }
