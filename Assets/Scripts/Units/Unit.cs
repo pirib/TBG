@@ -31,9 +31,9 @@ public class Unit : MonoBehaviour
 
 
     /* In-Fight params */
-    private int hp_cur;
-    private int ap_cur;
-    private int rage_cur;
+    [SerializeField] private int hp_cur;
+    [SerializeField] private int ap_cur;
+    [SerializeField] private int rage_cur;
 
     public bool can_play;
 
@@ -82,7 +82,6 @@ public class Unit : MonoBehaviour
     {
         return unit_param.ap_max;
     }
-
 
 
     public int get_base_dmg()
@@ -142,7 +141,7 @@ public class Unit : MonoBehaviour
         // Debugging stuff
         if (general.is_player)
         {
-            add_status("Regenerating");
+
         }
 
         // Prep the units by setting the right skills, statuses, etc.
@@ -153,7 +152,6 @@ public class Unit : MonoBehaviour
         } else if (!general.is_player) {
             set_enemy_skills();
             this.tag = "Enemy";
-            add_status("Enraged");
 
         }
         else
@@ -311,9 +309,9 @@ public class Unit : MonoBehaviour
 
     public void update_rage (int rage, bool is_primary = true)
     {
-        if (hp_cur + rage > unit_param.rage_max) hp_cur = unit_param.rage_max;
-        else if (hp_cur + rage < 0) hp_cur = 0;
-        else hp_cur += rage;
+        if (rage_cur + rage >= unit_param.rage_max) rage_cur = unit_param.rage_max;
+        else if (rage_cur + rage < 0) rage_cur = 0;
+        else rage_cur = rage_cur + rage;
 
         // Update the hud
         update_hud();
@@ -321,15 +319,15 @@ public class Unit : MonoBehaviour
 
     public void update_ap(int change)
     {
-        if (ap_cur + change > unit_param.ap_max) ap_cur = unit_param.ap_max;
-        else if (ap_cur + unit_param.ap_max < 0) ap_cur = 0;
-        else ap_cur += unit_param.ap_max;
+        if (ap_cur + change >= unit_param.ap_max) ap_cur =+ unit_param.ap_max;
+        else if (ap_cur + change < 0) Debug.Log("Ap dropped below zero. Unit " + this.universal.name );
+        else ap_cur = ap_cur + change;
 
         // Update the hud
         update_hud();
     }
 
-    private void update_hud()
+    public void update_hud()
     {
         HUD_control.instance.update_hud(this, hud );
     }
@@ -362,7 +360,7 @@ public class Unit : MonoBehaviour
     {
         hp_cur = unit_param.hp_max;
         ap_cur = unit_param.ap_max;
-        rage_cur = unit_param.rage_max;
+        rage_cur = 0;
 
         can_play = true;
     }
@@ -455,7 +453,7 @@ public class Unit : MonoBehaviour
         // Use skills while there are any usable ones. First skills have higher priority.
         while (usable_skills() > 0)
         {
-            // Loop through the skill
+            // Loop through the skills
             foreach (GameObject skill in skills)
             {
                 if (is_skill_usable(skill.GetComponent<Skill>())) { 
@@ -484,14 +482,6 @@ public class Unit : MonoBehaviour
         else return false;
     }
 
-    public bool is_skill_usable(Skill skill)
-    {
-        // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
-        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > hp_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur > 0 ) return false; 
-        // Else, return true
-        else return true;
-    }
-
 
     // Get the number of usable skills
     public int usable_skills()
@@ -503,6 +493,16 @@ public class Unit : MonoBehaviour
         }
         return temp;
     }
+
+    // Checks if the skill is usable - e.g. the unit can pay its costs, the cooldown is higher than zero, and the condition check returns true
+    public bool is_skill_usable(Skill skill)
+    {
+        // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
+        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > hp_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur > 0) return false;
+        // Else, return true
+        else return true;
+    }
+
 
     #endregion
 

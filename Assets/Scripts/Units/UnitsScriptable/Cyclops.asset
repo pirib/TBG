@@ -21,11 +21,8 @@ MonoBehaviour:
     unit_animations: {fileID: 22100000, guid: 92a54d2e6256bdd40812ba382a061a8f, type: 2}
     skills: []
   unit_param:
-    hp_cur: 10
-    hp_max: 10
-    rage_cur: 3
-    rage_max: 3
-    ap_cur: 1
+    hp_max: 7
+    rage_max: 2
     ap_max: 1
     base_damage: 0
     armor: 0

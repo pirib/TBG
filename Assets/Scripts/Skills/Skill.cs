@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using Structs;
 using Targeting;
@@ -8,7 +9,7 @@ using Charge;
 
 public class Skill : MonoBehaviour
 {
-    #region Inspector Parameters
+    #region Skill Parameters
 
     public Universal universal;
 
@@ -37,18 +38,26 @@ public class Skill : MonoBehaviour
     public Unit owner_unit;
     public GameObject charge_ui;
 
+    [Header("Not proud of it")]
     [SerializeField] private Sprite charge0;
     [SerializeField] private Sprite charge1;
     [SerializeField] private Sprite charge2;
     [SerializeField] private Sprite charge3;
+
+    [Header("Cooldown")]
+    [SerializeField] private TMPro.TextMeshPro cooldown_text;
+    [SerializeField] private SpriteRenderer cooldown_bg;
+
     #endregion
 
 
     private void Start()
     {
         // Disable the charge_ui for those skills that are not chargeable
-        if (!charge.chargeable) charge_ui.SetActive(false);    
+        if (!charge.chargeable) charge_ui.SetActive(false);
 
+        // Update the skills HUD
+        update_skill_hud();
     }
 
     public void execute_skill(List<Unit> targets)
@@ -78,7 +87,7 @@ public class Skill : MonoBehaviour
             else if (charge.charge_mode == ChargeMode.STATUS) apply_status = charge.status;
 
             // ADD change skills charge level to 0 and update ui
-
+            
         }
 
         // Set the cooldowns
@@ -86,8 +95,11 @@ public class Skill : MonoBehaviour
 
         // Pay the cost
         if (hp_cost != 0) owner_unit.receive_damage(hp_cost, true, false, owner_unit);
-        if (ap_cost != 0) owner_unit.update_ap(ap_cost);
-        if (rage_cost != 0) owner_unit.update_rage(rage_cost);
+        if (ap_cost != 0) owner_unit.update_ap(-ap_cost);
+        if (rage_cost != 0) owner_unit.update_rage(-rage_cost);
+
+        // Update the hud
+        owner_unit.update_hud();
 
         // Calculate damage output
         if (damage_info.deal_damage) total_damage = total_damage + (System.Convert.ToInt32(damage_info.use_base_attack) * owner_unit.get_base_dmg()) + damage_info.damage_modifier;
@@ -159,21 +171,19 @@ public class Skill : MonoBehaviour
         if (hp_gain > 0) owner_unit.heal(hp_gain);
         if (ap_gain > 0) owner_unit.update_ap(ap_gain);
         if (rage_gain > 0) owner_unit.update_rage(rage_gain);
-
+        
         // Skills cooldown
         if (skill_advanced.skill_cooldown != 0)
             foreach (GameObject skill in owner_unit.skills)
                 skill.GetComponent<Skill>().update_cooldown(skill_advanced.skill_cooldown);
 
+        // Update hud again
+        owner_unit.update_hud();
+
+        // Update tthe skill hud
+        update_skill_hud();
     }
 
-    #region Skill execution helpers
-
-    #region Charge
-
-    #endregion
-
-    #endregion
 
     #region General
 
@@ -192,6 +202,25 @@ public class Skill : MonoBehaviour
 
         // ADD update the cooldown text / make the skill executable
 
+    }
+
+    public void update_skill_hud()
+    {
+        if (owner_unit.is_player())
+        {
+            Debug.Log("Updating the users skill hud");
+            // ADD the code
+            if (general.cooldown_cur > 0)
+            {
+                cooldown_bg.gameObject.SetActive(true);
+                cooldown_text.text = general.cooldown_cur.ToString();
+
+            } else
+            {
+                cooldown_bg.gameObject.SetActive(false);
+            }
+
+        }
     }
 
     #endregion

@@ -74,10 +74,11 @@ public class HUD_control : MonoBehaviour
             // Set rage
             for (int i = 0; i < unit.get_max_rage(); i++) hud.SetTile(new Vector3Int(i, -1, -1), tile_enemy[3]);
             for (int i = 0; i < unit.get_cur_rage(); i++) hud.SetTile(new Vector3Int(i, -1, -1), tile_enemy[4]);
-            hud.SetTile(new Vector3Int(unit.get_max_rage(), -1, -1), tile_enemy[2]);
+            if (unit.get_max_rage() > 0) hud.SetTile(new Vector3Int(unit.get_max_rage(), -1, -1), tile_enemy[2]);
 
         }
 
     }
+
 
 }

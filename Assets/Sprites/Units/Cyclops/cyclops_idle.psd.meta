@@ -14,6 +14,18 @@ TextureImporter:
   - first:
       213: 4335410714284965644
     second: cyclops_idle_3
+  - first:
+      213: -5809581051974549974
+    second: cyclops_idle_0
+  - first:
+      213: -5244316891633927173
+    second: cyclops_idle_1
+  - first:
+      213: 3695708569306201171
+    second: cyclops_idle_2
+  - first:
+      213: -5271994728054332491
+    second: cyclops_idle_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -113,8 +125,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 362e4d3b14b709140800000000000000
-      internalID: 4724411531231814243
+      spriteID: a2e773f40d8306fa0800000000000000
+      internalID: -5809581051974549974
       vertices: []
       indices: 
       edges: []
@@ -134,8 +146,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04ac80950266bd400800000000000000
-      internalID: 349985685170080320
+      spriteID: bfb349892917837b0800000000000000
+      internalID: -5244316891633927173
       vertices: []
       indices: 
       edges: []
@@ -155,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2af1e6cc5b5fed7f0800000000000000
-      internalID: -585760740343930974
+      spriteID: 35cfcd2fc5bc94330800000000000000
+      internalID: 3695708569306201171
       vertices: []
       indices: 
       edges: []
@@ -176,8 +188,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0fb06c13197a2c30800000000000000
-      internalID: 4335410714284965644
+      spriteID: 5b3e6902abc16d6b0800000000000000
+      internalID: -5271994728054332491
       vertices: []
       indices: 
       edges: []
