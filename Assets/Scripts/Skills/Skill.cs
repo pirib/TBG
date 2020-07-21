@@ -66,16 +66,7 @@ public class Skill : MonoBehaviour
         {
             // Set the ui active
             charge_ui.SetActive(true);
-
-            // Subscribing to stuff
-            if (charge.charge_condition == ChargeCondition.DAMAGE_RECEIVE)
-                owner_unit.OnDamageReceived += OnDamageReceived;
-            else if (charge.charge_condition == ChargeCondition.HEAL_RECEIVE)
-                owner_unit.OnHealingReceieved += OnHealingReceived;
-            else if (charge.charge_condition == ChargeCondition.STATUS_RECEIVE)
-                owner_unit.OnStatusReceived += OnStatusReceived;
-
-
+            set_delegates();
 
         }
 
@@ -109,8 +100,8 @@ public class Skill : MonoBehaviour
             else if (charge.charge_mode == ChargeMode.HEAL) hp_gain = charge.value;
             else if (charge.charge_mode == ChargeMode.STATUS) apply_status = charge.status;
 
-            // ADD change skills charge level to 0 and update ui
-
+            // Setting charge lvl to 0
+            update_charge_lvl(-3);
         }
 
         // Set the cooldowns
@@ -132,8 +123,8 @@ public class Skill : MonoBehaviour
         foreach (Unit unit in targets)
         {
 
-            // Apply Status effects
-            if (status.apply_status) unit.add_status(apply_status);
+            // Apply Status effects because the skill has it, or charged skill has chanrge mode of Status
+            if (status.apply_status || (charge_lvl == 3 && charge.charge_mode == ChargeMode.STATUS) ) unit.add_status(apply_status);
 
             // Vampire attack
             if (damage_info.vampire_attack) owner_unit.heal(total_damage);
@@ -269,28 +260,48 @@ public class Skill : MonoBehaviour
 
     public void update_charge_lvl(int change = 1)
     {
-        charge_lvl = charge_lvl + change;
+        if (charge_lvl + change < 3)
+            charge_lvl = charge_lvl + change;
         update_skill_hud();
     }
 
     #endregion
 
-    #region Delegates
+    #region Skill Charge Delegates
+    void set_delegates()
+    {
+        // Subscribing to stuff
+        if (charge.charge_condition == ChargeCondition.DAMAGE_RECEIVE)
+            owner_unit.OnDamageReceived += OnDamageReceived;
+        else if (charge.charge_condition == ChargeCondition.HEAL_RECEIVE)
+            owner_unit.OnHealingReceieved += OnHealingReceived;
+        else if (charge.charge_condition == ChargeCondition.STATUS_RECEIVE)
+            owner_unit.OnStatusReceived += OnStatusReceived;
+        else if (charge.charge_condition == ChargeCondition.ON_STATUS_SET)
+            owner_unit.OnStatusSet += OnStatusSet;
+    }
+
     void OnDamageReceived(Unit source_unit = null)
     {
-        charge_lvl = charge_lvl + 1;
+        update_charge_lvl();
         update_skill_hud();
     }
     
     void OnHealingReceived()
     {
-        charge_lvl = charge_lvl + 1;
+        update_charge_lvl();
         update_skill_hud();
     }
 
     void OnStatusReceived()
     {
-        charge_lvl = charge_lvl + 1;
+        update_charge_lvl();
+        update_skill_hud();
+    }
+
+    void OnStatusSet()
+    {
+        update_charge_lvl();
         update_skill_hud();
     }
 

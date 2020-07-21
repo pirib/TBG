@@ -55,6 +55,10 @@ public class Unit : MonoBehaviour
     public delegate void status_received_register();
     public event status_received_register OnStatusReceived;
 
+    // Delegate Status Receiving
+    public delegate void status_set_register();
+    public event status_set_register OnStatusSet;
+
     #endregion
 
     #region Getters
@@ -361,7 +365,7 @@ public class Unit : MonoBehaviour
 
     void set_unit_params()
     {
-       //hp_cur = unit_param.hp_max;
+        hp_cur = unit_param.hp_max;
         ap_cur = unit_param.ap_max;
         rage_cur = 0;
 
@@ -373,14 +377,24 @@ public class Unit : MonoBehaviour
 
     #region Status
 
-    public void add_status (string Status_name)
+    public void add_status (string Status_name, Unit source_unit = null)
     {
         // Instantiate a new status, fetching it from the StatusManager and add it to the list of active statuses of this unit
         statuses.Add(StatusManager.instance.add_status(Status_name, this));      
         
         // Alert subscribers
+        
+        // The unit has received a status
         try { OnStatusReceived(); }
         catch { Debug.Log("Exceptions - no subscribers were found, skipping OnStatusReceived"); }
+
+        // The player has set status on an enemy
+        if (source_unit.is_player() && source_unit != this)
+        {
+            try { OnStatusSet(); }
+            catch { Debug.Log("Exceptions - no subscribers were found, skipping OnStatusReceived"); }
+        }
+
     }
 
 
