@@ -109,6 +109,7 @@ public class Status : MonoBehaviour
         if (sub_dmg_receive.reflect_damage > 0 && source_unit != null) source_unit.receive_damage(sub_dmg_receive.reflect_damage, false);
     }
 
+    // Delegate - triggers when the Unit receives healing from any source
     void OnHealingReceived ()
     {
 

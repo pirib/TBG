@@ -48,16 +48,36 @@ public class Skill : MonoBehaviour
     [SerializeField] private SpriteRenderer cooldown_bg;
 
     [Header("In game")]
-    private int cooldown_cur = 0;
-    private int charge_lvl = 0;
+    [SerializeField] private int cooldown_cur = 0;
+    [SerializeField] private int charge_lvl = 0;
 
     #endregion
 
+    #region Delegates
+
+
+
+    #endregion
 
     private void Start()
     {
         // Disable the charge_ui for those skills that are not chargeable
-        if (!charge.chargeable) charge_ui.SetActive(false);
+        if (charge.chargeable)
+        {
+            // Set the ui active
+            charge_ui.SetActive(true);
+
+            // Subscribing to stuff
+            if (charge.charge_condition == ChargeCondition.DAMAGE_RECEIVE)
+                owner_unit.OnDamageReceived += OnDamageReceived;
+            else if (charge.charge_condition == ChargeCondition.HEAL_RECEIVE)
+                owner_unit.OnHealingReceieved += OnHealingReceived;
+            else if (charge.charge_condition == ChargeCondition.STATUS_RECEIVE)
+                owner_unit.OnStatusReceived += OnStatusReceived;
+
+
+
+        }
 
         // Update the skills HUD
         update_skill_hud();
@@ -250,6 +270,27 @@ public class Skill : MonoBehaviour
     public void update_charge_lvl(int change = 1)
     {
         charge_lvl = charge_lvl + change;
+        update_skill_hud();
+    }
+
+    #endregion
+
+    #region Delegates
+    void OnDamageReceived(Unit source_unit = null)
+    {
+        charge_lvl = charge_lvl + 1;
+        update_skill_hud();
+    }
+    
+    void OnHealingReceived()
+    {
+        charge_lvl = charge_lvl + 1;
+        update_skill_hud();
+    }
+
+    void OnStatusReceived()
+    {
+        charge_lvl = charge_lvl + 1;
         update_skill_hud();
     }
 

@@ -51,6 +51,10 @@ public class Unit : MonoBehaviour
     public delegate void heal_register();
     public event heal_register OnHealingReceieved;
 
+    // Delegate Status Receiving
+    public delegate void status_received_register();
+    public event status_received_register OnStatusReceived;
+
     #endregion
 
     #region Getters
@@ -149,6 +153,7 @@ public class Unit : MonoBehaviour
         {
             set_player_skills();
             this.tag = "Player";
+            add_status("Regenerating");
         } else if (!general.is_player) {
             set_enemy_skills();
             this.tag = "Enemy";
@@ -277,12 +282,11 @@ public class Unit : MonoBehaviour
 
             // Let the subscribers know that the damage has been received
             if (is_primary)
-                try { OnDamageReceived(this); } 
+                try { OnDamageReceived(source_unit); } 
                 catch { Debug.Log("Exceptions - no subscribers were found, skipping OnDamageReceived"); }
         } 
         else {
-            
-            Debug.Log("Something tried attacking with 0 damage" + source_unit.name);
+            Debug.Log("Something tried attacking with 0 damage. Unit name" + source_unit.name);
         }
 
         //Update the Hud
@@ -299,9 +303,8 @@ public class Unit : MonoBehaviour
         else hp_cur = hp_cur + hp;
 
         // Let the subscribers know that the healing has been done
-        if (is_primary)
-            try { OnHealingReceieved(); }
-            catch { Debug.Log("Exceptions - no subscribers were found, skipping OnHealingReceived"); }
+        try { OnHealingReceieved(); }
+        catch { Debug.Log("Exceptions - no subscribers were found, skipping OnHealingReceived"); }
 
         // Update the hud
         update_hud();
@@ -358,7 +361,7 @@ public class Unit : MonoBehaviour
 
     void set_unit_params()
     {
-        hp_cur = unit_param.hp_max;
+       //hp_cur = unit_param.hp_max;
         ap_cur = unit_param.ap_max;
         rage_cur = 0;
 
@@ -373,7 +376,11 @@ public class Unit : MonoBehaviour
     public void add_status (string Status_name)
     {
         // Instantiate a new status, fetching it from the StatusManager and add it to the list of active statuses of this unit
-        statuses.Add(StatusManager.instance.add_status(Status_name, this));       
+        statuses.Add(StatusManager.instance.add_status(Status_name, this));      
+        
+        // Alert subscribers
+        try { OnStatusReceived(); }
+        catch { Debug.Log("Exceptions - no subscribers were found, skipping OnStatusReceived"); }
     }
 
 
