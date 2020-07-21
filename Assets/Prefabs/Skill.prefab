@@ -104,8 +104,8 @@ MonoBehaviour:
     icon: {fileID: 0}
   general:
     cooldown: 0
-    cooldown_cur: 0
     targeting_mode: 0
+    skill_animation: 0
   cost:
     ap_cost: 0
     hp_cost: 0
@@ -119,7 +119,6 @@ MonoBehaviour:
     status_name: 
   charge:
     chargeable: 0
-    charge_lvl: 0
     charge_condition: 0
     charge_mode: 0
     status: 

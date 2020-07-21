@@ -29,9 +29,8 @@ public class Skill : MonoBehaviour
 
     #endregion
 
-    #region
-
-    #endregion
+    /* In-game Params */
+    [SerializeField]
 
     #region Handlers
     [Header("Handlers")]
@@ -47,6 +46,10 @@ public class Skill : MonoBehaviour
     [Header("Cooldown")]
     [SerializeField] private TMPro.TextMeshPro cooldown_text;
     [SerializeField] private SpriteRenderer cooldown_bg;
+
+    [Header("In game")]
+    private int cooldown_cur = 0;
+    private int charge_lvl = 0;
 
     #endregion
 
@@ -77,7 +80,7 @@ public class Skill : MonoBehaviour
         string apply_status = status.status_name;
 
         // If the skill is charged
-        if (charge.chargeable && charge.charge_lvl == 3) {
+        if (charge.chargeable && charge_lvl == 3) {
 
             if (charge.charge_mode == ChargeMode.DAMAGE_MODIFIER) total_damage = charge.value;
             else if (charge.charge_mode == ChargeMode.COST_AP) ap_cost = charge.value;
@@ -87,11 +90,11 @@ public class Skill : MonoBehaviour
             else if (charge.charge_mode == ChargeMode.STATUS) apply_status = charge.status;
 
             // ADD change skills charge level to 0 and update ui
-            
+
         }
 
         // Set the cooldowns
-        general.cooldown_cur = general.cooldown;
+        cooldown_cur = general.cooldown;
 
         // Pay the cost
         if (hp_cost != 0) owner_unit.receive_damage(hp_cost, true, false, owner_unit);
@@ -171,7 +174,7 @@ public class Skill : MonoBehaviour
         if (hp_gain > 0) owner_unit.heal(hp_gain);
         if (ap_gain > 0) owner_unit.update_ap(ap_gain);
         if (rage_gain > 0) owner_unit.update_rage(rage_gain);
-        
+
         // Skills cooldown
         if (skill_advanced.skill_cooldown != 0)
             foreach (GameObject skill in owner_unit.skills)
@@ -192,12 +195,12 @@ public class Skill : MonoBehaviour
         if (update_amount == 0)
         {
             Debug.Log("A skill" + universal.name + " tried updating its cooldown by 0");
-        } else if (general.cooldown_cur + update_amount < 0)
+        } else if (cooldown_cur + update_amount < 0)
         {
-            general.cooldown_cur = 0;
+            cooldown_cur = 0;
         } else
         {
-            general.cooldown_cur += update_amount;
+            cooldown_cur += update_amount;
         }
 
         // ADD update the cooldown text / make the skill executable
@@ -210,17 +213,44 @@ public class Skill : MonoBehaviour
         {
             Debug.Log("Updating the users skill hud");
             // ADD the code
-            if (general.cooldown_cur > 0)
+            if (cooldown_cur > 0)
             {
                 cooldown_bg.gameObject.SetActive(true);
-                cooldown_text.text = general.cooldown_cur.ToString();
+                cooldown_text.text = cooldown_cur.ToString();
 
             } else
             {
                 cooldown_bg.gameObject.SetActive(false);
             }
 
+            // Updating the charge
+            if (charge.chargeable)
+            {
+                SpriteRenderer temp = charge_ui.GetComponent<SpriteRenderer>();
+
+                if (charge_lvl == 0) temp.sprite = charge0;
+                else if (charge_lvl == 1) temp.sprite = charge1;
+                else if (charge_lvl == 2) temp.sprite = charge2;
+                else if (charge_lvl == 3) temp.sprite = charge3;
+                else Debug.Log("Shit went south in Skill " + universal.name + " charge value is ourside the bounds" );
+            }
+
         }
+    }
+
+    #endregion
+
+    #region Helpers
+    // Returns current cooldown value
+    public int cooldown()
+    {
+        return cooldown_cur;
+    }
+
+    public void update_charge_lvl(int change = 1)
+    {
+        charge_lvl = charge_lvl + change;
+        update_skill_hud();
     }
 
     #endregion

@@ -8,6 +8,16 @@ using SkillStatusInfo;
 
 namespace Structs
 {
+    // Enums
+    public enum SkillAnimation
+    {
+        ATTACK_NORMAL,
+        ATTACK_RAGE,
+        MAGIC_SELF,
+        MAGIC_TARGET,
+        MAGIC_MEGA
+    }
+
 
     [System.Serializable]
     public struct Universal
@@ -73,8 +83,8 @@ namespace Structs
     public struct SkillGen
     {
         public int cooldown;
-        public int cooldown_cur;
         public TargetingType targeting_mode;
+        public SkillAnimation skill_animation;
     }
 
     [System.Serializable]
@@ -113,7 +123,7 @@ namespace Structs
     public struct SkillChargeInfo
     {
         public bool chargeable;
-        public int charge_lvl;
+
 
         public ChargeCondition charge_condition;
         public ChargeMode charge_mode;

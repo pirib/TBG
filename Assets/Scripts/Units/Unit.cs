@@ -498,7 +498,7 @@ public class Unit : MonoBehaviour
     public bool is_skill_usable(Skill skill)
     {
         // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
-        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > hp_cur || skill.cost.rage_cost > hp_cur || skill.general.cooldown_cur > 0) return false;
+        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > hp_cur || skill.cost.rage_cost > hp_cur || skill.cooldown() > 0) return false;
         // Else, return true
         else return true;
     }
