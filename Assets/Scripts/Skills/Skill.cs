@@ -27,6 +27,11 @@ public class Skill : MonoBehaviour
 
     public SkillDamageInfo damage_info;
 
+    public List<pooling> pooling;
+
+    public List<picking> picking;
+
+
     #endregion
 
     /* In-game Params */
@@ -275,10 +280,8 @@ public class Skill : MonoBehaviour
             owner_unit.OnDamageReceived += OnDamageReceived;
         else if (charge.charge_condition == ChargeCondition.HEAL_RECEIVE)
             owner_unit.OnHealingReceieved += OnHealingReceived;
-        else if (charge.charge_condition == ChargeCondition.STATUS_RECEIVE)
+        else if (charge.charge_condition == ChargeCondition.STATUS_RECEIVE_POSITIVE || charge.charge_condition == ChargeCondition.STATUS_RECEIVE_NEGATIVE)
             owner_unit.OnStatusReceived += OnStatusReceived;
-        else if (charge.charge_condition == ChargeCondition.ON_STATUS_SET)
-            owner_unit.OnStatusSet += OnStatusSet;
     }
 
     void OnDamageReceived(Unit source_unit = null)
@@ -293,17 +296,46 @@ public class Skill : MonoBehaviour
         update_skill_hud();
     }
 
-    void OnStatusReceived()
+    void OnStatusReceived(SkillStatusInfo.StatusChoice status_type )
     {
-        update_charge_lvl();
+        if (status_type == SkillStatusInfo.StatusChoice.POSITIVE && charge.charge_condition == Charge.ChargeCondition.STATUS_RECEIVE_POSITIVE)
+            update_charge_lvl();
+
+        else if (status_type == SkillStatusInfo.StatusChoice.NEGATIVE && charge.charge_condition == Charge.ChargeCondition.STATUS_RECEIVE_NEGATIVE)
+            update_charge_lvl();
+ 
+        else
+            Debug.Log("Status type was " + status_type + ", but the subscriber was expecting " + charge.charge_condition);
+
         update_skill_hud();
     }
 
-    void OnStatusSet()
+
+    #endregion
+
+    #region AI
+
+    // Report back if this skill passes the condition 
+    public bool passes_condition()
     {
-        update_charge_lvl();
-        update_skill_hud();
+
+        foreach (Structs.pooling condition in pooling)
+        {
+            if (condition == Structs.pooling.CAN_PLAY )
+            {
+
+            }
+        }
+
+        return true;
     }
+
+    #region Conditions functions
+
+    
+
+    #endregion
+
 
     #endregion
 

@@ -162,6 +162,8 @@ namespace Structs
     {
         public bool is_player;
 
+        public bool is_mindless;
+
         public AnimatorOverrideController unit_animations;
 
         public List<string> skills;
@@ -188,6 +190,29 @@ namespace Structs
                
     }
 
-    #endregion 
+    #endregion
 
+    #region AI Helpers
+
+    // Conditions a unit must pass to get to the selected pool of potential targets
+    public enum pooling
+    {
+        MINDLESS_EXISTS,
+        HAS_BASE_DAMAGE,
+        NOT_DYING_THIS_TURN,
+        CAN_PLAY
+    }
+
+    // picking from a pool
+    public enum picking
+    {
+        LOWEST_HP,
+        HIGHEST_HP,
+        HIGHEST_DMG,
+        HAS_BASE_DAMAGE,
+        NOT_DYING_THIS_TURN,
+        MINDLESS
+    }
+
+    #endregion
 }

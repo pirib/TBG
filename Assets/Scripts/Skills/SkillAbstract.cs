@@ -27,6 +27,10 @@ public class SkillAbstract : ScriptableObject
 
     public SkillDamageInfo damage_info;
 
+    public List<pooling> pooling;
+
+    public List<picking> picking;
+
     #endregion
 
 }

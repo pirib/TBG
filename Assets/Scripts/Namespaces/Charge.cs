@@ -6,8 +6,8 @@ namespace Charge
     {
         DAMAGE_RECEIVE,
         HEAL_RECEIVE,
-        STATUS_RECEIVE,
-        ON_STATUS_SET
+        STATUS_RECEIVE_POSITIVE,
+        STATUS_RECEIVE_NEGATIVE
     }
 
     public enum ChargeMode

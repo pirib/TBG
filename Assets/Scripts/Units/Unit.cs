@@ -52,12 +52,8 @@ public class Unit : MonoBehaviour
     public event heal_register OnHealingReceieved;
 
     // Delegate Status Receiving
-    public delegate void status_received_register();
+    public delegate void status_received_register(SkillStatusInfo.StatusChoice status_type);
     public event status_received_register OnStatusReceived;
-
-    // Delegate Status Receiving
-    public delegate void status_set_register();
-    public event status_set_register OnStatusSet;
 
     #endregion
 
@@ -385,15 +381,9 @@ public class Unit : MonoBehaviour
         // Alert subscribers
         
         // The unit has received a status
-        try { OnStatusReceived(); }
+        try { OnStatusReceived(statuses[statuses.Count - 1].GetComponent<Status>().stat_gen.type); }
         catch { Debug.Log("Exceptions - no subscribers were found, skipping OnStatusReceived"); }
 
-        // The player has set status on an enemy
-        if (source_unit.is_player() && source_unit != this)
-        {
-            try { OnStatusSet(); }
-            catch { Debug.Log("Exceptions - no subscribers were found, skipping OnStatusReceived"); }
-        }
 
     }
 

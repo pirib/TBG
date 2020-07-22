@@ -61,11 +61,13 @@ public class SkillManager : MonoBehaviour
         new_skill.charge = SkillAbstract.charge;
         new_skill.skill_advanced = SkillAbstract.skill_advanced;
         new_skill.damage_info = SkillAbstract.damage_info;
+        new_skill.pooling = SkillAbstract.pooling;
+        new_skill.picking = SkillAbstract.picking;
 
-    }
+}
 
-    // Adds a new Skill
-    public GameObject add_skill(string Skill_name, Unit unit)
+// Adds a new Skill
+public GameObject add_skill(string Skill_name, Unit unit)
     {
         // Instantiate a skill object
         GameObject new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
