@@ -29,7 +29,7 @@ public class SkillAbstract : ScriptableObject
 
     public List<pooling> pooling;
 
-    public List<picking> picking;
+    public picking picking;
 
     #endregion
 

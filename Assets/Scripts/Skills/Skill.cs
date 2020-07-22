@@ -30,7 +30,7 @@ public class Skill : MonoBehaviour
 
     public List<pooling> pooling;
 
-    public List<picking> picking;
+    public picking picking;
 
 
     #endregion
@@ -314,12 +314,21 @@ public class Skill : MonoBehaviour
     public bool passes_conditions()
     {
         // if a pool for a skill exists, return true
-        if (TurnManager.instance.pool_units(pooling, owner_unit, this).Count > 0)
+        if (TurnManager.instance.pool_units(pooling, this).Count > 0)
             return true;
         else
             return false;
     }
 
+    public List<Unit> get_skill_pool()
+    {
+        return TurnManager.instance.pool_units( pooling , this);
+    }
+
+    public List<Unit> get_picked_pool()
+    {
+        return TurnManager.instance.pick_unit(this);
+    }
 
 
     #endregion

@@ -471,9 +471,11 @@ public class Unit : MonoBehaviour
             // Loop through the skills
             foreach (Skill skill in skills)
             {
-                if (is_skill_usable(skill.GetComponent<Skill>())) { 
-                    // TODO activate the skill
-                    
+                // If a skill is usable
+                if (is_skill_usable(skill.GetComponent<Skill>())) {
+
+                    // Execute it on the the selected pool
+                    skill.execute_skill(skill.get_skill_pool());
                 } ;
             }
         }

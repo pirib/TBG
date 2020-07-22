@@ -133,7 +133,7 @@ public class TurnManager : MonoBehaviour
 
     // Pooling
 
-    public List<Unit> pool_units( List<pooling> conditions, Unit owner_unit, Skill skill)
+    public List<Unit> pool_units ( List<pooling> conditions, Skill skill)
     {
         List<Unit> temp = new List<Unit>();
 
@@ -143,7 +143,7 @@ public class TurnManager : MonoBehaviour
 
         // If the condition is self, return only a list containing the unit itself
         else if (conditions[0] == pooling.SELF) 
-            temp.Add(owner_unit);
+            temp.Add(skill.owner_unit);
         
         // Else, loop through each enemy_unit that fits the list of conditions
         else
@@ -170,6 +170,29 @@ public class TurnManager : MonoBehaviour
     }
 
     // Picking
+    public List<Unit> pick_unit (Skill skill)
+    {
+        // Temporary list that wil be returned 
+        List<Unit> temp = new List<Unit>();
+
+        // Temporary pool of the units as defined by the pooling conditions
+        List<Unit> pool = skill.get_skill_pool();
+
+        if (skill.picking == picking.NONE)
+            return pool;
+
+        else if (skill.picking == picking.LOWEST_HP)
+            temp.Add(get_lowest_hp(pool));
+
+        else if (skill.picking == picking.HIGHEST_HP)
+            temp.Add(get_highest_hp(pool));
+
+        else if (skill.picking == picking.HIGHEST_DMG)
+            temp.Add(get_highest_attack(pool));
+
+        return temp;
+    }
+
 
     // Returns the unit with lowest HP
     public Unit get_lowest_hp(List<Unit> pool)

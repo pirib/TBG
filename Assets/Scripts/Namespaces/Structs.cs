@@ -207,11 +207,10 @@ namespace Structs
     // picking from a pool
     public enum picking
     {
+        NONE,
         LOWEST_HP,
         HIGHEST_HP,
-        HIGHEST_DMG,
-        EARLIEST_IN_QUEUE,
-        LATEST_IN_QUEUE
+        HIGHEST_DMG
     }
 
     #endregion
