@@ -39,7 +39,7 @@ public class Unit : MonoBehaviour
 
     // Statuses and skills
     [SerializeField] public List<GameObject> statuses = new List<GameObject>();
-    [SerializeField] public List<GameObject> skills = new List<GameObject>();
+    [SerializeField] public List<Skill> skills = new List<Skill>();
 
     #region Delegates
 
@@ -103,6 +103,11 @@ public class Unit : MonoBehaviour
         return general.is_player;
     }
     
+    public bool is_mindless()
+    {
+        return general.is_mindless;
+    }
+
     public string enemy_name()
     {
         return universal.name;
@@ -194,9 +199,9 @@ public class Unit : MonoBehaviour
     // Update skill cooldiwn
     public void update_skills_cooldown()
     {
-        foreach (GameObject skill in skills)
+        foreach (Skill skill in skills)
         {
-            skill.GetComponent<Skill>().update_cooldown();
+            skill.update_cooldown();
         }
     }
 
@@ -418,11 +423,11 @@ public class Unit : MonoBehaviour
         float start_point = Mathf.Floor((Camera.main.orthographicSize - (Camera.main.orthographicSize*2 - general.skills.Count * skill_icon_height/2)/2));
 
         int i = 0;
-        foreach (GameObject Skill in skills)
+        foreach (Skill skill in skills)
         {
             float x;
             float y;
-            Skill skill_script = Skill.GetComponent<Skill>();
+            Skill skill_script = skill;
 
             // Even ones stay on the left
             if (i % 2 == 0)
@@ -438,7 +443,7 @@ public class Unit : MonoBehaviour
                 if (skill_script.charge.chargeable) skill_script.charge_ui.transform.position = new Vector3( 9.5f, 9.5f);
             }
 
-            Skill.transform.position = new Vector3( x, y );
+            skill.transform.position = new Vector3( x, y );
             i++;
         } 
     }
@@ -460,19 +465,19 @@ public class Unit : MonoBehaviour
     {
         Debug.Log("Unit " + this.name + "is doing ai stuff");
         
-        /*
         // Use skills while there are any usable ones. First skills have higher priority.
         while (usable_skills() > 0)
         {
             // Loop through the skills
-            foreach (GameObject skill in skills)
+            foreach (Skill skill in skills)
             {
                 if (is_skill_usable(skill.GetComponent<Skill>())) { 
                     // TODO activate the skill
+                    
                 } ;
             }
         }
-        */
+        
 
         // End the turn, since no other action can be taken now
         TurnManager.instance.end_turn(this);
@@ -498,9 +503,9 @@ public class Unit : MonoBehaviour
     public int usable_skills()
     {
         int temp = 0;
-        foreach (GameObject skill in skills)
+        foreach (Skill skill in skills)
         {
-            if (is_skill_usable(skill.GetComponent<Skill>())) temp += 1;
+            if (is_skill_usable(skill)) temp += 1;
         }
         return temp;
     }
@@ -508,8 +513,9 @@ public class Unit : MonoBehaviour
     // Checks if the skill is usable - e.g. the unit can pay its costs, the cooldown is higher than zero, and the condition check returns true
     public bool is_skill_usable(Skill skill)
     {
-        // If the unit doesn have the skill's ap/hp/rage cost , or it is on cooldown, return false
-        if (skill.cost.ap_cost > ap_cur || skill.cost.rage_cost > hp_cur || skill.cost.rage_cost > hp_cur || skill.cooldown() > 0) return false;
+        // Return True if the the unit can pay the skill's costs, is not on cooldown and it passes its conditions
+        // NB! HP cost check is skipped
+        if (skill.cost.ap_cost >= ap_cur && skill.cost.rage_cost >= rage_cur && skill.cooldown() == 0 && skill.passes_conditions()) return false;
         // Else, return true
         else return true;
     }

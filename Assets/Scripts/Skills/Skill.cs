@@ -59,12 +59,6 @@ public class Skill : MonoBehaviour
 
     #endregion
 
-    #region Delegates
-
-
-
-    #endregion
-
     private void Start()
     {
         // Disable the charge_ui for those skills that are not chargeable
@@ -194,7 +188,7 @@ public class Skill : MonoBehaviour
 
         // Skills cooldown
         if (skill_advanced.skill_cooldown != 0)
-            foreach (GameObject skill in owner_unit.skills)
+            foreach (Skill skill in owner_unit.skills)
                 skill.GetComponent<Skill>().update_cooldown(skill_advanced.skill_cooldown);
 
         // Update hud again
@@ -220,8 +214,8 @@ public class Skill : MonoBehaviour
             cooldown_cur += update_amount;
         }
 
-        // ADD update the cooldown text / make the skill executable
-
+        // Updating the skill cooldown info
+        update_skill_hud();
     }
 
     public void update_skill_hud()
@@ -317,29 +311,18 @@ public class Skill : MonoBehaviour
     #region AI
 
     // Report back if this skill passes the condition 
-    public bool passes_condition()
+    public bool passes_conditions()
     {
-
-        foreach (Structs.pooling condition in pooling)
-        {
-            if (condition == Structs.pooling.CAN_PLAY )
-            {
-
-            }
-        }
-
-        return true;
+        // if a pool for a skill exists, return true
+        if (TurnManager.instance.pool_units(pooling, owner_unit, this).Count > 0)
+            return true;
+        else
+            return false;
     }
 
-    #region Conditions functions
-
-    
-
-    #endregion
 
 
     #endregion
-
 
     #region GUI
 

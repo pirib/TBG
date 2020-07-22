@@ -67,7 +67,7 @@ public class SkillManager : MonoBehaviour
 }
 
 // Adds a new Skill
-public GameObject add_skill(string Skill_name, Unit unit)
+public Skill add_skill(string Skill_name, Unit unit)
     {
         // Instantiate a skill object
         GameObject new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
@@ -82,7 +82,7 @@ public GameObject add_skill(string Skill_name, Unit unit)
         new_skill.GetComponent<Skill>().owner_unit = unit;
 
         // Return the new_skill to the Unit, so it knows what new Skill it has
-        return new_skill;
+        return new_skill.GetComponent<Skill>();
     }
 
 

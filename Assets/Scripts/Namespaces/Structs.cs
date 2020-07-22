@@ -197,9 +197,10 @@ namespace Structs
     // Conditions a unit must pass to get to the selected pool of potential targets
     public enum pooling
     {
-        MINDLESS_EXISTS,
+        PLAYER,
+        SELF,
+        MINDLESS,
         HAS_BASE_DAMAGE,
-        NOT_DYING_THIS_TURN,
         CAN_PLAY
     }
 
@@ -209,9 +210,8 @@ namespace Structs
         LOWEST_HP,
         HIGHEST_HP,
         HIGHEST_DMG,
-        HAS_BASE_DAMAGE,
-        NOT_DYING_THIS_TURN,
-        MINDLESS
+        EARLIEST_IN_QUEUE,
+        LATEST_IN_QUEUE
     }
 
     #endregion

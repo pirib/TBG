@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Structs;
+
 public class TurnManager : MonoBehaviour
 {
 
@@ -129,23 +131,52 @@ public class TurnManager : MonoBehaviour
 
     #region AI Helpers
 
-    public bool exists_name(string enemy_name)
-    {
+    // Pooling
 
-        foreach (Unit enemy in queue)
+    public List<Unit> pool_units( List<pooling> conditions, Unit owner_unit, Skill skill)
+    {
+        List<Unit> temp = new List<Unit>();
+
+        // If the condition is player, return only a list containing the player
+        if (conditions[0] == pooling.PLAYER) 
+            temp.Add(player);
+
+        // If the condition is self, return only a list containing the unit itself
+        else if (conditions[0] == pooling.SELF) 
+            temp.Add(owner_unit);
+        
+        // Else, loop through each enemy_unit that fits the list of conditions
+        else
         {
-            if (!enemy.is_player() && enemy.enemy_name() == enemy_name) return true;
+            foreach(Unit enemy_unit in queue.GetRange(1, queue.Count-1))
+            {
+                bool test = true;
+                // Check the pooling conditions. 
+                // If the pooling condition list contains a given condition and that condition is also true for that enemy. Add that enemy
+                // If at least one of the conditions is not met then the enemy is not added to the list of targets that can be pooled.
+                if ( !(skill.pooling.Contains(pooling.MINDLESS) && enemy_unit.is_mindless()) )
+                    test = false;
+                if ( !(skill.pooling.Contains(pooling.CAN_PLAY) && enemy_unit.can_play) )
+                    test = false;
+                if ( !(skill.pooling.Contains(pooling.HAS_BASE_DAMAGE) && (enemy_unit.get_base_dmg() > 0 )) )
+                    test = false;
+
+                if (test)
+                    temp.Add(enemy_unit);
+            }
         }
 
-        return false;
+        return temp;
     }
 
-    // Returns the unit with lowest HP
-    public Unit get_lowest_hp ()
-    {
-        Unit temp = queue[1];
+    // Picking
 
-        foreach (Unit enemy in queue)
+    // Returns the unit with lowest HP
+    public Unit get_lowest_hp(List<Unit> pool)
+    {
+        Unit temp = pool[0];
+
+        foreach (Unit enemy in pool)
         {
             if ( !enemy.is_player() && temp.get_current_hp() > enemy.get_current_hp() ) temp = enemy;            
         }
@@ -153,11 +184,12 @@ public class TurnManager : MonoBehaviour
         return temp;
     }
 
-    public Unit get_highest_hp()
+    // Returns the unit with the highest HP
+    public Unit get_highest_hp(List<Unit> pool)
     {
-        Unit temp = queue[1];
+        Unit temp = pool[0];
 
-        foreach (Unit enemy in queue)
+        foreach (Unit enemy in pool)
         {
             if (!enemy.is_player() && temp.get_current_hp() < enemy.get_current_hp()) temp = enemy;
         }
@@ -166,11 +198,11 @@ public class TurnManager : MonoBehaviour
     }
 
     // Returns the unit with highest attack
-    public Unit get_highest_attack ()
+    public Unit get_highest_attack (List<Unit> pool)
     {
-        Unit temp = queue[1];
+        Unit temp = pool[0];
 
-        foreach (Unit enemy in queue)
+        foreach (Unit enemy in pool)
         {
             if (!enemy.is_player() && temp.get_base_dmg() < enemy.get_base_dmg()) temp = enemy;
         }
