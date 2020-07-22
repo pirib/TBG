@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace SkillStatusInfo
+namespace StatusTypes
 {
-    public enum StatusChoice
+    public enum StatusType
     {
         POSITIVE,
         NEGATIVE,

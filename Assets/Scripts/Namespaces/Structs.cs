@@ -4,7 +4,7 @@ using System.Collections.Generic;
 // Custom
 using Charge;
 using Targeting;
-using SkillStatusInfo;
+using StatusTypes;
 
 namespace Structs
 {
@@ -31,7 +31,7 @@ namespace Structs
     [System.Serializable]
     public struct StatGen
     {
-        public StatusChoice type;           // true - positive effect, flase - negative
+        public StatusType type;           // true - positive effect, flase - negative
         public int duration;        // the duration of the 
         public int damage_turn;     // Damage dealt per turn
         public int damage_end;      // Damage dealt at the end of its duration
@@ -137,7 +137,7 @@ namespace Structs
     public struct SkillAdvanced
     {
         public int cooldown_change;         // How change the cooldown
-        public StatusChoice status_type;    // Which Status type to affect (positive, negative, all)
+        public StatusType status_type;    // Which Status type to affect (positive, negative, all)
         public bool remove;                 // Remove statuses?
         
         public bool count;                  // Counts the types of statuses
@@ -149,8 +149,8 @@ namespace Structs
         public int skill_cooldown;          // Change all skills cooldown by this value
 
         public bool swap;
-        public StatusChoice status_swap_self;
-        public StatusChoice status_swap_target;
+        public StatusType status_swap_self;
+        public StatusType status_swap_target;
     }
 
     #endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using StatusTypes;
 using Structs;
 using Targeting;
 using Charge;
@@ -147,7 +148,7 @@ public class Skill : MonoBehaviour
                 // Count the statuses
                 int temp_count = 0;
 
-                if (skill_advanced.status_type != SkillStatusInfo.StatusChoice.ALL)
+                if (skill_advanced.status_type != StatusType.ALL)
                 {
                     foreach (GameObject status in unit.statuses)
                     {
@@ -296,12 +297,12 @@ public class Skill : MonoBehaviour
         update_skill_hud();
     }
 
-    void OnStatusReceived(SkillStatusInfo.StatusChoice status_type )
+    void OnStatusReceived(StatusType status_type )
     {
-        if (status_type == SkillStatusInfo.StatusChoice.POSITIVE && charge.charge_condition == Charge.ChargeCondition.STATUS_RECEIVE_POSITIVE)
+        if (status_type == StatusType.POSITIVE && charge.charge_condition == Charge.ChargeCondition.STATUS_RECEIVE_POSITIVE)
             update_charge_lvl();
 
-        else if (status_type == SkillStatusInfo.StatusChoice.NEGATIVE && charge.charge_condition == Charge.ChargeCondition.STATUS_RECEIVE_NEGATIVE)
+        else if (status_type == StatusType.NEGATIVE && charge.charge_condition == Charge.ChargeCondition.STATUS_RECEIVE_NEGATIVE)
             update_charge_lvl();
  
         else

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-using SkillStatusInfo;
+using StatusTypes;
 using Structs;
 
 public class Unit : MonoBehaviour
@@ -52,7 +52,7 @@ public class Unit : MonoBehaviour
     public event heal_register OnHealingReceieved;
 
     // Delegate Status Receiving
-    public delegate void status_received_register(SkillStatusInfo.StatusChoice status_type);
+    public delegate void status_received_register(StatusType status_type);
     public event status_received_register OnStatusReceived;
 
     #endregion
@@ -248,18 +248,18 @@ public class Unit : MonoBehaviour
     }
 
     // Pick status types
-    public List<GameObject> pick_statuses_by_type(StatusChoice status_type)
+    public List<GameObject> pick_statuses_by_type(StatusType status_type)
     {
         List<GameObject> temp = new List<GameObject>();
 
-        if (status_type == SkillStatusInfo.StatusChoice.ALL) return statuses;
+        if (status_type == StatusType.ALL) return statuses;
 
         else
         {
             foreach (GameObject status in statuses)
             {
-                if (status_type == SkillStatusInfo.StatusChoice.POSITIVE && status_type == status.GetComponent<Status>().stat_gen.type) temp.Add(status);
-                else if (status_type == SkillStatusInfo.StatusChoice.NEGATIVE && status_type == status.GetComponent<Status>().stat_gen.type) temp.Add(status);
+                if (status_type == StatusType.POSITIVE && status_type == status.GetComponent<Status>().stat_gen.type) temp.Add(status);
+                else if (status_type == StatusType.NEGATIVE && status_type == status.GetComponent<Status>().stat_gen.type) temp.Add(status);
             }
 
             return temp;
