@@ -17,19 +17,28 @@ public class TurnManager : MonoBehaviour
 
     #endregion 
 
-
+    #region Handlers
     [Header("Handlers")]
 
     public Unit player;
     [SerializeField] private GameObject queue_prefab;
+    #endregion
+
+    #region Queue Related
     public List<Unit> queue = new List<Unit>();
     public List<GameObject> queue_GUI = new List<GameObject>();
 
     [SerializeField] private int pointer = 0;
+    #endregion
 
     void Start()
     {
         initialize_queue();
+
+        // Debugging things
+        foreach (Unit unit in queue.GetRange(1, queue.Count - 1)) {
+            Debug.Log(unit.universal.name);
+                }
     }
 
     private void Update()
@@ -150,18 +159,30 @@ public class TurnManager : MonoBehaviour
         {
             foreach(Unit enemy_unit in queue.GetRange(1, queue.Count-1))
             {
-                bool test = true;
+                bool passed = false;
+
                 // Check the pooling conditions. 
                 // If the pooling condition list contains a given condition and that condition is also true for that enemy. Add that enemy
                 // If at least one of the conditions is not met then the enemy is not added to the list of targets that can be pooled.
-                if ( !(skill.pooling.Contains(pooling.MINDLESS) && enemy_unit.is_mindless()) )
-                    test = false;
-                if ( !(skill.pooling.Contains(pooling.CAN_PLAY) && enemy_unit.can_play) )
-                    test = false;
-                if ( !(skill.pooling.Contains(pooling.HAS_BASE_DAMAGE) && (enemy_unit.get_base_dmg() > 0 )) )
-                    test = false;
+                if (skill.pooling.Contains(pooling.MINDLESS))
+                    if (enemy_unit.is_mindless())
+                        passed = true;
+                    else
+                        passed = false;
 
-                if (test)
+                if (skill.pooling.Contains(pooling.CAN_PLAY))
+                    if (enemy_unit.can_play)
+                        passed = true;
+                    else
+                        passed = false;
+
+                if (skill.pooling.Contains(pooling.HAS_BASE_DAMAGE))
+                    if (enemy_unit.get_base_dmg() > 0)
+                        passed = true;
+                    else
+                        passed = false;
+
+                if (passed)
                     temp.Add(enemy_unit);
             }
         }
@@ -172,6 +193,7 @@ public class TurnManager : MonoBehaviour
     // Picking
     public List<Unit> pick_unit (Skill skill)
     {
+
         // Temporary list that wil be returned 
         List<Unit> temp = new List<Unit>();
 
@@ -179,7 +201,7 @@ public class TurnManager : MonoBehaviour
         List<Unit> pool = skill.get_skill_pool();
 
         if (skill.picking == picking.NONE)
-            return pool;
+            temp.Add(pool[0]);
 
         else if (skill.picking == picking.LOWEST_HP)
             temp.Add(get_lowest_hp(pool));

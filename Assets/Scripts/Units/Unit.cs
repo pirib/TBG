@@ -158,7 +158,6 @@ public class Unit : MonoBehaviour
         {
             set_player_skills();
             this.tag = "Player";
-            add_status("Regenerating");
         } else if (!general.is_player) {
             set_enemy_skills();
             this.tag = "Enemy";
@@ -303,7 +302,7 @@ public class Unit : MonoBehaviour
 
     public void heal ( int hp, bool is_primary = true)
     {
-        Debug.Log(this.name + " unit is healing by " + hp);
+        Debug.Log(universal.name + " unit is healing by " + hp);
         if (hp_cur + hp > unit_param.hp_max) hp_cur = unit_param.hp_max;
         else hp_cur = hp_cur + hp;
 
@@ -420,7 +419,7 @@ public class Unit : MonoBehaviour
         Debug.Log("Aligning player skills.");
 
         float skill_icon_height = 28;
-        float start_point = Mathf.Floor((Camera.main.orthographicSize - (Camera.main.orthographicSize*2 - general.skills.Count * skill_icon_height/2)/2));
+        float start_point = Mathf.Floor((Camera.main.orthographicSize + 14 - (Camera.main.orthographicSize*2 - general.skills.Count * skill_icon_height/2) /2));
 
         int i = 0;
         foreach (Skill skill in skills)
@@ -434,13 +433,17 @@ public class Unit : MonoBehaviour
             {
                 x = -Mathf.Floor ( Camera.main.aspect * Camera.main.orthographicSize) + skill_icon_height/2 + 8 ;
                 y = Mathf.Floor((start_point - i * (skill_icon_height/2) ));
-                if (skill_script.charge.chargeable) skill_script.charge_ui.transform.position = new Vector3(-9.5f, -9.5f); 
+
+                if (skill_script.charge.chargeable) 
+                    skill_script.charge_ui.transform.position = new Vector3(-9.5f, -9.5f); 
             }
             else // Odd ones are nudged to the right
             {
                 x = -Mathf.Floor( Camera.main.aspect * Camera.main.orthographicSize) + skill_icon_height + 8;
                 y = Mathf.Floor(start_point - i * (skill_icon_height/2));
-                if (skill_script.charge.chargeable) skill_script.charge_ui.transform.position = new Vector3( 9.5f, 9.5f);
+
+                if (skill_script.charge.chargeable) 
+                    skill_script.charge_ui.transform.position = new Vector3( 9.5f, 9.5f);
             }
 
             skill.transform.position = new Vector3( x, y );
@@ -449,11 +452,19 @@ public class Unit : MonoBehaviour
     }
 
     // Sets the enemy's skills
-    private void set_enemy_skills ()
+    private void set_enemy_skills()
     {
+        // Giving an enemy unit control over the skills
         foreach (string skill_name in general.skills)
         {
-            SkillManager.instance.add_skill(skill_name, this);
+            skills.Add(SkillManager.instance.add_skill(skill_name, this));
+        }
+
+        // Moving the skills somewhere away from the camera
+        // TODO Maybe hide them from direct view?
+        foreach (Skill skill in skills)
+        {
+            skill.transform.position = new Vector3(-500,-500);
         }
     }
 
@@ -463,11 +474,12 @@ public class Unit : MonoBehaviour
 
     void do_ai()
     {
-        Debug.Log("Unit " + this.name + "is doing ai stuff");
+        Debug.Log("Unit " + universal.name + " is doing ai stuff");
         
         // Use skills while there are any usable ones. First skills have higher priority.
         while (usable_skills() > 0)
         {
+            Debug.Log("Found some usable skills");
             // Loop through the skills
             foreach (Skill skill in skills)
             {
@@ -475,7 +487,7 @@ public class Unit : MonoBehaviour
                 if (is_skill_usable(skill.GetComponent<Skill>())) {
 
                     // Execute it on the the selected pool
-                    skill.execute_skill(skill.get_skill_pool());
+                    skill.execute_skill(skill.get_picked_pool());
                 } ;
             }
         }
@@ -507,19 +519,23 @@ public class Unit : MonoBehaviour
         int temp = 0;
         foreach (Skill skill in skills)
         {
-            if (is_skill_usable(skill)) temp += 1;
+            if (is_skill_usable(skill)) temp++ ;
         }
+        Debug.Log("Usable skill num " + temp);
         return temp;
     }
 
-    // Checks if the skill is usable - e.g. the unit can pay its costs, the cooldown is higher than zero, and the condition check returns true
+    // Checks if the skill is usable - e.g. the unit can pay its costs, the cooldownzero, and the condition check returns true
     public bool is_skill_usable(Skill skill)
     {
         // Return True if the the unit can pay the skill's costs, is not on cooldown and it passes its conditions
         // NB! HP cost check is skipped
-        if (skill.cost.ap_cost >= ap_cur && skill.cost.rage_cost >= rage_cur && skill.cooldown() == 0 && skill.passes_conditions()) return false;
-        // Else, return true
-        else return true;
+        if (skill.cost.ap_cost <= ap_cur && skill.cost.rage_cost <= rage_cur && skill.cooldown() == 0 && skill.passes_conditions() && skill.prerequisites_met()) 
+            return true;
+
+        // Else, return false
+        else 
+            return false;
     }
 
 

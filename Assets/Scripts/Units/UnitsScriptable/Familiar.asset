@@ -18,11 +18,13 @@ MonoBehaviour:
     icon: {fileID: 0}
   general:
     is_player: 0
+    is_mindless: 1
     unit_animations: {fileID: 22100000, guid: 9f3641720a13bc545885bae2f1ca2644, type: 2}
-    skills: []
+    skills:
+    - Attack Familiar
   unit_param:
     hp_max: 2
     rage_max: 0
     ap_max: 1
-    base_damage: 0
+    base_damage: 1
     armor: 0

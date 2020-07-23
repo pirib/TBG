@@ -61,6 +61,7 @@ public class SkillManager : MonoBehaviour
         new_skill.charge = SkillAbstract.charge;
         new_skill.skill_advanced = SkillAbstract.skill_advanced;
         new_skill.damage_info = SkillAbstract.damage_info;
+        new_skill.prerequisite = SkillAbstract.prerequisite;
         new_skill.pooling = SkillAbstract.pooling;
         new_skill.picking = SkillAbstract.picking;
 

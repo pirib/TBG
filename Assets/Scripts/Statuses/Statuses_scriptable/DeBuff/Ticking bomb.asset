@@ -10,24 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89880b524831e5b48b49ebb9c9d8b89f, type: 3}
-  m_Name: New Status
+  m_Name: Ticking bomb
   m_EditorClassIdentifier: 
   universal:
     name: 
     description: 
     icon: {fileID: 0}
   stat_gen:
-    buff: 0
+    type: 1
     duration: 0
     damage_turn: 0
     damage_end: 0
     stun: 0
+    heal_turn: 0
+    rage_turn: 0
+    ap_turn: 0
   buff_duration:
     armor: 0
     attack: 0
-    hp: 0
-    rage: 0
-    ap: 0
   sub_dmg_receive:
     enable: 0
+    rage: 0
+    hp: 0
+    weaken: 0
+    reflect_damage: 0
+  sub_heal_receive:
+    enable: 0
+    hp: 0
     rage: 0

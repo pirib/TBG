@@ -28,6 +28,8 @@ public class Skill : MonoBehaviour
 
     public SkillDamageInfo damage_info;
 
+    public prerequisite prerequisite;
+
     public List<pooling> pooling;
 
     public picking picking;
@@ -70,12 +72,16 @@ public class Skill : MonoBehaviour
 
         }
 
+        // DEBUG
+        update_cooldown(-5);
+
         // Update the skills HUD
         update_skill_hud();
     }
 
     public void execute_skill(List<Unit> targets)
     {
+        Debug.Log("Unit " + owner_unit.universal.name + " is executing skill " + universal.name);
 
         // Variables used in executing the skill
         int total_damage = 0;
@@ -220,10 +226,9 @@ public class Skill : MonoBehaviour
 
     public void update_skill_hud()
     {
-        if (owner_unit.is_player())
-        {
-            Debug.Log("Updating the users skill hud");
-            // ADD the code
+     //   if (owner_unit.is_player())
+      //  {
+            
             if (cooldown_cur > 0)
             {
                 cooldown_bg.gameObject.SetActive(true);
@@ -246,7 +251,7 @@ public class Skill : MonoBehaviour
                 else Debug.Log("Shit went south in Skill " + universal.name + " charge value is ourside the bounds" );
             }
 
-        }
+        //}
     }
 
     #endregion
@@ -309,6 +314,24 @@ public class Skill : MonoBehaviour
     #endregion
 
     #region AI
+
+    public bool prerequisites_met()
+    {
+        bool passed = false;
+
+        if (prerequisite == prerequisite.NONE)
+            passed = true;
+        else if ((prerequisite == prerequisite.RAGE_NOT_MAX) && (owner_unit.get_cur_rage() < owner_unit.get_max_rage()))
+            passed = true;
+        else if ((prerequisite == prerequisite.HP_NOT_MAX) && (owner_unit.get_current_hp() < owner_unit.get_max_hp()))
+            passed = true;
+        else if ((prerequisite == prerequisite.HP_LESS_THAN_HALF) && (owner_unit.get_current_hp() <= owner_unit.get_max_hp() / 2))
+            passed = true;
+        else
+            Debug.Log("Do not know how to handle the prerequisite " + prerequisite + " in unit " + owner_unit.universal.name);
+
+        return passed;
+    }
 
     // Report back if this skill passes the condition 
     public bool passes_conditions()

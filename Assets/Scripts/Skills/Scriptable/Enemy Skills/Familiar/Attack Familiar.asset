@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88374d44892ec3b44b6f360b63cf921a, type: 3}
-  m_Name: Attack_Torturer
+  m_Name: Attack Familiar
   m_EditorClassIdentifier: 
   universal:
-    name: 
+    name: Attack Familiar
     description: 
     icon: {fileID: 0}
   general:
-    cooldown: 0
-    targeting_mode: 0
+    cooldown: 1
+    targeting_mode: 3
     skill_animation: 0
   cost:
-    ap_cost: 0
+    ap_cost: 1
     hp_cost: 0
     rage_cost: 0
   gain:
@@ -49,9 +49,10 @@ MonoBehaviour:
     status_swap_self: 0
     status_swap_target: 0
   damage_info:
-    deal_damage: 0
-    use_base_attack: 0
+    deal_damage: 1
+    use_base_attack: 1
     damage_modifier: 0
     vampire_attack: 0
-  pooling: 
-  picking: 
+  prerequisite: 0
+  pooling: 00000000
+  picking: 0

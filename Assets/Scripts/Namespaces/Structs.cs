@@ -194,6 +194,15 @@ namespace Structs
 
     #region AI Helpers
 
+    // Prerequisite that must be met
+    public enum prerequisite
+    {
+        NONE,
+        HP_NOT_MAX,
+        RAGE_NOT_MAX,
+        HP_LESS_THAN_HALF
+    }
+
     // Conditions a unit must pass to get to the selected pool of potential targets
     public enum pooling
     {

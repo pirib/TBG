@@ -18,8 +18,11 @@ MonoBehaviour:
     icon: {fileID: 0}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: cf77520829ef98b4c8445989daf28ace, type: 2}
-    skills: []
+    skills:
+    - Strengthen Wraith
+    - Curse Wraith
   unit_param:
     hp_max: 3
     rage_max: 0

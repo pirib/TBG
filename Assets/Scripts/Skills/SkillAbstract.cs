@@ -27,6 +27,8 @@ public class SkillAbstract : ScriptableObject
 
     public SkillDamageInfo damage_info;
 
+    public prerequisite prerequisite;
+
     public List<pooling> pooling;
 
     public picking picking;

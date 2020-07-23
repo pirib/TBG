@@ -18,11 +18,16 @@ MonoBehaviour:
     icon: {fileID: 0}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: a12511c2a1ae1ba4b85b173f17d0330d, type: 2}
-    skills: []
+    skills:
+    - Rage Strike
+    - Torture Torturer
+    - Mutilate Torturer
+    - Attack Torturer
   unit_param:
     hp_max: 5
     rage_max: 3
     ap_max: 1
-    base_damage: 0
+    base_damage: 2
     armor: 0
