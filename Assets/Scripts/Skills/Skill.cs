@@ -72,13 +72,11 @@ public class Skill : MonoBehaviour
 
         }
 
-        // DEBUG
-        update_cooldown(-5);
-
         // Update the skills HUD
         update_skill_hud();
     }
 
+    // Execute the skill on the list of targets
     public void execute_skill(List<Unit> targets)
     {
         Debug.Log("Unit " + owner_unit.universal.name + " is executing skill " + universal.name);
@@ -207,6 +205,7 @@ public class Skill : MonoBehaviour
 
     #region General
 
+    // Updates the cooldown of this skill
     public void update_cooldown(int update_amount = -1)
     {
         if (update_amount == 0)
@@ -224,6 +223,7 @@ public class Skill : MonoBehaviour
         update_skill_hud();
     }
 
+    // Updates the skill hud, including the charge levels
     public void update_skill_hud()
     {
      //   if (owner_unit.is_player())
@@ -263,6 +263,7 @@ public class Skill : MonoBehaviour
         return cooldown_cur;
     }
 
+    // Updates the charge_lvl of this skill
     public void update_charge_lvl(int change = 1)
     {
         if (charge_lvl + change < 3)
@@ -315,6 +316,7 @@ public class Skill : MonoBehaviour
 
     #region AI
 
+    // Report back if the prerequisites are met for the skill to be used
     public bool prerequisites_met()
     {
         bool passed = false;
@@ -343,11 +345,13 @@ public class Skill : MonoBehaviour
             return false;
     }
 
+    // Get back a list of potential targets
     public List<Unit> get_skill_pool()
     {
         return TurnManager.instance.pool_units( pooling , this);
     }
 
+    // Pick a unit from the list of potential targets. Returns the whole list if picking conditions are set to ALL/NONE
     public List<Unit> get_picked_pool()
     {
         return TurnManager.instance.pick_unit(this);
@@ -363,6 +367,13 @@ public class Skill : MonoBehaviour
         Debug.Log("The player is considering using the skill " + this.universal.name);
         SkillTarget.instance.set_skill(this);
     }
+
+    #endregion
+
+    #region Animation
+
+    // Play
+
 
     #endregion
 

@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour
 
     #endregion
 
+    #region Unit Properties
     [Header("General")]
     /* Universal properties */
     public Universal universal;
@@ -28,8 +29,9 @@ public class Unit : MonoBehaviour
 
     /* Unit Parameters */
     public UnitParam unit_param;
+    #endregion
 
-
+    #region In fight parameters
     /* In-Fight params */
     [SerializeField] private int hp_cur;
     [SerializeField] private int ap_cur;
@@ -40,6 +42,7 @@ public class Unit : MonoBehaviour
     // Statuses and skills
     [SerializeField] public List<GameObject> statuses = new List<GameObject>();
     [SerializeField] public List<Skill> skills = new List<Skill>();
+    #endregion
 
     #region Delegates
 
@@ -128,8 +131,6 @@ public class Unit : MonoBehaviour
     #endregion 
 
 
-    public void ready() { }
-
     // Start is called before the first frame update
     public void Start()
     {
@@ -165,7 +166,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            Debug.Log("Something went horribly wrong with instantiating a unit." + this.GetInstanceID());
+            Debug.Log("Something went horribly wrong with instantiating a unit. Unit name " + universal.name );
         }
 
     }
@@ -499,20 +500,7 @@ public class Unit : MonoBehaviour
 
 
     #region AI Helpers
-    
-    public bool is_rage_lower_than (int rage)
-    {
-        if (hp_cur < rage) return true;
-        else return false;
-    }
-
-    public bool is_hp_lower_than(int hp)
-    {
-        if (hp_cur < hp) return true;
-        else return false;
-    }
-
-
+  
     // Get the number of usable skills
     public int usable_skills()
     {
@@ -558,10 +546,13 @@ public class Unit : MonoBehaviour
     #endregion
 
     #region Animation
+    // Sets all unit animations based on the ACO
     private void set_unit_animations()
     {
         this.gameObject.GetComponent<Animator>().runtimeAnimatorController = general.unit_animations;
     }
+
+    // Play a particular animation
 
     #endregion
 
