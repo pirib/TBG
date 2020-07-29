@@ -35,10 +35,6 @@ public class TurnManager : MonoBehaviour
     {
         initialize_queue();
 
-        // Debugging things
-        foreach (Unit unit in queue.GetRange(1, queue.Count - 1)) {
-            Debug.Log(unit.universal.name);
-                }
     }
 
     private void Update()
@@ -51,15 +47,24 @@ public class TurnManager : MonoBehaviour
 
     public void end_turn( Unit caller)
     {
+        // Check if the it is the callers turn
         if (is_turn(caller)) { 
+            
+            // Advance pointer so it points at the next unit
             advance_pointer();
-            queue[pointer].turn_start();
+
+            // Pop the queue icon for the unit
+            pop_GUI();
+
+            // Let the unit know it can start its turn
+            queue[pointer].start_unit_turn();
         }
         else Debug.Log("End Turn is requested by a unit off the queue. Caller Name: " + caller.name + "\n Current turn is held by " + TurnManager.instance.queue[pointer]);
     }
 
 
-    #region Initialisation
+    #region Queue management
+    // Initializes the queue. DOES NOT REMOVE THE OLD ONE
     public void initialize_queue()
     {
         // Add player 
@@ -72,6 +77,7 @@ public class TurnManager : MonoBehaviour
         pointer = 0;
 
         set_queue_GUI();
+        pop_GUI();
 
         Debug.Log("Queue initialized.");
         }
@@ -90,6 +96,11 @@ public class TurnManager : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region Queue GUI
+
+    // Sets the Queue GUI 
     private void set_queue_GUI()
     {
         // Remove the old Queue
@@ -113,12 +124,27 @@ public class TurnManager : MonoBehaviour
             // Align
             float x = Mathf.Floor(Camera.main.aspect * Camera.main.orthographicSize) - queue_bg + 8;
             float y = Mathf.Floor((start_point - i * (queue_bg)));
-            
+
             new_queue.transform.position = new Vector3(x, y, -i);
 
             i++;
         }
     }
+
+    // Popps the current units turn icon in the queue a bit to the left
+    private void pop_GUI()
+    {
+        // Get the current pointer's x
+        float origin_x = queue_GUI[pointer].transform.position.x;
+
+        // Set the old Queue thing back in place
+        queue_GUI[get_previous_pointer()].transform.position = new Vector2 ( origin_x, queue_GUI[get_previous_pointer()].transform.position.y );        
+
+        // Set the current queue thingy a bit out
+        queue_GUI[pointer].transform.position = new Vector2(queue_GUI[pointer].transform.position.x-8, queue_GUI[pointer].transform.position.y);
+
+    }
+
 
     #endregion
 
@@ -134,6 +160,21 @@ public class TurnManager : MonoBehaviour
         // Set pointer to zero if the last unit finished its turn
         if (pointer + 1 >= queue.Count) pointer = 0;
         else { pointer += 1; }
+    }
+
+    // Returns the previous index of the queue_GUI
+    private int get_previous_pointer()
+    {
+        if (pointer > 1)
+            return pointer - 1;
+
+        else if (pointer == 0)
+            return queue_GUI.Count - 1;
+        
+        else
+            Debug.Log("Something went wrong with the pointer. Current value " + pointer);
+           
+        return 0;
     }
 
     #endregion

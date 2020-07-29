@@ -44,6 +44,7 @@ public class Skill : MonoBehaviour
     [Header("Handlers")]
     public Unit owner_unit;
     public GameObject charge_ui;
+    public GameObject dmg_casting_effect;
 
     [Header("Not proud of it")]
     [SerializeField] private Sprite charge0;
@@ -79,6 +80,10 @@ public class Skill : MonoBehaviour
     // Execute the skill on the list of targets
     public void execute_skill(List<Unit> targets)
     {
+        // Play animation
+        owner_unit.play(general.skill_animation);
+
+
         Debug.Log("Unit " + owner_unit.universal.name + " is executing skill " + universal.name);
 
         // Variables used in executing the skill
@@ -122,10 +127,26 @@ public class Skill : MonoBehaviour
         // Calculate damage output
         if (damage_info.deal_damage) total_damage = total_damage + (System.Convert.ToInt32(damage_info.use_base_attack) * owner_unit.get_base_dmg()) + damage_info.damage_modifier;
 
-
-        // Apply damage, status, etc. for each target in the list
-        foreach (Unit unit in targets)
+        // Play the casting effect if exists
+        if (general.casting_effect != null)
         {
+            GameObject temp = Instantiate(dmg_casting_effect);
+            temp.transform.position = new Vector3(owner_unit.gameObject.transform.position.x, owner_unit.gameObject.transform.position.y, -0.5f);
+            
+            temp.GetComponent<Animator>().runtimeAnimatorController = general.casting_effect;
+        }
+
+            // Apply damage, status, etc. for each target in the list
+         foreach (Unit unit in targets)
+        {
+            // Play the damage effect if any exist
+            if (general.damage_effect != null) {
+                
+                GameObject temp = Instantiate(dmg_casting_effect);
+                temp.transform.position = new Vector3(unit.gameObject.transform.position.x, unit.gameObject.transform.position.y, -2);
+
+                temp.GetComponent<Animator>().runtimeAnimatorController = general.damage_effect;
+            }
 
             // Apply Status effects because the skill has it, or charged skill has chanrge mode of Status
             if (status.apply_status || (charge_lvl == 3 && charge.charge_mode == ChargeMode.STATUS) ) unit.add_status(apply_status);

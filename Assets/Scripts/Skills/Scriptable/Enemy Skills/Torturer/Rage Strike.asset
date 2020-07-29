@@ -19,7 +19,7 @@ MonoBehaviour:
   general:
     cooldown: 2
     targeting_mode: 3
-    skill_animation: 0
+    skill_animation: 1
   cost:
     ap_cost: 1
     hp_cost: 0

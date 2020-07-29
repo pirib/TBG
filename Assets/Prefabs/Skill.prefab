@@ -106,6 +106,8 @@ MonoBehaviour:
     cooldown: 0
     targeting_mode: 0
     skill_animation: 0
+    casting_effect: {fileID: 22100000, guid: 71fc76bc83099b2428f5c0e33885518c, type: 2}
+    damage_effect: {fileID: 22100000, guid: 71fc76bc83099b2428f5c0e33885518c, type: 2}
   cost:
     ap_cost: 0
     hp_cost: 0
@@ -139,14 +141,21 @@ MonoBehaviour:
     use_base_attack: 0
     damage_modifier: 0
     vampire_attack: 0
+  prerequisite: 0
+  pooling: 
+  picking: 0
   owner_unit: {fileID: 0}
   charge_ui: {fileID: 4857446585910211542}
+  dmg_casting_effect: {fileID: 8292191715703851275, guid: 8053fb9bff1ff8440a37de5e58141493,
+    type: 3}
   charge0: {fileID: 21300000, guid: fbfc372968fb4bb4da7591fdf9431533, type: 3}
   charge1: {fileID: 21300000, guid: f42134d889ffa9f4196f50dec4576aba, type: 3}
   charge2: {fileID: 21300000, guid: 0158a837fbdd50541b38eea0974ec2c7, type: 3}
   charge3: {fileID: 21300000, guid: b47af8a42640cf84db0121a4942ed91f, type: 3}
   cooldown_text: {fileID: 2939392677517315923}
   cooldown_bg: {fileID: 2905426262645676094}
+  cooldown_cur: 0
+  charge_lvl: 0
 --- !u!60 &6905754941513559098
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 using StatusTypes;
 using Structs;
 
@@ -171,12 +172,22 @@ public class Unit : MonoBehaviour
 
     }
 
+    #region Exposers
+
+    public void start_unit_turn ()
+    {
+        StartCoroutine(turn_start());
+         
+    }
+
+    #endregion
 
     #region inGame
 
     // Do things at the start of the turn
-    public void turn_start()
+    public IEnumerator turn_start()
     {
+        yield return new WaitForSeconds(2);
 
         // Update cooldowns of the skills
         update_skills_cooldown();
@@ -552,7 +563,27 @@ public class Unit : MonoBehaviour
         this.gameObject.GetComponent<Animator>().runtimeAnimatorController = general.unit_animations;
     }
 
-    // Play a particular animation
+    // Play the animation based on the SkillAnimation type 
+    public void play(SkillAnimation animation)
+    {
+        string animation_name = "idle";
+
+        if (animation == SkillAnimation.ATTACK_NORMAL)
+        {
+            animation_name = "attack";
+        }
+        else if (animation == SkillAnimation.MAGIC_TARGET)
+        {
+            animation_name = "magic_target";
+        }
+        else
+        {
+            Debug.Log("The unit " + universal.name + " requested a non existent animation to be player " + animation);
+        }
+
+        GetComponent<Animator>().Play(animation_name);
+    }
+
 
     #endregion
 

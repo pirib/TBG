@@ -19,7 +19,9 @@ MonoBehaviour:
   general:
     cooldown: 1
     targeting_mode: 0
-    skill_animation: 0
+    skill_animation: 3
+    casting_effect: {fileID: 0}
+    damage_effect: {fileID: 22100000, guid: 8b84ce12acee2644a9acdf040816a32b, type: 2}
   cost:
     ap_cost: 1
     hp_cost: 0
@@ -30,7 +32,7 @@ MonoBehaviour:
     rage: 0
   status:
     apply_status: 0
-    status_name: Chosen
+    status_name: 
   charge:
     chargeable: 1
     charge_condition: 2
@@ -51,7 +53,8 @@ MonoBehaviour:
   damage_info:
     deal_damage: 1
     use_base_attack: 0
-    damage_modifier: 1
+    damage_modifier: 2
     vampire_attack: 0
+  prerequisite: 0
   pooling: 
-  picking: 
+  picking: 0

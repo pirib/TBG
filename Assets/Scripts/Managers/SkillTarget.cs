@@ -90,9 +90,8 @@ public class SkillTarget : MonoBehaviour
             execution_list.RemoveAt(0);
         }
 
-        Debug.Log(execution_list);
         // Actually execute the skill
-        active_skill.execute_skill(execution_list);
+         active_skill.execute_skill(execution_list);
 
         // Set the active skill to null
         active_skill = null;

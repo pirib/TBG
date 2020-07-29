@@ -85,6 +85,9 @@ namespace Structs
         public int cooldown;
         public TargetingType targeting_mode;
         public SkillAnimation skill_animation;
+
+        public AnimatorOverrideController casting_effect;
+        public AnimatorOverrideController damage_effect;
     }
 
     [System.Serializable]
