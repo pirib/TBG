@@ -21,7 +21,7 @@ MonoBehaviour:
     targeting_mode: 0
     skill_animation: 3
     casting_effect: {fileID: 0}
-    damage_effect: {fileID: 22100000, guid: 8b84ce12acee2644a9acdf040816a32b, type: 2}
+    damage_effect: {fileID: 22100000, guid: 71fc76bc83099b2428f5c0e33885518c, type: 2}
   cost:
     ap_cost: 1
     hp_cost: 0

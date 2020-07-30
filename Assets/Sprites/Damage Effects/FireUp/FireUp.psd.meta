@@ -17,6 +17,18 @@ TextureImporter:
   - first:
       213: -5453349417546687975
     second: FireUp_4
+  - first:
+      213: 8337709670491122155
+    second: FireUp_0
+  - first:
+      213: -2443249002969392228
+    second: FireUp_1
+  - first:
+      213: -6297450735019449511
+    second: FireUp_2
+  - first:
+      213: 423443400357284612
+    second: FireUp_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -105,10 +117,10 @@ TextureImporter:
       name: FireUp_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 52
         y: 0
         width: 52
-        height: 50
+        height: 52
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 115c900f5cefa1360800000000000000
-      internalID: 7141300285238527249
+      spriteID: be966fd25ce75b370800000000000000
+      internalID: 8337709670491122155
       vertices: []
       indices: 
       edges: []
@@ -126,10 +138,10 @@ TextureImporter:
       name: FireUp_1
       rect:
         serializedVersion: 2
-        x: 52
+        x: 104
         y: 0
         width: 52
-        height: 50
+        height: 52
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +149,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3f4025b4b85b86d0800000000000000
-      internalID: -2987196394674041027
+      spriteID: c9b9e280af5d71ed0800000000000000
+      internalID: -2443249002969392228
       vertices: []
       indices: 
       edges: []
@@ -147,10 +159,10 @@ TextureImporter:
       name: FireUp_2
       rect:
         serializedVersion: 2
-        x: 104
+        x: 156
         y: 0
         width: 52
-        height: 50
+        height: 52
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,8 +170,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fc2123df3abbc240800000000000000
-      internalID: 4813145410063379701
+      spriteID: 953a4acfbe5fa98a0800000000000000
+      internalID: -6297450735019449511
       vertices: []
       indices: 
       edges: []
@@ -168,10 +180,10 @@ TextureImporter:
       name: FireUp_3
       rect:
         serializedVersion: 2
-        x: 156
+        x: 208
         y: 0
         width: 52
-        height: 50
+        height: 52
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,8 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 681c46c5e7c1c13a0800000000000000
-      internalID: -6693443617137835642
+      spriteID: 40b87c4778f50e500800000000000000
+      internalID: 423443400357284612
       vertices: []
       indices: 
       edges: []
@@ -189,10 +201,10 @@ TextureImporter:
       name: FireUp_4
       rect:
         serializedVersion: 2
-        x: 208
+        x: 260
         y: 0
         width: 52
-        height: 50
+        height: 52
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
