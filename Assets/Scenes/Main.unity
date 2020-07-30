@@ -5385,15 +5385,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill: {fileID: 754964268165450688, guid: eca6988d0c5110949b242b8f3bb40e77, type: 3}
-  skills:
+  skills_player:
+  - {fileID: 11400000, guid: 951f11c859974854c8d272eb923b5797, type: 2}
+  - {fileID: 11400000, guid: c51706093f1679248a3148fd3665a407, type: 2}
+  - {fileID: 11400000, guid: 4d873224da22af442b8828504f57302e, type: 2}
+  - {fileID: 11400000, guid: 5c9203a6b14c01c4a84012705bd1c079, type: 2}
   - {fileID: 11400000, guid: 58612e83ab027324487892544bda715d, type: 2}
-  - {fileID: 11400000, guid: 323a05d5a12894047adefcaee06103e0, type: 2}
-  - {fileID: 11400000, guid: dacdd616df5269044b384560610edb0b, type: 2}
+  - {fileID: 11400000, guid: 34db6695f43707546b1c171ce3eaa81c, type: 2}
+  - {fileID: 11400000, guid: 3b58c3cd69d9eca45a2587accf7b5d30, type: 2}
+  - {fileID: 11400000, guid: 68cb62dd2f8e50b4ca8f25cebd98d510, type: 2}
+  - {fileID: 11400000, guid: bb5004b742c581845a670bf5f61137b0, type: 2}
+  - {fileID: 11400000, guid: 99d2f14447ad8f9458726809d94e1323, type: 2}
+  - {fileID: 11400000, guid: 584e1f56fd40bdc459197414276e5204, type: 2}
+  - {fileID: 11400000, guid: 319d45359a50a2e4dbab423d86aa39de, type: 2}
+  - {fileID: 11400000, guid: 2b752eefacb8c75428a02f8a5b8497db, type: 2}
+  - {fileID: 11400000, guid: fa6fabfa9e9b4eb4fb0d98fc82ef9448, type: 2}
+  - {fileID: 11400000, guid: 5195b7a481cee3340af5ccd46f52bec6, type: 2}
+  - {fileID: 11400000, guid: c4f55c3cda4fd904b92468bbf2821050, type: 2}
+  - {fileID: 11400000, guid: 6b2f3cca56aa5ca44ab2ac4a1f6dd5fc, type: 2}
+  - {fileID: 11400000, guid: c7f581b61a0224d40b79f90140dee067, type: 2}
+  - {fileID: 11400000, guid: 958c93b906e712e4fbd93853087bea88, type: 2}
+  - {fileID: 11400000, guid: ea6c16241a065a7409c3386bfea347f6, type: 2}
+  - {fileID: 11400000, guid: 809e3e966b7a76048bda8e3518bf0d6f, type: 2}
+  - {fileID: 11400000, guid: 5e8d0cd3c969e9d489c99c7343104d0b, type: 2}
+  - {fileID: 11400000, guid: 68d8d9d2745906446b28a88b077922cf, type: 2}
+  - {fileID: 11400000, guid: 5423d9ede60797e44ba9c0ba2dee89ba, type: 2}
+  - {fileID: 11400000, guid: a3cafee2ed28ad04e9a1fbfd04cc9f65, type: 2}
+  - {fileID: 11400000, guid: 9219d8e8f6bcff14a9f602bbe3e763d8, type: 2}
+  - {fileID: 11400000, guid: 7a0749c47288ddd419263c69d3084cfe, type: 2}
+  - {fileID: 11400000, guid: 21b2a7842816ff24e860dc99ecef978c, type: 2}
+  - {fileID: 11400000, guid: cd9bef4db7b8f2146a1b606fb5ebf434, type: 2}
+  - {fileID: 11400000, guid: f409fab226fe40d4fa5fef7b9439d82d, type: 2}
+  - {fileID: 11400000, guid: b630d82ea7497a749bb24408a4f6943a, type: 2}
+  - {fileID: 11400000, guid: 63f2e440d8dded14997415d989150c2e, type: 2}
+  skills_enemy:
   - {fileID: 11400000, guid: 367bf92c2a9f87246b70395fbd433793, type: 2}
   - {fileID: 11400000, guid: a090e99bc1ae8d64da7e9081327a5c86, type: 2}
   - {fileID: 11400000, guid: 9bb741fbee648a44d86c0d2621fd3548, type: 2}
   - {fileID: 11400000, guid: 48cfbedecffdea94ea134ddafb01c9c9, type: 2}
   - {fileID: 11400000, guid: ddf07d3a7ff09974bbe24b938b4e37db, type: 2}
+  - {fileID: 11400000, guid: 323a05d5a12894047adefcaee06103e0, type: 2}
+  - {fileID: 11400000, guid: dacdd616df5269044b384560610edb0b, type: 2}
 --- !u!114 &674610850
 MonoBehaviour:
   m_ObjectHideFlags: 0

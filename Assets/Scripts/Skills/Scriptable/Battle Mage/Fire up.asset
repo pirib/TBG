@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88374d44892ec3b44b6f360b63cf921a, type: 3}
-  m_Name: Fire up
+  m_Name: Fire Up
   m_EditorClassIdentifier: 
   universal:
-    name: Fire up
+    name: Fire Up
     description: "Set burning status on every enemy\t\t\t\t"
     icon: {fileID: 0}
   general:

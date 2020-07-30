@@ -18,32 +18,58 @@ public class SkillManager : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject skill;
 
-    [Header("List of all in-game Skills")]
-    [SerializeField] private List<SkillAbstract> skills = new List<SkillAbstract>();
+    [Header("List of all in-game player Skills")]
+    [SerializeField] private List<SkillAbstract> skills_player = new List<SkillAbstract>();
+
+    [Header("List of all in-game enemy Skills")]
+    [SerializeField] private List<SkillAbstract> skills_enemy = new List<SkillAbstract>();
 
 
     // Returns SkillAbstract if the name Skill_name is within the list of all Skills
-    private SkillAbstract get_SkillAbstract_byName(string Skill_name)
+    private SkillAbstract get_SkillAbstract_byName(string Skill_name, Unit unit)
     {
-        int skill_index = get_skill_index(Skill_name);
+        int skill_index = get_skill_index(Skill_name, unit);
 
-        if (skill_index != -1) return instance.skills[skill_index];
-        else
+        if (unit.is_player()) { 
+            if (skill_index != -1) return skills_player[skill_index];
+            else
+            {
+                Debug.Log("Did not find skill with a name " + Skill_name + "\n Returning null");
+                return null;
+            }
+        } else
         {
-            Debug.Log("Did not find skill with a name " + Skill_name + "\n Returning null");
-            return null;
-        }
 
+            if (skill_index != -1) return skills_enemy[skill_index];
+            else
+            {
+                Debug.Log("Did not find skill with a name " + Skill_name + "\n Returning null");
+                return null;
+            }
+        }
     }
 
     // Looks for a skill with a name Skill_name and returns its index. Returns -1 if doesnt find it.
-    private int get_skill_index(string Skill_name)
+    private int get_skill_index(string Skill_name, Unit unit)
     {
-        foreach (SkillAbstract skill in skills)
+
+        if (unit.is_player())
         {
-            if (skill.name == Skill_name) return skills.IndexOf(skill);
+            foreach (SkillAbstract skill in skills_player)
+            {
+                if (skill.name == Skill_name) return skills_player.IndexOf(skill);
+            }
+            return -1;
         }
-        return -1;
+        else
+        {
+            foreach (SkillAbstract skill in skills_enemy)
+            {
+                if (skill.name == Skill_name) return skills_enemy.IndexOf(skill);
+            }
+            return -1;
+        }
+
     }
 
     // Moves over the parameters of SkillAbstract to NewSkill of the unit
@@ -74,7 +100,7 @@ public Skill add_skill(string Skill_name, Unit unit)
         GameObject new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
 
         // Get the specified skillAbstract based on the Skill_name
-        SkillAbstract skillAbstract = get_SkillAbstract_byName(Skill_name);
+        SkillAbstract skillAbstract = get_SkillAbstract_byName(Skill_name, unit);
 
         // Assign skillAbstract parameters to a skill new_skill
         assign_skill_parameters(ref skillAbstract, ref new_skill);

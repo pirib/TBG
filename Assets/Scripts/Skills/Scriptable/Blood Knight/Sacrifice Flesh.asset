@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88374d44892ec3b44b6f360b63cf921a, type: 3}
-  m_Name: Ticking Bomb
+  m_Name: Sacrifice Flesh
   m_EditorClassIdentifier: 
   universal:
-    name: Ticking bomb
-    description: "Set status on enemy - at the end of the countdown explode, dealing
-      3 damage\t\t\t\t"
+    name: Sacrifice Flesh
+    description: 
     icon: {fileID: 0}
   general:
-    cooldown: 2
+    cooldown: 0
     targeting_mode: 0
     skill_animation: 0
     casting_effect: {fileID: 0}
@@ -26,7 +25,7 @@ MonoBehaviour:
   cost:
     ap_cost: 0
     hp_cost: 0
-    rage_cost: 1
+    rage_cost: 0
   gain:
     hp: 0
     ap: 0
