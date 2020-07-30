@@ -45,6 +45,7 @@ public class Skill : MonoBehaviour
     public Unit owner_unit;
     public GameObject charge_ui;
     public GameObject dmg_casting_effect;
+    public SpriteRenderer Icon;
 
     [Header("Not proud of it")]
     [SerializeField] private Sprite charge0;
@@ -75,6 +76,9 @@ public class Skill : MonoBehaviour
 
         // Update the skills HUD
         update_skill_hud();
+
+        // Set the Skill icons
+        set_skill_icon();
     }
 
     // Execute the skill on the list of targets
@@ -274,6 +278,13 @@ public class Skill : MonoBehaviour
 
         //}
     }
+
+    // Sets the skill icon
+    private void set_skill_icon()
+    {
+        Icon.sprite = universal.icon;
+    }
+
 
     #endregion
 

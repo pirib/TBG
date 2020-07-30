@@ -16,7 +16,7 @@ MonoBehaviour:
     name: Ticking bomb
     description: "Set status on enemy - at the end of the countdown explode, dealing
       3 damage\t\t\t\t"
-    icon: {fileID: 0}
+    icon: {fileID: -9178386648157875219, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2
     targeting_mode: 0

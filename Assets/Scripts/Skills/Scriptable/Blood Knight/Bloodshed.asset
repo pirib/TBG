@@ -15,9 +15,13 @@ MonoBehaviour:
   universal:
     name: Bloodshed
     description: "Deal extra damage at the cost of your life\t\t\t\t"
-    icon: {fileID: 0}
+    icon: {fileID: -4808237967370922085, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 1
+    targeting_mode: 0
+    skill_animation: 0
+    casting_effect: {fileID: 0}
+    damage_effect: {fileID: 0}
   cost:
     ap_cost: 1
     hp_cost: 1
@@ -26,11 +30,31 @@ MonoBehaviour:
     hp: 0
     ap: 0
     rage: 0
-  status_info:
+  status:
     apply_status: 0
     status_name: 
+  charge:
+    chargeable: 0
+    charge_condition: 0
+    charge_mode: 0
+    status: 
+    value: 0
+  skill_advanced:
+    cooldown_change: 0
+    status_type: 0
+    remove: 0
+    count: 0
+    deal_damage: 0
+    heal_self: 0
+    skill_cooldown: 0
+    swap: 0
+    status_swap_self: 0
+    status_swap_target: 0
   damage_info:
     deal_damage: 1
     use_base_attack: 1
     damage_modifier: 2
-  targeting_mode: 0
+    vampire_attack: 0
+  prerequisite: 0
+  pooling: 
+  picking: 0

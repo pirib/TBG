@@ -15,7 +15,7 @@ MonoBehaviour:
   universal:
     name: Recovery
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: -951683712900587556, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 0
     targeting_mode: 0

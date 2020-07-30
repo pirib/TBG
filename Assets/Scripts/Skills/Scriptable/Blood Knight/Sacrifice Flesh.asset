@@ -15,7 +15,7 @@ MonoBehaviour:
   universal:
     name: Sacrifice Flesh
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: -7690207050611620256, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 0
     targeting_mode: 0

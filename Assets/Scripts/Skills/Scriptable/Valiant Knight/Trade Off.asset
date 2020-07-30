@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Trade Off
   m_EditorClassIdentifier: 
   universal:
-    name: 
+    name: Trade Off
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: -6510302737916619623, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 0
     targeting_mode: 0
