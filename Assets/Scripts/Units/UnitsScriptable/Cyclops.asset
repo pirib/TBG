@@ -15,9 +15,10 @@ MonoBehaviour:
   universal:
     name: Cyclops
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: -2543793921705367296, guid: 07d133927c303e643aac0a459ae7de90, type: 3}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: 92a54d2e6256bdd40812ba382a061a8f, type: 2}
     skills: []
   unit_param:

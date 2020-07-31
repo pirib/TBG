@@ -93,26 +93,23 @@ public class SkillManager : MonoBehaviour
 
 }
 
-// Adds a new Skill
-public Skill add_skill(string Skill_name, Unit unit)
-    {
-        // Instantiate a skill object
-        GameObject new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
+    // Adds a new Skill
+    public Skill add_skill(string Skill_name, Unit unit)
+        {
+            // Instantiate a skill object
+            GameObject new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
 
-        // Get the specified skillAbstract based on the Skill_name
-        SkillAbstract skillAbstract = get_SkillAbstract_byName(Skill_name, unit);
+            // Get the specified skillAbstract based on the Skill_name
+            SkillAbstract skillAbstract = get_SkillAbstract_byName(Skill_name, unit);
 
-        // Assign skillAbstract parameters to a skill new_skill
-        assign_skill_parameters(ref skillAbstract, ref new_skill);
+            // Assign skillAbstract parameters to a skill new_skill
+            assign_skill_parameters(ref skillAbstract, ref new_skill);
 
-        // Assign owner unit
-        new_skill.GetComponent<Skill>().owner_unit = unit;
+            // Assign owner unit
+            new_skill.GetComponent<Skill>().owner_unit = unit;
 
-        // Return the new_skill to the Unit, so it knows what new Skill it has
-        return new_skill.GetComponent<Skill>();
-    }
-
-
-
+            // Return the new_skill to the Unit, so it knows what new Skill it has
+            return new_skill.GetComponent<Skill>();
+        }
 
 }

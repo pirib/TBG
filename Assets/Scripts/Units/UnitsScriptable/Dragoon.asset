@@ -15,9 +15,10 @@ MonoBehaviour:
   universal:
     name: Dragoon
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: -3230180494286438371, guid: 07d133927c303e643aac0a459ae7de90, type: 3}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: adf3ed100e3590344b2c1a9b8946fa45, type: 2}
     skills: []
   unit_param:

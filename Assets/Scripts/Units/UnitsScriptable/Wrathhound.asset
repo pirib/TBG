@@ -15,9 +15,10 @@ MonoBehaviour:
   universal:
     name: Wrathhound
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: 2645787206416294302, guid: 07d133927c303e643aac0a459ae7de90, type: 3}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: e86c69833f6ccaa47bb4f2c0fdc325ae, type: 2}
     skills: []
   unit_param:

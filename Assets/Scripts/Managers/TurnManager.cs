@@ -111,12 +111,15 @@ public class TurnManager : MonoBehaviour
         float queue_bg = 24;
         float start_point = Mathf.Floor((Camera.main.orthographicSize - 15 - (Camera.main.orthographicSize * 2 - queue.Count * queue_bg) / 2));
 
-
         int i = 0;
         foreach (Unit unit in queue)
         {
             // Instantiate the queue prefab
             GameObject new_queue = Instantiate(queue_prefab);
+
+            // Set the correct icon
+            if (unit.universal.icon != null)
+                new_queue.GetComponent<queue_bg>().icon.sprite = unit.universal.icon; 
 
             // Update the list holding all the references to the GUI
             queue_GUI.Add(new_queue);
@@ -125,7 +128,8 @@ public class TurnManager : MonoBehaviour
             float x = Mathf.Floor(Camera.main.aspect * Camera.main.orthographicSize) - queue_bg + 8;
             float y = Mathf.Floor((start_point - i * (queue_bg)));
 
-            new_queue.transform.position = new Vector3(x, y, -i);
+            new_queue.transform.position = new Vector3(x, y, -i );
+            Debug.Log(i);
 
             i++;
         }
@@ -138,10 +142,10 @@ public class TurnManager : MonoBehaviour
         float origin_x = queue_GUI[pointer].transform.position.x;
 
         // Set the old Queue thing back in place
-        queue_GUI[get_previous_pointer()].transform.position = new Vector2 ( origin_x, queue_GUI[get_previous_pointer()].transform.position.y );        
+        queue_GUI[get_previous_pointer()].transform.position = new Vector3( origin_x, queue_GUI[get_previous_pointer()].transform.position.y, queue_GUI[get_previous_pointer()].transform.position.z);        
 
         // Set the current queue thingy a bit out
-        queue_GUI[pointer].transform.position = new Vector2(queue_GUI[pointer].transform.position.x-8, queue_GUI[pointer].transform.position.y);
+        queue_GUI[pointer].transform.position = new Vector3(queue_GUI[pointer].transform.position.x-8, queue_GUI[pointer].transform.position.y, queue_GUI[get_previous_pointer()].transform.position.z);
 
     }
 

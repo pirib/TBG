@@ -15,9 +15,10 @@ MonoBehaviour:
   universal:
     name: Hire Dagger
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: 2294047127563609499, guid: 07d133927c303e643aac0a459ae7de90, type: 3}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: 10804216186e4dd4e9229ddaf7663c46, type: 2}
     skills: []
   unit_param:

@@ -15,7 +15,7 @@ MonoBehaviour:
   universal:
     name: Familiar
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: 4227806448142710366, guid: 07d133927c303e643aac0a459ae7de90, type: 3}
   general:
     is_player: 0
     is_mindless: 1

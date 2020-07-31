@@ -15,9 +15,10 @@ MonoBehaviour:
   universal:
     name: Helmsplitter
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: 2159100016460143460, guid: 07d133927c303e643aac0a459ae7de90, type: 3}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: cdd8e94bd29afd846bf665fcaae92a68, type: 2}
     skills: []
   unit_param:

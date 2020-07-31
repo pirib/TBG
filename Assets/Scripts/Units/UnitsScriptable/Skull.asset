@@ -15,9 +15,10 @@ MonoBehaviour:
   universal:
     name: Skull
     description: 
-    icon: {fileID: 0}
+    icon: {fileID: 8448361304036692410, guid: 07d133927c303e643aac0a459ae7de90, type: 3}
   general:
     is_player: 0
+    is_mindless: 0
     unit_animations: {fileID: 22100000, guid: 38c888a474c15fa41aa72034022c025f, type: 2}
     skills: []
   unit_param:
