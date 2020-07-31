@@ -17,7 +17,7 @@ MonoBehaviour:
     description: 
     icon: {fileID: 849150016359643074, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
+    cooldown: 3
     targeting_mode: 0
     skill_animation: 0
     casting_effect: {fileID: 0}

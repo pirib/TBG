@@ -51,9 +51,9 @@ MonoBehaviour:
     status_swap_self: 0
     status_swap_target: 0
   damage_info:
-    deal_damage: 0
+    deal_damage: 1
     use_base_attack: 0
-    damage_modifier: 0
+    damage_modifier: 2
     vampire_attack: 0
   prerequisite: 0
   pooling: 
