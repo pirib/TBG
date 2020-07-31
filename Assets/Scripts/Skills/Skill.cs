@@ -87,8 +87,11 @@ public class Skill : MonoBehaviour
         // Play animation
         owner_unit.play(general.skill_animation);
 
-
+        // Debug stuff
         Debug.Log("Unit " + owner_unit.universal.name + " is executing skill " + universal.name);
+
+        // Shake
+        ShakeBehaviour.instance.TriggerShake();
 
         // Variables used in executing the skill
         int total_damage = 0;
