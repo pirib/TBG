@@ -411,13 +411,13 @@ public class Unit : MonoBehaviour
     // Cleans and Places players skills
     private void set_player_skills()
     {
-        Debug.Log("Removing old player skills");
+        Debug.Log("Setting player skills.");
+
         for (int skill_index = general.skills.Count-1; skill_index >= 0; skill_index -- )
         {
             if (general.skills[skill_index] != null) Destroy(skills[skill_index]);
         }
 
-        Debug.Log("Setting player skills");
         // Add all skills for each Relic in users inventory
         foreach (Relic relic in Inventory.instance.inventory)
         {
@@ -428,7 +428,7 @@ public class Unit : MonoBehaviour
             }
         }
 
-        Debug.Log("Aligning player skills.");
+        // Aligning
 
         float skill_icon_height = 28;
         float start_point = Mathf.Floor((Camera.main.orthographicSize + 14 - (Camera.main.orthographicSize*2 - general.skills.Count * skill_icon_height/2) /2));
