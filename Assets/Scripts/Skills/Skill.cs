@@ -143,7 +143,7 @@ public class Skill : MonoBehaviour
             temp.GetComponent<Animator>().runtimeAnimatorController = general.casting_effect;
         }
 
-            // Apply damage, status, etc. for each target in the list
+         // Apply damage, status, etc. for each target in the list
          foreach (Unit unit in targets)
         {
             // Play the damage effect if any exist
@@ -209,7 +209,7 @@ public class Skill : MonoBehaviour
             }*/
 
             // Deal Damage
-            if (damage_info.deal_damage) unit.receive_damage(total_damage, true, false, owner_unit);
+            if (damage_info.deal_damage) unit.receive_damage(total_damage, true, false, owner_unit, damage_info.is_piercing);
 
         }
 
@@ -253,33 +253,29 @@ public class Skill : MonoBehaviour
 
     // Updates the skill hud, including the charge levels
     public void update_skill_hud()
-    {
-     //   if (owner_unit.is_player())
-      //  {
-            
-            if (cooldown_cur > 0)
-            {
-                cooldown_bg.gameObject.SetActive(true);
-                cooldown_text.text = cooldown_cur.ToString();
+    {            
+        if (cooldown_cur > 0)
+        {
+            cooldown_bg.gameObject.SetActive(true);
+            cooldown_text.text = cooldown_cur.ToString();
 
-            } else
-            {
-                cooldown_bg.gameObject.SetActive(false);
-            }
+        } else
+        {
+            cooldown_bg.gameObject.SetActive(false);
+        }
 
-            // Updating the charge
-            if (charge.chargeable)
-            {
-                SpriteRenderer temp = charge_ui.GetComponent<SpriteRenderer>();
+        // Updating the charge
+        if (charge.chargeable)
+        {
+            SpriteRenderer temp = charge_ui.GetComponent<SpriteRenderer>();
 
-                if (charge_lvl == 0) temp.sprite = charge0;
-                else if (charge_lvl == 1) temp.sprite = charge1;
-                else if (charge_lvl == 2) temp.sprite = charge2;
-                else if (charge_lvl == 3) temp.sprite = charge3;
-                else Debug.Log("Shit went south in Skill " + universal.name + " charge value is ourside the bounds" );
-            }
+            if (charge_lvl == 0) temp.sprite = charge0;
+            else if (charge_lvl == 1) temp.sprite = charge1;
+            else if (charge_lvl == 2) temp.sprite = charge2;
+            else if (charge_lvl == 3) temp.sprite = charge3;
+            else Debug.Log("Shit went south in Skill " + universal.name + " charge value is ourside the bounds" );
+        }
 
-        //}
     }
 
     // Sets the skill icon
@@ -395,7 +391,7 @@ public class Skill : MonoBehaviour
 
     #endregion
 
-    #region GUI
+    #region GUI + Control
 
     private void OnMouseDown()
     {

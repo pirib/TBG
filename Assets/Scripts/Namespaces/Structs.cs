@@ -118,6 +118,7 @@ namespace Structs
     {
         public bool deal_damage;
         public bool use_base_attack;
+        public bool is_piercing;
         public int damage_modifier;     // modifies the base attack by adding this to the final output
         public bool vampire_attack;     // heal the caster by the final damage output
     }

@@ -187,7 +187,7 @@ public class Unit : MonoBehaviour
     // Do things at the start of the turn
     public IEnumerator turn_start()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
 
         // Update cooldowns of the skills
         update_skills_cooldown();
@@ -290,14 +290,15 @@ public class Unit : MonoBehaviour
     }
 
     // Receive the incoming damage, and modify it based on the armor, subscribers response etc..
-    public void receive_damage (int incoming_damage, bool is_primary = true, bool is_status = false, Unit source_unit = null)
+    public void receive_damage (int incoming_damage, bool is_primary = true, bool is_status = false, Unit source_unit = null , bool piercing = false)
     {
 
         if (incoming_damage  > 0) {
             // ADD receive_damage animation
 
+
             // If damage source is status, ignore armor
-            if (is_status) hp_cur = hp_cur - incoming_damage; 
+            if (is_status || piercing) hp_cur = hp_cur - incoming_damage; 
             // Check with the armor 
             else if (incoming_damage > unit_param.armor) hp_cur = hp_cur - incoming_damage + unit_param.armor;
             else hp_cur -= 1;
