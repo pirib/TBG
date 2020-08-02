@@ -25,7 +25,7 @@ MonoBehaviour:
   cost:
     ap_cost: 1
     hp_cost: 0
-    rage_cost: 2
+    rage_cost: 0
   gain:
     hp: 0
     ap: 0

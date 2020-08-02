@@ -235,6 +235,9 @@ public class Unit : MonoBehaviour
         {
             status.GetComponent<Status>().update_duration(change);
         }
+
+        // Update the hud
+        update_hud();
     }
 
      // Expired Status check
@@ -261,6 +264,9 @@ public class Unit : MonoBehaviour
                 }
             }
         }
+
+        // Update the hud
+        update_hud();
     }
 
     // Pick status types
@@ -332,6 +338,8 @@ public class Unit : MonoBehaviour
         else if (rage_cur + rage < 0) rage_cur = 0;
         else rage_cur = rage_cur + rage;
 
+        Debug.Log("stuff");
+
         // Update the hud
         update_hud();
     }
@@ -360,6 +368,9 @@ public class Unit : MonoBehaviour
         {
 
             // ADD Get xp/gold/update stats/whatever
+
+            // Update the players rage
+            TurnManager.instance.player.update_rage(1);
 
             // Remove from the queue
             TurnManager.instance.remove_from_queue(this);

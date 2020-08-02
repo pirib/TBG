@@ -17,6 +17,8 @@ public class SkillTarget : MonoBehaviour
 
     #endregion 
 
+    [Header("Selection Pool")]
+
     // Is the player currently choosing units?
     [SerializeField] private bool actively_targeting = false;
 
@@ -29,7 +31,9 @@ public class SkillTarget : MonoBehaviour
     // Pool of units that is passed onto the skill
     [SerializeField] private List<Unit> selected_units = new List<Unit>();
 
-
+    [Header("Targeting")]
+    public GameObject target_indicator;
+    public List<GameObject> target_indicators = new List<GameObject>();
 
     public void set_skill(Skill skill)
     {
@@ -48,6 +52,9 @@ public class SkillTarget : MonoBehaviour
     {
         // Clear up the selection pool (just in case?)
         clear_selection_pool();
+
+        // Clear the previously targeted targets
+        clear_targeting_indicators();
 
         // Update the targeting pool with possible targets based on the skills targeting type
         if (targeting == TargetingType.PLAYER)
@@ -68,10 +75,21 @@ public class SkillTarget : MonoBehaviour
         }
 
         Debug.Log("Selection pool is updated for targeting type " + targeting);
+        
+        // Set the GUI indicator if potential targets
+        foreach(Unit unit in selection_pool)
+        {
+            // Instantiate and add target_indicators
+            target_indicators.Add( Instantiate(target_indicator, unit.transform) );
+        }
+
     }
 
     // This one is called only if the correct target has been chosen while a unit/player was actively targeting
     public void execute(Unit unit) {
+
+        // Remove the target indicators
+        clear_targeting_indicators();
 
         // Not targeting anymore
         actively_targeting = false;
@@ -123,6 +141,16 @@ public class SkillTarget : MonoBehaviour
     {
         return actively_targeting;
     }
+    
+    public void clear_targeting_indicators ()
+    {
+        foreach (GameObject target_indicator in target_indicators)
+        {
+            Destroy(target_indicator);
+        }
+
+    }
+
     #endregion
 
 }

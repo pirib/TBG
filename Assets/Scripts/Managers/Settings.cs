@@ -12,23 +12,19 @@ public class Settings : MonoBehaviour
     {
         instance = this;
 
-
     }
 
     #endregion
 
-    #region PUBLIC PARAMETERS
-
-    public float SCREEN_HEIGHT;
-    public float SCREEN_WIDTH;
-
-    #endregion
+    [Header("Mouse Settings")]
+    public Texture2D cursorTexture;
+    public CursorMode cursorMode = CursorMode.Auto;
+    public Vector2 hotSpot = Vector2.zero;
 
 
     public void Start()
     {
-        SCREEN_HEIGHT = Camera.main.orthographicSize*2;
-        SCREEN_WIDTH = Camera.main.aspect * SCREEN_HEIGHT*2;
+       // Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
     }
 
     

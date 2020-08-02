@@ -77,7 +77,6 @@ public class TurnManager : MonoBehaviour
         pointer = 0;
 
         set_queue_GUI();
-        pop_GUI();
 
         Debug.Log("Queue initialized.");
         }
@@ -111,7 +110,7 @@ public class TurnManager : MonoBehaviour
         float queue_bg = 24;
         float start_point = Mathf.Floor((Camera.main.orthographicSize - 15 - (Camera.main.orthographicSize * 2 - queue.Count * queue_bg) / 2));
 
-        int i = 0;
+        int i = 1;
         foreach (Unit unit in queue)
         {
             // Instantiate the queue prefab
@@ -126,17 +125,20 @@ public class TurnManager : MonoBehaviour
 
             // Align
             float x = Mathf.Floor(Camera.main.aspect * Camera.main.orthographicSize) - queue_bg + 8;
-            float y = Mathf.Floor((start_point - i * (queue_bg)));
+            float y = Mathf.Floor((start_point - i * (queue_bg-4)));
 
             new_queue.transform.position = new Vector3(x, y, -i );
             Debug.Log(i);
 
             i++;
         }
+
+        // Popping the unit whose turn it is right now
+        pop_GUI();
     }
 
-    // Popps the current units turn icon in the queue a bit to the left
-    private void pop_GUI()
+        // Popps the current units turn icon in the queue a bit to the left
+        private void pop_GUI()
     {
         // Get the current pointer's x
         float origin_x = queue_GUI[pointer].transform.position.x;
@@ -145,7 +147,7 @@ public class TurnManager : MonoBehaviour
         queue_GUI[get_previous_pointer()].transform.position = new Vector3( origin_x, queue_GUI[get_previous_pointer()].transform.position.y, queue_GUI[get_previous_pointer()].transform.position.z);        
 
         // Set the current queue thingy a bit out
-        queue_GUI[pointer].transform.position = new Vector3(queue_GUI[pointer].transform.position.x-8, queue_GUI[pointer].transform.position.y, queue_GUI[get_previous_pointer()].transform.position.z);
+        queue_GUI[pointer].transform.position = new Vector3(queue_GUI[pointer].transform.position.x-4, queue_GUI[pointer].transform.position.y, queue_GUI[pointer].transform.position.z);
 
     }
 
