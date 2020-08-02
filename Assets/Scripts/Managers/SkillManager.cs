@@ -15,6 +15,10 @@ public class SkillManager : MonoBehaviour
 
     #endregion
 
+    [Header("Holders")]
+    [SerializeField] private GameObject player_skills_holder;
+    [SerializeField] private GameObject enemy_skills_holder;
+
     [Header("Prefabs")]
     [SerializeField] private GameObject skill;
 
@@ -96,20 +100,26 @@ public class SkillManager : MonoBehaviour
     // Adds a new Skill
     public Skill add_skill(string Skill_name, Unit unit)
         {
-            // Instantiate a skill object
-            GameObject new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
 
-            // Get the specified skillAbstract based on the Skill_name
-            SkillAbstract skillAbstract = get_SkillAbstract_byName(Skill_name, unit);
+        GameObject new_skill;
+            
+        // Instantiate a skill object
+        if (unit.is_player())
+            new_skill = Instantiate(skill , player_skills_holder.transform);
+        else
+            new_skill = Instantiate(skill /*, unit.gameObject.transform*/);
 
-            // Assign skillAbstract parameters to a skill new_skill
-            assign_skill_parameters(ref skillAbstract, ref new_skill);
+        // Get the specified skillAbstract based on the Skill_name
+        SkillAbstract skillAbstract = get_SkillAbstract_byName(Skill_name, unit);
 
-            // Assign owner unit
-            new_skill.GetComponent<Skill>().owner_unit = unit;
+        // Assign skillAbstract parameters to a skill new_skill
+        assign_skill_parameters(ref skillAbstract, ref new_skill);
 
-            // Return the new_skill to the Unit, so it knows what new Skill it has
-            return new_skill.GetComponent<Skill>();
+        // Assign owner unit
+        new_skill.GetComponent<Skill>().owner_unit = unit;
+
+        // Return the new_skill to the Unit, so it knows what new Skill it has
+        return new_skill.GetComponent<Skill>();
         }
 
 }

@@ -19,12 +19,16 @@ public class TurnManager : MonoBehaviour
 
     #region Handlers
     [Header("Handlers")]
-
     public Unit player;
     [SerializeField] private GameObject queue_prefab;
+
+    [Header("GUI Holders Handlers")]
+    [SerializeField] private GameObject queue_holder;
+
     #endregion
 
     #region Queue Related
+    [Header("Queue")]
     public List<Unit> queue = new List<Unit>();
     public List<GameObject> queue_GUI = new List<GameObject>();
 
@@ -114,7 +118,7 @@ public class TurnManager : MonoBehaviour
         foreach (Unit unit in queue)
         {
             // Instantiate the queue prefab
-            GameObject new_queue = Instantiate(queue_prefab);
+            GameObject new_queue = Instantiate(queue_prefab, queue_holder.transform);
 
             // Set the correct icon
             if (unit.universal.icon != null)
