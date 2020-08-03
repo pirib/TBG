@@ -294,14 +294,29 @@ public class Unit : MonoBehaviour
     {
 
         if (incoming_damage  > 0) {
-            // ADD receive_damage animation
+            // Bool is used to decide whether the unit received the damage after all
+            bool damage_received = false;
 
+            // If damage source is status or it is a piercing type, ignore armor
+            if (is_status || piercing) { 
+                hp_cur = hp_cur - incoming_damage;
+                damage_received = true;
+            }
+            // Else, we are checking with the armor 
+            else {  
+                
+                if (incoming_damage > unit_param.armor) { 
+                    hp_cur = hp_cur - incoming_damage + unit_param.armor;
+                    damage_received = true;
+                }
+                
+                else if (incoming_damage <= unit_param.armor) {
+                    Debug.Log("All damage has been blocked");
+                }
+            }
 
-            // If damage source is status, ignore armor
-            if (is_status || piercing) hp_cur = hp_cur - incoming_damage; 
-            // Check with the armor 
-            else if (incoming_damage > unit_param.armor) hp_cur = hp_cur - incoming_damage + unit_param.armor;
-            else hp_cur -= 1;
+            // ADD Play receive damage animation if hp has changed itself
+            if (!damage_received) Debug.Log("Damage has been reeived");
 
             // Let the subscribers know that the damage has been received
             if (is_primary)
@@ -338,8 +353,6 @@ public class Unit : MonoBehaviour
         if (rage_cur + rage >= unit_param.rage_max) rage_cur = unit_param.rage_max;
         else if (rage_cur + rage < 0) rage_cur = 0;
         else rage_cur = rage_cur + rage;
-
-        Debug.Log("stuff");
 
         // Update the hud
         update_hud();
@@ -403,18 +416,50 @@ public class Unit : MonoBehaviour
 
     public void add_status (string Status_name, Unit source_unit = null)
     {
+        // Check if a status with current name exists already - destroy the old one, apply the new one
+        if (unit_has_status(Status_name)) {
+            GameObject status = pick_status_by_name(Status_name);
+            
+            statuses.Remove(status);
+            Destroy(status);
+        }
+        
         // Instantiate a new status, fetching it from the StatusManager and add it to the list of active statuses of this unit
-        statuses.Add(StatusManager.instance.add_status(Status_name, this));      
+        statuses.Add(StatusManager.instance.add_status(Status_name, this));
         
-        // Alert subscribers
-        
+
+        // Alert subscribers        
         // The unit has received a status
         try { OnStatusReceived(statuses[statuses.Count - 1].GetComponent<Status>().stat_gen.type); }
         catch { Debug.Log("Exceptions - no subscribers were found, skipping OnStatusReceived"); }
 
-
     }
 
+    #region Status Helpers
+
+    private bool unit_has_status(string status_name)
+    {
+        foreach (GameObject status in statuses)
+        {
+            if (status.GetComponent<Status>().universal.name == status_name) 
+                return true;
+        } 
+
+        return false;
+    }
+
+    private GameObject pick_status_by_name(string status_name)
+    {
+        foreach (GameObject status in statuses)
+        {
+            if (status.GetComponent<Status>().universal.name == status_name)
+                return status;
+        }
+
+        return null;
+    }
+
+    #endregion
 
     #endregion
 

@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Reverse Bless
-    description: 
+    description: "Deal damage to an enemy for every status it has.\t\t\t\t"
     icon: {fileID: -1768369826225085996, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
+    cooldown: 2
     targeting_mode: 0
-    skill_animation: 0
+    skill_animation: 3
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
-    ap_cost: 0
+    ap_cost: 1
     hp_cost: 0
-    rage_cost: 0
+    rage_cost: 1
   gain:
     hp: 0
     ap: 0
@@ -41,18 +41,19 @@ MonoBehaviour:
     value: 0
   skill_advanced:
     cooldown_change: 0
-    status_type: 0
+    status_type: 2
     remove: 0
-    count: 0
-    deal_damage: 0
+    count: 1
+    deal_damage: 1
     heal_self: 0
     skill_cooldown: 0
     swap: 0
     status_swap_self: 0
     status_swap_target: 0
   damage_info:
-    deal_damage: 0
+    deal_damage: 1
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 0
     vampire_attack: 0
   prerequisite: 0

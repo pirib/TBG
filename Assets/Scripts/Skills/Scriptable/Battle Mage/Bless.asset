@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Bless
-    description: 
+    description: "Heal yourself for every status you have.\t\t\t\t"
     icon: {fileID: -2100618156054978594, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
-    targeting_mode: 0
-    skill_animation: 0
+    cooldown: 2
+    targeting_mode: 3
+    skill_animation: 2
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
     ap_cost: 0
     hp_cost: 0
-    rage_cost: 0
+    rage_cost: 1
   gain:
     hp: 0
     ap: 0
@@ -41,11 +41,11 @@ MonoBehaviour:
     value: 0
   skill_advanced:
     cooldown_change: 0
-    status_type: 0
+    status_type: 2
     remove: 0
-    count: 0
+    count: 1
     deal_damage: 0
-    heal_self: 0
+    heal_self: 1
     skill_cooldown: 0
     swap: 0
     status_swap_self: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   damage_info:
     deal_damage: 0
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 0
     vampire_attack: 0
   prerequisite: 0

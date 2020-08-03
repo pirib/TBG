@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Focus
-    description: 
+    description: Get 1 AP
     icon: {fileID: 5338203902390732400, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
-    targeting_mode: 0
-    skill_animation: 0
+    cooldown: 1
+    targeting_mode: 3
+    skill_animation: 2
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
     ap_cost: 0
     hp_cost: 0
-    rage_cost: 0
+    rage_cost: 1
   gain:
     hp: 0
-    ap: 0
+    ap: 1
     rage: 0
   status:
     apply_status: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   damage_info:
     deal_damage: 0
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 0
     vampire_attack: 0
   prerequisite: 0

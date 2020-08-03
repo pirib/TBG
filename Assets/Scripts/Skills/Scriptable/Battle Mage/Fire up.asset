@@ -14,25 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Fire Up
-    description: "Set burning status on every enemy\t\t\t\t"
+    description: "Deal 2 damage and set burning status on every enemy\t\t\t\t"
     icon: {fileID: -6207298038394112916, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2
-    targeting_mode: 0
+    targeting_mode: 1
     skill_animation: 3
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 22100000, guid: 71fc76bc83099b2428f5c0e33885518c, type: 2}
   cost:
     ap_cost: 1
     hp_cost: 0
-    rage_cost: 0
+    rage_cost: 2
   gain:
     hp: 0
     ap: 0
     rage: 0
   status:
-    apply_status: 0
-    status_name: 
+    apply_status: 1
+    status_name: Burning
   charge:
     chargeable: 0
     charge_condition: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   damage_info:
     deal_damage: 1
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 2
     vampire_attack: 0
   prerequisite: 0

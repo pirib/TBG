@@ -23,7 +23,7 @@ public class Settings : MonoBehaviour
 
     // Mouse Parallax 
     [Header("Parallax parameters")]
-    private Vector3 StartPos;
+    [SerializeField] private Vector3 StartPos;
     [SerializeField] private float modifier;
     [SerializeField] public GameObject parralax_object;
 
@@ -34,7 +34,8 @@ public class Settings : MonoBehaviour
 
         StartPos = parralax_object.transform.position;
     }
-
+    
+    /*
     void Update()
     {
         var pz = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -42,5 +43,5 @@ public class Settings : MonoBehaviour
         parralax_object.transform.position = pz;
         parralax_object.transform.position = new Vector3(StartPos.x + (pz.x * modifier), StartPos.y + (pz.y * modifier), parralax_object.transform.position.z);
     }
-
+    */
 }

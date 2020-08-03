@@ -131,8 +131,7 @@ public class TurnManager : MonoBehaviour
             float x = Mathf.Floor(Camera.main.aspect * Camera.main.orthographicSize) - queue_bg + 8;
             float y = Mathf.Floor((start_point - i * (queue_bg-4)));
 
-            new_queue.transform.position = new Vector3(x, y, -i );
-            Debug.Log(i);
+            new_queue.transform.position = new Vector3(x, y, -3-i*0.5f );
 
             i++;
         }

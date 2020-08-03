@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Amplify
-    description: 
+    description: "Add +1 cooldown to all statuses\t\t\t\t"
     icon: {fileID: -941245128588498797, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
-    targeting_mode: 0
-    skill_animation: 0
+    cooldown: 2
+    targeting_mode: 4
+    skill_animation: 3
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
@@ -40,8 +40,8 @@ MonoBehaviour:
     status: 
     value: 0
   skill_advanced:
-    cooldown_change: 0
-    status_type: 0
+    cooldown_change: 1
+    status_type: 2
     remove: 0
     count: 0
     deal_damage: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   damage_info:
     deal_damage: 0
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 0
     vampire_attack: 0
   prerequisite: 0

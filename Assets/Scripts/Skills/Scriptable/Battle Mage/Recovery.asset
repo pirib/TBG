@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Recovery
-    description: 
+    description: "Reduce all skills cooldowns by 1\t\t\t\t"
     icon: {fileID: -951683712900587556, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
-    targeting_mode: 0
-    skill_animation: 0
+    cooldown: 4
+    targeting_mode: 3
+    skill_animation: 2
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
-    ap_cost: 0
+    ap_cost: 1
     hp_cost: 0
-    rage_cost: 0
+    rage_cost: 1
   gain:
     hp: 0
     ap: 0
@@ -46,13 +46,14 @@ MonoBehaviour:
     count: 0
     deal_damage: 0
     heal_self: 0
-    skill_cooldown: 0
+    skill_cooldown: -1
     swap: 0
     status_swap_self: 0
     status_swap_target: 0
   damage_info:
     deal_damage: 0
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 0
     vampire_attack: 0
   prerequisite: 0

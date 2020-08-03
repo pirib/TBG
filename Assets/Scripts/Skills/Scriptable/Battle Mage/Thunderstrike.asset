@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Thunderstrike
-    description: 
+    description: Hit every enemy with a lightning dealign 3 damage
     icon: {fileID: -4148789672316827937, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 0
-    targeting_mode: 0
+    targeting_mode: 1
     skill_animation: 0
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
-    ap_cost: 0
+    ap_cost: 2
     hp_cost: 0
-    rage_cost: 0
+    rage_cost: 3
   gain:
     hp: 0
     ap: 0
@@ -34,10 +34,10 @@ MonoBehaviour:
     apply_status: 0
     status_name: 
   charge:
-    chargeable: 0
-    charge_condition: 0
-    charge_mode: 0
-    status: 
+    chargeable: 1
+    charge_condition: 3
+    charge_mode: 5
+    status: Stun
     value: 0
   skill_advanced:
     cooldown_change: 0
@@ -51,9 +51,10 @@ MonoBehaviour:
     status_swap_self: 0
     status_swap_target: 0
   damage_info:
-    deal_damage: 0
+    deal_damage: 1
     use_base_attack: 0
-    damage_modifier: 0
+    is_piercing: 0
+    damage_modifier: 3
     vampire_attack: 0
   prerequisite: 0
   pooling: 
