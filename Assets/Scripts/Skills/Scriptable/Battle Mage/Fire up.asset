@@ -31,7 +31,7 @@ MonoBehaviour:
     ap: 0
     rage: 0
   status:
-    apply_status: 1
+    apply_status: 0
     status_name: Burning
   charge:
     chargeable: 0

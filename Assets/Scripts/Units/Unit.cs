@@ -553,7 +553,7 @@ public class Unit : MonoBehaviour
             foreach (Skill skill in skills)
             {
                 // If a skill is usable
-                if (is_skill_usable(skill.GetComponent<Skill>())) {
+                if ( skill.is_skill_usable() ) {
 
                     // Execute it on the the selected pool
                     skill.execute_skill(skill.get_picked_pool());
@@ -575,25 +575,11 @@ public class Unit : MonoBehaviour
         int temp = 0;
         foreach (Skill skill in skills)
         {
-            if (is_skill_usable(skill)) temp++ ;
+            if ( skill.is_skill_usable() ) temp++ ;
         }
         Debug.Log("Usable skill num " + temp);
         return temp;
     }
-
-    // Checks if the skill is usable - e.g. the unit can pay its costs, the cooldownzero, and the condition check returns true
-    public bool is_skill_usable(Skill skill)
-    {
-        // Return True if the the unit can pay the skill's costs, is not on cooldown and it passes its conditions
-        // NB! HP cost check is skipped
-        if (skill.cost.ap_cost <= ap_cur && skill.cost.rage_cost <= rage_cur && skill.cooldown() == 0 && skill.passes_conditions() && skill.prerequisites_met()) 
-            return true;
-
-        // Else, return false
-        else 
-            return false;
-    }
-
 
     #endregion
 

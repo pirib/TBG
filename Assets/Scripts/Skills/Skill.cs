@@ -302,6 +302,19 @@ public class Skill : MonoBehaviour
         update_skill_hud();
     }
 
+    // Return a bool indicating whether the owner_unit can use the skill or not
+    public bool is_skill_usable()
+    {
+        // Return True if the the unit can pay the skill's costs, is not on cooldown and it passes its conditions
+        // NB! HP cost check is skipped
+        if (cost.ap_cost <= owner_unit.get_cur_ap() && cost.rage_cost <= owner_unit.get_cur_rage() && cooldown() == 0 && passes_conditions() && prerequisites_met())
+            return true;
+
+        // Else, return false
+        else
+            return false;
+    }
+
     #endregion
 
     #region Skill Charge Delegates
@@ -379,7 +392,7 @@ public class Skill : MonoBehaviour
     // Get back a list of potential targets
     public List<Unit> get_skill_pool()
     {
-        return TurnManager.instance.pool_units( pooling , this);
+        return TurnManager.instance.pool_units(pooling , this);
     }
 
     // Pick a unit from the list of potential targets. Returns the whole list if picking conditions are set to ALL/NONE
@@ -387,7 +400,6 @@ public class Skill : MonoBehaviour
     {
         return TurnManager.instance.pick_unit(this);
     }
-
 
     #endregion
 
