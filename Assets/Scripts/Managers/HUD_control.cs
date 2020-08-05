@@ -31,15 +31,14 @@ public class HUD_control : MonoBehaviour
         // it is the player that needs updating the hud
         if (unit.is_player())
         {
+            // TODO make it relative
             // Set hud to the correct position relative to the unit
             hud.transform.position = new Vector2(-120,96);
-
 
             // Setting the black ribbon
             hud.SetTile(new Vector3Int(-10, 0, -1), tile_player[6]);
             hud.SetTile(new Vector3Int(-10, -1, -1), tile_player[6]);
             hud.SetTile(new Vector3Int(-10, -2, -1), tile_player[6]);
-
 
             // Set hp
             for (int i = 0; i < unit.get_max_hp(); i++) hud.SetTile(new Vector3Int(-9 + i, 0, -1), tile_player[1]);

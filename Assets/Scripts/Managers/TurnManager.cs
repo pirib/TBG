@@ -140,8 +140,8 @@ public class TurnManager : MonoBehaviour
         pop_GUI();
     }
 
-        // Popps the current units turn icon in the queue a bit to the left
-        private void pop_GUI()
+    // Popps the current units turn icon in the queue a bit to the left
+    private void pop_GUI()
     {
         // Get the current pointer's x
         float origin_x = queue_GUI[pointer].transform.position.x;

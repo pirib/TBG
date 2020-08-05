@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Enrage
-    description: "Set Status Every time you receive damage, get 1 rage\t\t\t\t"
+    description: Set Status Every time you receive damage, get 1 rage.
     icon: {fileID: -8172987557140157633, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2
@@ -53,6 +53,7 @@ MonoBehaviour:
   damage_info:
     deal_damage: 0
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 0
     vampire_attack: 0
   prerequisite: 0

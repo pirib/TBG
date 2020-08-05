@@ -23,7 +23,7 @@ MonoBehaviour:
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
-    ap_cost: 0
+    ap_cost: 1
     hp_cost: 0
     rage_cost: 0
   gain:

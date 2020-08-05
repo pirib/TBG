@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Bloodshed
-    description: "Deal extra damage at the cost of your life\t\t\t\t"
+    description: Deal extra damage at the cost of your life
     icon: {fileID: -4808237967370922085, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 1
@@ -53,6 +53,7 @@ MonoBehaviour:
   damage_info:
     deal_damage: 1
     use_base_attack: 1
+    is_piercing: 0
     damage_modifier: 2
     vampire_attack: 0
   prerequisite: 0

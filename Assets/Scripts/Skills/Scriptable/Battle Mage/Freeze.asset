@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Freeze
-    description: "Freeze enemy solid, deal one damage and stun them for one turn.\t\t\t\t"
+    description: Freeze enemy solid, deal one damage and stun them for one turn.
     icon: {fileID: 4137798740859782585, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 1

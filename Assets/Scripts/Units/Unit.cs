@@ -488,7 +488,7 @@ public class Unit : MonoBehaviour
         // Aligning
 
         float skill_icon_height = 28;
-        float start_point = Mathf.Floor((Camera.main.orthographicSize + 14 - (Camera.main.orthographicSize*2 - general.skills.Count * skill_icon_height/2) /2));
+        float start_point = Mathf.Floor((Camera.main.orthographicSize - 14 - (Camera.main.orthographicSize * 2 - (skills.Count) * skill_icon_height/2) /2));
 
         int i = 0;
         foreach (Skill skill in skills)
