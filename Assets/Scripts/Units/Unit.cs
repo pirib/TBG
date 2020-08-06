@@ -152,7 +152,13 @@ public class Unit : MonoBehaviour
         // Debugging stuff
         if (general.is_player)
         {
-
+            add_status("Berserk");
+            add_status("Chosen");
+            add_status("Enraged");
+        } else
+        {
+            add_status("Chosen");
+            add_status("Enraged");
         }
 
         // Prep the units by setting the right skills, statuses, etc.
@@ -426,7 +432,9 @@ public class Unit : MonoBehaviour
         
         // Instantiate a new status, fetching it from the StatusManager and add it to the list of active statuses of this unit
         statuses.Add(StatusManager.instance.add_status(Status_name, this));
-        
+
+        // Place the status in the right spot
+        set_status_GUI();
 
         // Alert subscribers        
         // The unit has received a status
@@ -457,6 +465,21 @@ public class Unit : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void set_status_GUI ()
+    {
+        if (is_player())
+            for (int i = 0; i < statuses.Count; i++)
+                statuses[i].transform.position = new Vector3(-188 + i*12, 64+8, -3);
+        else
+        {
+            for (int i = 0; i < statuses.Count; i++)
+                statuses[i].transform.position = new Vector3(transform.position.x + 24 + i*12 , transform.position.y + 4, -3);
+        }
+
+  
+        
     }
 
     #endregion

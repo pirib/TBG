@@ -10,8 +10,7 @@ public class Status : MonoBehaviour
     
     [Header("Handlers")]
     public Unit unit;
-    public TextMesh text;
-
+    [SerializeField] private TMPro.TextMeshPro cooldown;
     #endregion
 
     #region Parameters
@@ -34,6 +33,11 @@ public class Status : MonoBehaviour
     public SubHealReceive sub_heal_receive;
 
     #endregion
+
+    private void Start()
+    {
+        set_status_info();
+    }
 
     // Deal damage, disable skills, at the beginning of the turn
     public void apply_status_effect()
@@ -65,18 +69,29 @@ public class Status : MonoBehaviour
     public void update_duration(int Turns)
     {
         stat_gen.duration += Turns;
-        // Update the duration text
-        text.text = stat_gen.duration.ToString();
+
+        set_status_info();
 
         // Check if the status has expired
         check_expired();
     }
 
+    public void set_status_info()
+    {
+        if (universal.icon != null)
+            GetComponent<SpriteRenderer>().sprite = universal.icon;
+        
+        cooldown.text = stat_gen.duration.ToString();
+    }
+
+
+    // SHIT THAT NEEDS TO BE CHANGED
+
     // Check if the status effects should be wearing off now
     public bool expired = false;    // TODO make this properly
     void check_expired()
     {
-        if (stat_gen.duration == 0)
+        if (stat_gen.duration < 0)
         {
             // Rolling back armor and attack effects of the status
             unit.update_armor(-buff_duration.armor);
@@ -85,6 +100,7 @@ public class Status : MonoBehaviour
             expired = true;
         }
     }
+
 
     #endregion
 

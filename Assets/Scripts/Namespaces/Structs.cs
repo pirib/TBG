@@ -31,6 +31,8 @@ namespace Structs
     [System.Serializable]
     public struct StatGen
     {
+        public Sprite icon_big;
+
         public StatusType type;           // true - positive effect, flase - negative
         public int duration;        // the duration of the 
         public int damage_turn;     // Damage dealt per turn

@@ -22,7 +22,7 @@ public class skills_hovering : MonoBehaviour
     private GameObject hover_info;      // The handlers of the created Hover Info objects
 
     // When mouse is over the 
-    private void OnMouseOver()
+    private void OnMouseEnter()
     {
         // If we are not already hovering, show the hover info
         if (!is_hovering && !SkillTarget.instance.is_actively_targeting()) 
