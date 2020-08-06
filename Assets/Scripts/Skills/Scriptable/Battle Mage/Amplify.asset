@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Amplify
-    description: "Add +1 cooldown to all statuses\t\t\t\t"
+    description: Prolong the effects of all statuses for one extra turn.
     icon: {fileID: -941245128588498797, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2

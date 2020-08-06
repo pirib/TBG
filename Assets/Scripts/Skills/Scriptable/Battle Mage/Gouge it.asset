@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Gouge it
-    description: "Set Blinded - deacrease the attack by 2\t\t\t\t"
+    description: 'Go for the eyes! Deal 2 damage and Blind an enemy decreasing their
+      attack by 2 for 2 turns. '
     icon: {fileID: 8155138301912977420, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2

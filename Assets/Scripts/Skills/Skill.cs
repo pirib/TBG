@@ -297,7 +297,7 @@ public class Skill : MonoBehaviour
     // Updates the charge_lvl of this skill
     public void update_charge_lvl(int change = 1)
     {
-        if (charge_lvl + change < 3)
+        if (charge_lvl + change <= 3)
             charge_lvl = charge_lvl + change;
         update_skill_hud();
     }

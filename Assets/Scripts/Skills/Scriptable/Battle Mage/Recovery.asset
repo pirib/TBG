@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Recovery
-    description: "Reduce all skills cooldowns by 1\t\t\t\t"
+    description: Reduce all skills cooldowns by 1.
     icon: {fileID: -951683712900587556, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 4

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Suppress
-    description: Reduce all status cooldowns by 1
+    description: Reduce the effects of all statuses for one turn.
     icon: {fileID: -4535166651717610584, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2

@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Sacrifice Flesh
-    description: 
+    description: Sacrifice your own flesh and get 1 Rage.
     icon: {fileID: -7690207050611620256, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
+    cooldown: 1
     targeting_mode: 3
-    skill_animation: 0
+    skill_animation: 2
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
     ap_cost: 0
-    hp_cost: 0
+    hp_cost: 1
     rage_cost: 0
   gain:
     hp: 0
     ap: 0
-    rage: 0
+    rage: 1
   status:
     apply_status: 0
     status_name: 
@@ -53,6 +53,7 @@ MonoBehaviour:
   damage_info:
     deal_damage: 0
     use_base_attack: 0
+    is_piercing: 0
     damage_modifier: 0
     vampire_attack: 0
   prerequisite: 0

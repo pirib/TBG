@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Nullify
-    description: "Remove all statuses from everyone.\t\t\t\t"
+    description: Remove all statuses from yourself and every enemy.
     icon: {fileID: 1121480563292597962, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 3

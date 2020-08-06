@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Pacify
-    description: "Set Pacified - Reduce rage by 1 at the beginning of the turn\t\t\t\t"
+    description: Inflict Pacified on an enemy for 2 turns - reduce their rage by
+      3 at the beginning of their turn.
     icon: {fileID: -1523376878317871458, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2
@@ -23,7 +24,7 @@ MonoBehaviour:
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
-    ap_cost: 0
+    ap_cost: 1
     hp_cost: 0
     rage_cost: 0
   gain:

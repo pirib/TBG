@@ -54,7 +54,7 @@ MonoBehaviour:
     deal_damage: 1
     use_base_attack: 0
     is_piercing: 0
-    damage_modifier: 2
+    damage_modifier: 1
     vampire_attack: 0
   prerequisite: 0
   pooling: 

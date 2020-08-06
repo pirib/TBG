@@ -14,31 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Blood Drain
-    description: 
+    description: Drain the blood from all your enemies, dealing 2 damage and healing
+      yourself for every enemy damaged this way.
     icon: {fileID: -3986174709256912268, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
-    targeting_mode: 0
-    skill_animation: 0
+    cooldown: 4
+    targeting_mode: 1
+    skill_animation: 3
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
-    ap_cost: 0
-    hp_cost: 0
-    rage_cost: 0
+    ap_cost: 1
+    hp_cost: 2
+    rage_cost: 2
   gain:
     hp: 0
     ap: 0
-    rage: 1
+    rage: 0
   status:
     apply_status: 0
     status_name: 
   charge:
-    chargeable: 0
+    chargeable: 1
     charge_condition: 0
-    charge_mode: 0
+    charge_mode: 3
     status: 
-    value: 0
+    value: -1
   skill_advanced:
     cooldown_change: 0
     status_type: 0
@@ -51,10 +52,11 @@ MonoBehaviour:
     status_swap_self: 0
     status_swap_target: 0
   damage_info:
-    deal_damage: 0
+    deal_damage: 1
     use_base_attack: 0
-    damage_modifier: 0
-    vampire_attack: 0
+    is_piercing: 0
+    damage_modifier: 2
+    vampire_attack: 1
   prerequisite: 0
   pooling: 
   picking: 0

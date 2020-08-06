@@ -24,6 +24,7 @@ public class SkillTarget : MonoBehaviour
 
     // The skill currently waiting for targeting
     [SerializeField] private Skill active_skill;
+    [SerializeField] private skills_hovering skill_hover;
 
     // Pool of units the user can select from
     [SerializeField] private List<Unit> selection_pool = new List<Unit>();
@@ -32,17 +33,25 @@ public class SkillTarget : MonoBehaviour
     [SerializeField] private List<Unit> selected_units = new List<Unit>();
 
     [Header("Targeting")]
+
     public GameObject target_indicator;
     public List<GameObject> target_indicators = new List<GameObject>();
 
+
     public void set_skill(Skill skill)
     {
-        // Get the handle of the skill that is currently being considered for using
-        active_skill = skill;
-        
+        // Remove the old hover
+        stop_targeting();
+
         // Meaning a unit/player is actively targeting
         actively_targeting = true;
 
+        // Get the handle of the skill that is currently being considered for using
+        active_skill = skill;
+        skill_hover = skill.GetComponent<skills_hovering>();
+
+        skill_hover.show_hover_info();
+        
         // Update the selection pool with possible targets
         set_selection_pool(skill.general.targeting_mode);
     }
@@ -88,12 +97,6 @@ public class SkillTarget : MonoBehaviour
     // This one is called only if the correct target has been chosen while a unit/player was actively targeting
     public void execute(Unit unit) {
 
-        // Remove the target indicators
-        clear_targeting_indicators();
-
-        // Not targeting anymore
-        actively_targeting = false;
-
         // Temporary list to send over to the skill
         List<Unit> execution_list = new List<Unit>();
 
@@ -111,16 +114,32 @@ public class SkillTarget : MonoBehaviour
         // Actually execute the skill
          active_skill.execute_skill(execution_list);
 
-        // Set the active skill to null
-        active_skill = null;
-
-        // Clear the pools
-        clear_selection_pool();
-        clear_selected_pool();
+        // Stop actively targeting
+        stop_targeting();
     }
 
 
     #region Helpers
+
+    public void stop_targeting()
+    {
+         if (actively_targeting) {    
+
+            // Hide hover info
+            skill_hover.hide_hover_info();
+
+            // Remove the target indicators
+            clear_targeting_indicators();
+
+            // Clear the pools
+            clear_selection_pool();
+            clear_selected_pool();
+
+            // Not targeting anymore
+            actively_targeting = false;
+        }
+    }
+
     private void clear_selection_pool ()
     {
         selection_pool.Clear();

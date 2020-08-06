@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Bless
-    description: "Heal yourself for every status you have.\t\t\t\t"
+    description: Heal yourself for every status you have.
     icon: {fileID: -2100618156054978594, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2

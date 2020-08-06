@@ -14,18 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Ravage
-    description: 
+    description: Attack an enemy with you sword, and heal yourself for the amount
+      of damage dealt.
     icon: {fileID: 4368792126385975100, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
-    cooldown: 0
+    cooldown: 2
     targeting_mode: 0
     skill_animation: 0
     casting_effect: {fileID: 0}
     damage_effect: {fileID: 0}
   cost:
-    ap_cost: 0
+    ap_cost: 1
     hp_cost: 0
-    rage_cost: 0
+    rage_cost: 1
   gain:
     hp: 0
     ap: 0
@@ -34,11 +35,11 @@ MonoBehaviour:
     apply_status: 0
     status_name: 
   charge:
-    chargeable: 0
+    chargeable: 1
     charge_condition: 0
     charge_mode: 0
     status: 
-    value: 0
+    value: 2
   skill_advanced:
     cooldown_change: 0
     status_type: 0
@@ -51,10 +52,11 @@ MonoBehaviour:
     status_swap_self: 0
     status_swap_target: 0
   damage_info:
-    deal_damage: 0
-    use_base_attack: 0
+    deal_damage: 1
+    use_base_attack: 1
+    is_piercing: 0
     damage_modifier: 0
-    vampire_attack: 0
+    vampire_attack: 1
   prerequisite: 0
   pooling: 
   picking: 0

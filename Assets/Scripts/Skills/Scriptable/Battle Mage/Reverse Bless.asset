@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Reverse Bless
-    description: "Deal damage to an enemy for every status it has.\t\t\t\t"
+    description: Deal damage to an enemy for every status it has.
     icon: {fileID: -1768369826225085996, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 2

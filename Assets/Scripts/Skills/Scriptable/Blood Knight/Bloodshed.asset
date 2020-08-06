@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Bloodshed
-    description: Deal extra damage at the cost of your life
+    description: Pay with your own blood and slash an enemy with your sword dealing
+      2 extra damage.
     icon: {fileID: -4808237967370922085, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 1
@@ -34,11 +35,11 @@ MonoBehaviour:
     apply_status: 0
     status_name: 
   charge:
-    chargeable: 0
+    chargeable: 1
     charge_condition: 0
     charge_mode: 0
     status: 
-    value: 0
+    value: 1
   skill_advanced:
     cooldown_change: 0
     status_type: 0

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Thunderstrike
-    description: Hit every enemy with a lightning dealign 3 damage
+    description: Conjure a lightning storm on your foes - hit every enemy with a
+      lightning dealing 3 damage
     icon: {fileID: -4148789672316827937, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 0

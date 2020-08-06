@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   universal:
     name: Focus
-    description: Get 1 AP
+    description: Blow off some steam, and focus. Receive 1 AP.
     icon: {fileID: 5338203902390732400, guid: b0e4c7a168c47744ba14e05b625a0229, type: 3}
   general:
     cooldown: 1
